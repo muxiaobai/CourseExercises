@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+  <!--  <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>-->
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+  <!--   <script type="text/babel"  src="js/demo.js" ></script>-->
+  <script type="text/babel">
+  var HelloWorld = React.createClass({
+  getInitialState:function(){
+    console.log("init");
+    return{fontSize:"50px"};
+  },
+  render: function() {
+    console.log("render");
+    return (
+      <div style={{fontSize:this.state.fontSize}}>Hello {this.props.name} </div>
+    );
+  },
+  componentDidMount:function(){
+    console.log("DidMount");
+    var _self=this;
+   
+  }
+});
+ 
+ReactDOM.render(
+    <HelloWorld name="World" />,
+    document.getElementById('example')
+  );
+
+  </script>
+
+  <div id="testclick"></div>
+  <script type="text/babel">
+  var TestClickComponent=React.createClass({
+    handleClick:function(event){
+      var tipE=ReactDOM.findDOMNode(this.refs.tip);
+      console.log(tipE);
+      console.log(tipE.style.display);
+      
+      if(tipE.style.display=="none"){
+          tipE.style.display="inline";
+      }else{
+          tipE.style.display="none";
+      }
+      event.stopPropagation();
+      event.preventDefault();
+    },
+    getInitialState:function(){
+    return{text:"点击测试"}
+    },
+    render:function(){
+    return(<div> 
+      <button onClick={this.handleClick}>显示|隐藏</button>
+      <span ref="tip">{this.state.text}</span>
+      </div>);
+   }
+  });
+  ReactDOM.render(<div><TestClickComponent/></div>,document.getElementById("testclick"));
+  </script>
+  <!--
+ event.pre
+ windows.setTimeOut(function(){
+      _self.setState({fontSize:"80px"})
+    }.bind(this),1000);
+  -->
+  </body>
+</html>

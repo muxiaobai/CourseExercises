@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset=utf-8>
+<meta name=description content="">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-3.1.0.js"></script>
+</head>
+<style type="text/css">
+	#div{ width:100px; height: 100px;background: blue;position: absolute; }
+
+</style>
+<body>
+<<input type="text" name="one" value="hello" />
+<div id="div"></div>
+<a id="al" href="as.com">zxcczx</a>
+
+<script type="text/javascript">
+
+// console.log(jQuery);
+// console.log($.fn);	
+	console.log($("input").val());
+	$("input:text").val("assa");
+	console.log($("input").val());
+
+//######################################class
+// $(function(){
+// 	console.log(1|| 2 && 3);
+// 	$("#div").toggleClass("box1");
+// 	$("#div").toggleClass("box1",true);
+// });
+//######################################attr prop 
+//$("#al").attr("class","sad");
+//$("#al").prop("class","as");
+// $("#al").attr("class","hello");
+// console.log($("#al").attr("class"));
+// $("#al").removeAttr("class");
+// console.log($("#al").attr("class"));
+// $("#al").prop('title'="hello");
+// console.log($("#al").removeProp("title"));
+// $("#al").prop('title'="hello");
+// console.log($("#al").prop("title"));
+//console.log(new Data());
+// $("#div").data("name","1");
+// console.log($("#div").data("name"));
+//##########################################queue animate
+// $(function(){
+// 	$("#div").on('click',function(){
+// 		$(this).animate({width: 300},2000).queue("fx",function(next){
+// 			//$(this).css("height":50);
+// 			next();
+// 		}).animate({left:100},2000);
+// 		$(this).animate({height: 300},2000);
+// 		$(this).animate({left: 300},2000);
+// 	});
+// });
+//##############################################queue
+// $(function(){
+// 	function aaa(){
+// 		console.log(111111);
+// 	}
+// 	function bbb(){
+// 		console.log(222222);
+// 	}
+// 	$.queue(document.body,"q1",aaa);
+// 	$.queue(document.body,"q1",bbb);
+
+// 	console.log($.queue(document.body,"q1"));
+// 	$.dequeue(document.body,"q1");
+// 	console.log($.queue(document.body,"q1"));
+// });
+// console.log(new Array());
+//##############################################data
+// $(document).ready(function(){
+// $("#div").data("name-as","div");
+// $("#div").data("age-ads-sad","div");
+// $("#div").data({"as":"a","asas":12});
+// console.log($("#div").data());
+// console.log($("#div").data("name"));
+// $.data(document.body,"name","one");
+// console.log($.hasData(document.body,"name"));
+// });
+// console.log("=============================");
+// console.log($());
+//###############################################
+//内存泄漏，是什么？
+//DOM元素和对象之间互相引用，会引发内存泄漏。
+// var odiv=document.getElementById("div");
+// var obj={};
+// odiv.name=obj;
+// obj.age=odiv;
+//#######################################support
+// console.log($.support);
+// $(function(){
+// 	for (var attr in $.support) {
+// 		$("body").append('<div>'+attr+':'+$.support[attr]+'</div>');
+// 	}
+// });
+//#################################################$.when
+// function aaa(){
+// 	var dfd=$.Deferred();
+// 	console.log("aaa");
+// 	dfd.resolve();
+// 	return dfd;
+// }
+// function bbb(){
+// 	var dfd=$.Deferred();
+// 	console.log("bbb");
+// 	dfd.resolve();
+// 	return dfd;
+// }
+// $.when(aaa(),bbb()).done(function(){console.log("done");}).fail(function(){console.log("fail");});
+//######################################
+// var dfd=$.Deferred();
+// setInterval(function(){
+// 	console.log("setInterval");
+// 	//dfd.notify();
+// 	console.log(dfd.state());
+// 	dfd.resolve();
+// 	//dfd.reject();
+	
+// },1000);
+// dfd.done(function(){console.log("done");});
+// dfd.fail(function(){console.log("fail");});
+// dfd.progress(function(){console.log("progress");});
+// console.log(dfd);
+// console.log(dfd.state());
+// console.log(dfd);
+//##############################比较Deferred和Callbacks
+// var dfd=$.Deferred();
+// setTimeout(function(){
+// 	console.log("dfdsetTimeout");
+// 	dfd.resolve();
+// },1);
+// dfd.done(function(){
+// 	console.log("Deferred.done()");
+// 	}
+// 	);
+// console.log(dfd);
+
+// var abc=$.Callbacks();
+// setTimeout(function(){
+// 	console.log("setTimeout");
+// 	abc.fire();
+// },1000);
+// abc.add(function(){
+// 	console.log("callbacks.add()");
+// 	}
+// 	);
+// console.log(abc);
+//##############################比较Deferred和Callbacks
+//Callbacks
+// var abc=$.Callbacks(" memory");
+// function a(n){	console.log("a:"+n);}
+// function b(x){	console.log("b:"+x);}
+// abc.add(a);
+// abc.add(b);
+
+// abc.fire();
+// abc.disable();
+// abc.disabled();
+// abc.fire();
+// //console.log(abc.fire());
+// console.log(abc);
+
+
+//修改this指向
+// $(function(){
+// 	function show(){
+// 		console.log(this);
+// 	}
+// 	$.proxy(show,window)();
+// 	$.proxy(show,document)();
+	
+	
+// });
+
+
+//console.log(jQuery);
+//console.log(jQuery.fn.extend);
+//console.log(jQuery.fn);
+//console.log(jQuery.prototype);
+//当只写一个对象自变量
+//扩展工具方法
+// $.extend({
+// 	alert1:function(){
+// 		alert(1);
+// 	},
+
+// 	alert2:function(){
+// 		alert(2);
+// 	}
+// });
+//扩展JQ实例方法
+// $.fn.extend({
+// 	alert3:function(){
+// 		alert(3);
+// 	},
+
+// 	alert4:function(){
+// 		alert(4);
+// 	}
+// });
+
+
+//$.alert1();
+//$.alert2();
+//$.alert1();
+//$().alert3();
+//$().alert4();
+
+//当写多个自变量，后面的对象扩展到第一个对象上
+//var a={};
+//$.extend(a,{name:"zhang"});
+//浅拷贝，深拷贝true  对象引用
+//var a={};
+//var b={}
+//$.extend(true,a,b);
+//jQuery的工具方法和默认属性
+//console.log($.expando);
+//console.log($.noConflict());
+
+// 判断类型
+//function aa(){}
+//console.log($.isFunction(aa));
+//console.log(Array.isArray([]));
+//console.log(window);
+//console.log($.type(/ /));
+//console.log({}.toString.call(/ /));
+
+//for in
+// var obj=new Object();
+// obj.name="as";
+// obj[0]="asa";
+// obj[1]="asqqa";
+// console.log(obj);
+// for (prop in obj) {
+// 	console.log(prop+"------->"+obj[prop]);
+// }
+
+
+//$.error("错误");
+
+//console.log([]);
+// console.log(JSON);
+//console.log(new DOMParser());
+
+//  var json={1:12,2:1221};
+//  $.each(json,function(i,value){
+//  	console.log(i+"------>"+value);
+//  });
+//  var arr=['div','div'];
+// console.log($.makeArray(arr,{length:0}));
+</script>
+</body>
+</html>
