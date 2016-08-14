@@ -1,0 +1,46 @@
+node C:\Users\zhang\Desktop\node\server.js
+Commonjs是一套规范
+npmjs.com
+命令node url
+url.parse('http://baidu.com:80/asd?asd=12&as=1',true);
+url.format({}); url.resolve('','');
+querystring.stringify({name:'zhang',book:['head','first']},',');
+querystring.parse('name:zhang,book:head,book:first',',',':');
+querystring.parse('name=zhang&book=head&book=first');
+querystring.parse('name=zhang,book=head,book=first',',');
+querystring.escape('哈哈');
+querystring.unescape('%E5%93%88%E5%93%88');
+cheerio
+HTTP（chrome://chrome-urls/）
+查看chromeDNS chrome://net-internals/#dns
+Request Headers
+GET
+Host
+Connection
+Pragma
+Cache-Control
+Accept
+X-Request-Width
+User-Agent
+Referer
+Accept
+Accept-Encoding
+Accept-Language
+Cookie
+Repsonse Headers
+HTTP/1.1 200 OK状态码
+Server nginx
+Date
+Content-Type
+Transter-Enconding
+Connection
+Vary
+Cache-Control
+Expires
+Content-Enconding
+Set-Cookie
+
+Response
+Cookie
+Timing
+Preview
