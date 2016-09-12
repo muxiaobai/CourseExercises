@@ -268,7 +268,9 @@ jQuery.fn = jQuery.prototype = {
 //###########################################################
 //jQuery.extend = jQuery.fn.extend 258-330
 
-
+//在jQuery.prototype上添加方法，所以需要实例化jQery后才能使用方法。
+//jQuery.fn=jQuery.prototype;同时，jQuery本身也添加有对应的extend方法，
+//因此在jQuery.extend 后添加的是静态方法，jQuery.fn.extend 添加的是实例方法。
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[ 0 ] || {},
