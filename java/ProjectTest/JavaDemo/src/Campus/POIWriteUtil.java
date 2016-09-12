@@ -44,6 +44,13 @@ public class POIWriteUtil{
 	public static void  addData(String[] title,HSSFWorkbook workbook,List data){
 				//创建一个工作表sheet
 				HSSFSheet sheet = workbook.createSheet();
+				sheet.setColumnWidth(0, 40 * 256);
+				sheet.setColumnWidth(1, 40 * 256);
+				sheet.setColumnWidth(2, 20 * 256);
+				sheet.setColumnWidth(3, 40 * 256);
+				sheet.setColumnWidth(4, 60 * 256);
+				sheet.setColumnWidth(5, 10 * 256);
+				sheet.setColumnWidth(6, 120 * 256);
 				//创建第一行
 				HSSFRow row = sheet.createRow(0);
 				HSSFCell cell = null;

@@ -2,7 +2,6 @@ package Campus;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -19,7 +18,10 @@ import com.alibaba.fastjson.JSONObject;
 public class RunJavaScript {
 	public static List<Campus> run(String data){
 		List<Campus> list=new ArrayList<>();
-		list .addAll(JSONObject.parseArray(getJSONData(data), Campus.class));
+		String ret=getJSONData(data);
+		if(ret!=null&&!"".equals(ret)){
+			list .addAll(JSONObject.parseArray(getJSONData(data), Campus.class));
+		}
 		return list;
 	}
 	public static String getJSONData(String data){
@@ -41,29 +43,26 @@ public class RunJavaScript {
 						+ "return campus;"
 						+ "}"
 						+ ""
-						+ ""
-						+ ""
-						+ ""
 						+ "function circle(data){"
 						+ "var arr=[];"
 						+ "for(var i=0;i<data.length;i++){"
-						+ "print(JSON.stringify(data[i]));"
 						+ "arr[i]=onecampus(data[i]);"
 						+ "}"
 						+ "return arr;"
 						+ "}"
 						+ ""
 						+ "function getCampus(data) {"
-						+ "var jsondata=JSON.parse(data);" 
+						+ "var jsondata=JSON.parse(data);"
+						+ "if(jsondata.data.data.disp_data==null){"
+						+ "return null;"
+						+ "}" 
 						+ "var arr=circle(jsondata.data.data.disp_data);"
 						+ " return JSON.stringify(arr);" 
 						+ "}"); 
 				 callbackvalue=(String) invocableEngine.invokeFunction("getCampus",data);
 		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return callbackvalue;
