@@ -1,4 +1,49 @@
 
+//Shadow DOM
+var shadow=document.getElementById("shadow");
+var root=shadow.createShadowRoot();
+var cnt = document.createElement("div");
+cnt.innerHTML = "shadow";
+root.appendChild(cnt);
+
+
+//#################################################################################################
+//ES6
+/*set map 有序集合 ，有序键值对
+var set=new Set();
+set.add("zhang");
+set.add("wang");
+console.log(set); 
+console.log(set.has("zhang"));
+set.forEach(console.log);
+set.forEach(function(i){console.log(i);});
+set.clear();
+console.log(set.has("zhang"));
+
+console.log("==================================================");
+var map=new Map();
+map.set("str","val");
+map.set({"zx":{}},{"val":"cv"});
+console.log(map);
+console.log(map.get("str"));
+console.log(map.has("str"));
+map.forEach(function(i){console.log(i);});
+var keys=map.keys();
+for (key of keys) {
+	console.log(key);
+}
+var values=map.values();
+for (value of values) {
+	console.log(value);
+}
+var entries=map.entries();
+for (entry of entries) {
+	console.log(entry);
+}
+map.clear();
+console.log(map);
+console.log(map.get("str"));
+console.log(map.has("str"));*/
 //###############################################################################################//
 //数据类型
 //简单类型和对应的复杂类型，相等问题,实质上是，引用类型和值类型的区别
