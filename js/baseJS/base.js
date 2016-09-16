@@ -2,6 +2,11 @@
 /*console.log($());
 console.log($.isFunction(""));
 */
+//从一行代码里面学点JavaScript
+/*[].forEach.call($$("*"),function(a){
+  a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)
+})*/
+
 //#################################################################################################
 //jQuery的静态方法原理
 /*
@@ -179,16 +184,41 @@ move({x:1});
 */
 //######################################################
 //字符串 Unicode \u0000-\uFFFF
-/*console.log('\u{1F680}'==='\uD83D\uDE80');
+console.log('\u{1F680}'==='\uD83D\uDE80');
 console.log('\u{1F680}');//UTF-16
 console.log('\uD83D\uDE80');//UTF-8
-console.log('a');
-console.log('\a');
-console.log('\97');
-console.log('\x97');
-console.log('\u2345');//UTF-8
-console.log('\u{20BB7}');//UTF-16
 
+//二进制：0111 1010   十六进制： 7A   十进制：7*16+A*1=122
+//对应ASCII编码是122 如果是ASCII中的字符，UTF-8中是一致的，0-127对应0000 0000 -0xxx xxxx
+//而其他的需要两个字节的，高位补0  因此为 0000 0000 0111 1010  ==> 007A
+
+console.log('z');
+console.log('\z');//转义字符，因为z不用转义，所以还是z
+console.log('\172');//ASCII  
+console.log('\x7A');//ASCII 
+console.log('\u007A');//Unicode
+console.log('\u{7A}');//Unicode
+
+console.log('a');//二进制：0110 0001   十六进制： 61   十进制：6*16+1*1=97
+console.log('\a');
+console.log('\141');
+console.log('\x61');//ASCII 
+console.log('\u0061');
+console.log('\u{61}');
+
+//B（Binary)表示二进制，O（Octal）表示八进制，D（Decimal）或不加表示十进制，H（Hexadecimal）表示十六进制。
+//加0b表示二进制　　加0x表示十六进制　加0表示八进制
+//' ' //ASCII值是63 '\077' //是8进制表示' '，0可以省略，因为C,C++规定不允许使用斜杠加10进制数来表示字符 '\0x3F' //是16进制表示' '
+
+console.log('张');
+console.log('\张');
+console.log('\u5F20');
+console.log('\u{5F20}');
+
+console.log('\uD842\uDFB7');
+console.log('\u{20BB7}');
+
+console.log('\u4DFE');
 //template 
 /*var name="I'm String";
 function fn(){return "I'm function"}
@@ -399,6 +429,7 @@ console.log(Symbol("zx").toString());
 
 
 */
+
 //###############################################################################################//
 //数据类型
 //简单类型和对应的复杂类型，相等问题,实质上是，引用类型和值类型的区别
