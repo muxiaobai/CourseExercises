@@ -1,4 +1,36 @@
 
+/*console.log($());
+console.log($.isFunction(""));
+*/
+//#################################################################################################
+//jQuery的静态方法原理
+/*
+var   fun=function(){
+    console.log("这是一个方法");
+    return fun.prototype.init();
+}
+//下面是挂在在fun上的属性和方法
+fun.VERSION="0.0.1";
+fun.name="zhang";
+fun.prototype.init=function(){
+    console.log("init");
+    console.log(this);
+    return this;
+}
+fun.prototype.name="prototype";
+fun.prototype.getName=function(){
+    console.log(this);    
+    console.log(this.name);//因为这里的this是实例，而不是原型，因此挂载在原型上的
+    return this.name;
+}
+fun.getVersion=function(){
+    console.log(this.VERSION);
+    return this.VERSION;
+}
+fun().getName();
+fun.getVersion();
+*/
+
 //#################################################################################################
 //模仿jQuery，创建zhang自己的常用方法对象
 /*
@@ -99,6 +131,232 @@ root.appendChild(cnt);
 
 //#################################################################################################
 //ES6
+/*var i的时候，i是全局属性，因此当循环完毕后，i=10；这时候调用a[]的时候，输出的总是10；
+而let 是块级作用域有效，每次循环，每次有效，每次循环，都是一个新的j；
+var a=[];
+for (var i = 0; i < 10; i++) {
+    a[i]=function(){console.log(i);}
+}
+
+var b=[];
+for (let j = 0; j < 10; j++) {
+    b[j]=function(){console.log(j);}
+}
+a[6]();
+b[6]();
+*/
+//解构赋值
+/*var [a,b,c]=[1,2,3];//a=1,b=2,c=3
+var [a,b,c,d,e]="hello";//a='h',b='e',c='l',d='l',e='0';
+//默认值，如果后面赋值是undifined的话，默认值生效，否则，不生效。
+//严格意义上的“===”undifined。如果默认值是表达式，用到才求值。
+var [foo=true]=[];//foo=true
+var [x=1]=[null];//x=null
+var [y=1]=[undefined];//y=undifined
+var [foo]=[];//foo=undifined
+
+function f(){console.log("set value");}
+var [z=f()]=[1];//f()不会被调用
+console.log(z);*/
+//对象解构，名称对应解构，若没有，返回undifined，无序
+/*var {foo,bar}={foo:'aaa',bar:'bbb'};
+console.log(foo);
+var {dd,cc}={cc:'aaa',dd:'bbb'};
+console.log(dd);
+//其真实情况是一种简写var {foo:foo,bar:bar}={foo:'aaa',bar:'bbb'};
+*/
+//常用情况 1交换变量 2函数返回多值[]/{} 3函数参数定义[]/{} 4提取JSON数据 5函数参数默认值 6遍历for of map 
+/*var [x,y]=[1,2];
+console.log("x:"+x+" y:"+y);
+[x,y]=[y,x];
+console.log("x:"+x+" y:"+y);
+*/
+//函数参数默认值
+/*function move({x=0,y=0}){
+    console.log("x:"+x+" y:"+y);
+}
+move({x:1});
+*/
+//######################################################
+//字符串 Unicode \u0000-\uFFFF
+/*console.log('\u{1F680}'==='\uD83D\uDE80');
+console.log('\u{1F680}');//UTF-16
+console.log('\uD83D\uDE80');//UTF-8
+console.log('a');
+console.log('\a');
+console.log('\97');
+console.log('\x97');
+console.log('\u2345');//UTF-8
+console.log('\u{20BB7}');//UTF-16
+
+//template 
+/*var name="I'm String";
+function fn(){return "I'm function"}
+var str=`
+<ul>
+    <li>${name}</li>
+    <li>${fn()}</li>
+</ul>  
+`;
+$("#demo").append(str);
+console.log(`my name is ${name}`);
+*/
+
+function compile(template){
+var evalExpr=/<%=(.+?)%>/g;
+var expr=/<%([\s\S]+?)%>/g;
+template=template.replace(evalExpr,'`); \n echo ($1); \n echo (`')
+.replace(expr,'`); \n $1 echo(`');
+template='echo(`'+template+'`)';
+var script=`
+    (function parse(data){
+        var output="";
+    function echo(html){
+        output+=html;
+    }
+    ${template}
+    return output;
+    })
+`;
+//console.log(script);
+return script;
+}
+var data=["as","df","cv"];
+var template=`
+    <ul>
+    <% for (var i = 0; i < data.length; i++) {%>
+      <li><%=data[i]%></li>
+    <%}%>
+    </ul>
+`;
+var parse=eval(compile(template));
+var str=parse(data);
+$("#demo").append(str);
+//Number, Math, Array,
+//Number，扩充Number.isFinite()和Number.isNaN()，和直接调用不同。
+//是否非无穷大
+/*console.log(Number.isFinite(12));//确实是非无穷大 true，
+
+console.log(isFinite(true));//直接调用的话，会优先转换，再做判断
+console.log(Number.isFinite(true));
+console.log(Number.isFinite({})); //false Number.isFinite对于所有非数字，返回false
+console.log(Number.isFinite("")); //false
+console.log(Number.isFinite(NaN)); //false
+console.log(Number.isFinite(Infinity));
+
+console.log(Number.isNaN(NaN));// true//是否是 Not A Number
+console.log(Number.isNaN(12));//false
+
+*/
+
+/*
+console.log(Number.EPSILON);//极小值常量
+console.log(2**3);//指数
+*/
+/*
+var arr=Array.from([1,3,5,7],x=>x**x);
+console.log(arr);
+//keys(),values(),entries()
+console.log(arr.includes(2)); //ES7中的用法
+*/
+//######################################################
+//Function
+/*function log(x=0,y=0){
+   console.log("x:"+x+" y:"+y);
+}
+log(1);
+function esajax(url,{method="get",global=true,processData=true,async=true}={}){
+    console.log(method);
+}
+esajax();//双重默认解构，一般情况下默认解构参数在最后
+*/
+//默认值
+/*
+function m1({x=0,y=0}={}){
+    console.log("x:"+x+" y:"+y);
+}
+function m2({x,y}={x:0,y:0}){
+    console.log("x:"+x+" y:"+y);
+}
+m1();
+m2();
+m1({});
+m2({});*/
+
+//作用域
+/*
+var x=1;//Global中的x
+function foo(x,y=function(){x=2;}){//Local的x，
+    var x=3;//Block的x，定义并赋值undifined--->3
+    y();//执行函数，把Locak中的x，由undifined变为2
+    console.log(x);//输出Block中的x 3
+}
+foo();
+
+var z=1;//Global中的x
+function fooz(z,y=function(){z=2;}){//Local的x，
+     z=3;//当没有var时候，这里定义的z就是Local范围内的x了，undifined--->3
+    y();//执行函数，把Locak中的x，由3------>2
+    console.log(z);//输出Local中的x, 2
+}
+fooz();
+*/
+
+//rest参数
+/*function add(...values){
+    var sum=0;
+    for (var i = 0; i < values.length; i++) {
+        sum+=values[i];
+    }
+    console.log(sum);
+}
+add(2,3,2,1,1);
+*/
+//扩展运算符...
+/*var arr=[...[12,23,12,43],...[2332,2134,54,34,56,3]];
+console.log(arr);
+arr.push(...[23,32,34,45,56,232,34,32,2]);
+console.log(arr);
+
+console.log(Math.max(...[12,23,34,54,56,12,768,123,43]));
+console.log(Math.max.apply(null,[12,23,34,54,56,12,768,123,43]));
+console.log(Math.max(12,23,34,54,56,12,768,123,43));
+*/
+//=>未看完
+/*var f=v=>v;
+var f=function(v){
+    return v;
+}
+
+var fun=()=>5; 
+console.log(fun()); 
+
+var fun =({name=1,value=0}={})=>{console.log(this.name); return name+value;};
+console.log(fun({name:2}));
+*/
+//Object下一个
+
+console.log(Object.is({'zg':'zas'},{'zg':'zas'}));//false
+console.log(Object.is(NaN,NaN));//true
+console.log(NaN==NaN);//false
+console.log(Object.is(-0,+0));//false
+
+var birth=new Date(...[1994,8.11]);
+var Person={
+    name:'zhang',
+    birth,
+    ['pass'+'word']:'password',
+    ['get'+'Password'](){console.log(this.password);},
+    getBirth(){console.log(this.birth);},
+    hello(){
+        console.log(this.name);
+    }
+}
+Person.hello();
+Person.getBirth();
+Person.getPassword();
+
+//######################################################
 /*set map 有序集合 ，有序键值对
 var set=new Set();
 set.add("zhang");
