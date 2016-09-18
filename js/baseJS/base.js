@@ -184,14 +184,14 @@ move({x:1});
 */
 //######################################################
 //字符串 Unicode \u0000-\uFFFF
-console.log('\u{1F680}'==='\uD83D\uDE80');
+/*console.log('\u{1F680}'==='\uD83D\uDE80');
 console.log('\u{1F680}');//UTF-16
 console.log('\uD83D\uDE80');//UTF-8
-
-//二进制：0111 1010   十六进制： 7A   十进制：7*16+A*1=122
+*/
+//二进制：0111 1010 （01 111 010 ）  八进制 172   十六进制： 7A   十进制：7*16+A*1=122
 //对应ASCII编码是122 如果是ASCII中的字符，UTF-8中是一致的，0-127对应0000 0000 -0xxx xxxx
 //而其他的需要两个字节的，高位补0  因此为 0000 0000 0111 1010  ==> 007A
-
+/*
 console.log('z');
 console.log('\z');//转义字符，因为z不用转义，所以还是z
 console.log('\172');//ASCII  
@@ -199,26 +199,28 @@ console.log('\x7A');//ASCII
 console.log('\u007A');//Unicode
 console.log('\u{7A}');//Unicode
 
-console.log('a');//二进制：0110 0001   十六进制： 61   十进制：6*16+1*1=97
+console.log('a');//二进制：0110 0001 八进制141  十六进制： 61   十进制：6*16+1*1=97
 console.log('\a');
 console.log('\141');
 console.log('\x61');//ASCII 
 console.log('\u0061');
 console.log('\u{61}');
-
+*/
 //B（Binary)表示二进制，O（Octal）表示八进制，D（Decimal）或不加表示十进制，H（Hexadecimal）表示十六进制。
 //加0b表示二进制　　加0x表示十六进制　加0表示八进制
 //' ' //ASCII值是63 '\077' //是8进制表示' '，0可以省略，因为C,C++规定不允许使用斜杠加10进制数来表示字符 '\0x3F' //是16进制表示' '
-
+/*
 console.log('张');
 console.log('\张');
 console.log('\u5F20');
 console.log('\u{5F20}');
-
+*/
+/*
 console.log('\uD842\uDFB7');
 console.log('\u{20BB7}');
-
+console.log('\uD869\uDEA5');
 console.log('\u4DFE');
+*/
 //template 
 /*var name="I'm String";
 function fn(){return "I'm function"}
@@ -262,6 +264,8 @@ var template=`
 var parse=eval(compile(template));
 var str=parse(data);
 $("#demo").append(str);
+
+//######################################################
 //Number, Math, Array,
 //Number，扩充Number.isFinite()和Number.isNaN()，和直接调用不同。
 //是否非无穷大
@@ -365,7 +369,7 @@ var fun =({name=1,value=0}={})=>{console.log(this.name); return name+value;};
 console.log(fun({name:2}));
 */
 //Object下一个
-
+/*
 console.log(Object.is({'zg':'zas'},{'zg':'zas'}));//false
 console.log(Object.is(NaN,NaN));//true
 console.log(NaN==NaN);//false
@@ -382,12 +386,100 @@ var Person={
         console.log(this.name);
     }
 }
+Person.a={ac:12}
+console.log(Person);
+Object.assign(Person,{a:1},{b:2});//将后一个对象合并到目标对象,但是是浅拷贝
+console.log(Person);
 Person.hello();
 Person.getBirth();
 Person.getPassword();
+//属性的属性(特性，特征)
+var desc=Object.getOwnPropertyDescriptor(Person,'a');
+console.log(desc);
+*/
+
+//Symbol使用
+//null undifined String Boolean Number Object Symbol
+/*var allis=Symbol('is');
+var allis1=Symbol('is');
+var oneis=Symbol.for('is');
+var oneis1=Symbol.for('is');
+console.log(allis);
+console.log(typeof allis);
+
+console.log(allis1===allis);
+console.log(oneis1===oneis);//使用Symbol.for(),的话，描述一样，全局只有一个，Symbol(),每个都不同。
+//显式的转换成String和Boolean，但是不能用''+Symbol();
+//console.log('te'+allis);Uncaught TypeError: Cannot convert a Symbol value to a string
+console.log(Symbol("zx").toString());
+console.log(Boolean(allis));//true
+console.log(JSON[Symbol.toStringTag]);
+*/
 
 //######################################################
-/*set map 有序集合 ，有序键值对
+//Proxy可以当做拦截器来搞一些事情。
+//Reflect，
+/*var target={};
+var handler={
+    get:function(target,property){
+        console.log('handler get');
+        return target[property];
+    },
+    set(target,propkey,value){
+        console.log("handler set value:"+value);
+        return Reflect.set(...arguments);
+    }
+};
+var proxy=new Proxy(target,handler);
+proxy.a='a';
+console.log("target a:"+target.a);//实际上不知道target，只知道proxy，所以所有的对target的操作都落在proxy上了。
+console.log("proxy a:"+proxy.a);//通过proxy取得target上的值，广义上，通过操作proxy来操作target。
+*/
+/*var target=function(){};
+var proto={constructor:target,'proto':'proto'};
+var handler={
+    get:function(target,property){
+        console.log('handler get');
+        return target[property];
+    },
+    set(target,propkey,value){
+        console.log("handler set value:"+value);
+        return Reflect.set(...arguments);
+    },
+    setPrototypeOf(target,proto){
+        return Reflect.setPrototypeOf(...arguments);
+    }
+};
+var proxy=new Proxy(target,handler);
+Object.setPrototypeOf(proxy,proto);
+var my =new proxy();
+console.log(proxy);
+console.log(my);
+
+console.log(new Proxy({},{}));//5+2+2+2+1+1
+//get(target,propkey) set() has() deleteProperty() difineProperty()
+//getOwnPropertyDescriptor() ownKeys()
+//getPrototypeOf() setPrototypeOf()
+//isExtensible()判断是否可以扩展， preventExtensions()阻止添加新属性
+//apply construct
+//Proxy.revocable()取消实例
+console.log(Reflect);//5+2+2+2+1+1
+//get set has deleteProperty difineProperty   setPrototyoeOf() getPrototypeOf()  isExtensible() preventExtensions()   ownKeys() hasOwnPropertyDescriptor()
+//apply() construct()
+
+console.log(Object());
+//Object() get set has deleteProperty difineProperty
+//getOwnProperty 
+//
+//getPrototypeOf setPrototypeOf
+*/
+
+
+
+
+//######################################################
+//set map 有序集合 ，有序键值对 WeakSet WeakMap
+/*
 var set=new Set();
 set.add("zhang");
 set.add("wang");
@@ -422,13 +514,48 @@ map.clear();
 console.log(map);
 console.log(map.get("str"));
 console.log(map.has("str"));
-//Symbol使用
-console.log(Symbol("is"));
-console.log(typeof Symbol());
-console.log(Symbol("zx").toString());
-
-
 */
+//Map JSON转换
+/*
+var map=new Map();
+map.set("str","val");
+map.set({"zx":{'asas':'asas'}},{"val":"cv"});
+console.log('map++++++++++');
+console.log(map);
+console.log('map json字符串++++++++++');
+var jsonstr=JSON.stringify([...map]);
+console.log(jsonstr);
+console.log(jsonstr.str);//未定义
+console.log('map json对象++++++++++');
+var jsonobj=JSON.parse(JSON.stringify([...map]));
+console.log(jsonobj);
+console.log(jsonobj.str);
+console.log('jsonobj对象 还原map++++++++++');
+var map2=new Map(jsonobj);
+console.log(map2);
+console.log('jsonstr字符串 还原map++++++++++');
+var map3=new Map(jsonstr);
+console.log(map3);//失败
+*/
+
+//######################################################
+//Generator
+function* hello(){
+    console.log('hello');
+    yield 'hello';
+    console.log('world');
+    yield 'world';
+    yield 'return';
+    return 'hello world return';
+}
+var h=hello();
+console.log(h.next());
+console.log(h.next());
+console.log(h.next());
+console.log(h.next());
+
+console.log(hello());
+console.log(hello().next());
 
 //###############################################################################################//
 //数据类型
@@ -520,6 +647,30 @@ console.log(typeof myerror);
 //###############################################################################################//
 //对象
 //两种创建对象的方法，new Object()和new function方法
+//理解原型的部分
+/*
+var Person=function(name,age){
+    this['Person function']='Person function';
+    this.name=name;
+    this.age=age;
+    this.getAge=function(){return this.age;};
+}
+
+Person.prototype={constructor:Person,'Person.prototype':'Person.prototype'};
+var myPerson=new Person('zhang',20);
+Object.preventExtensions(myPerson);
+Object.freeze(myPerson);
+
+myPerson.a='as';
+console.log(myPerson);
+console.log(myPerson.a);//undifined因为myPerson被freeze了，其中freeze是冻结，preventExtensions是组织扩展，阻止添加新属性
+console.log(myPerson.__proto__);
+console.log(Object.getPrototypeOf(myPerson));
+console.log(Person.prototype);
+console.log(myPerson.constructor==Person);
+console.log(Person.prototype.constructor);
+*/
+
 /*function(){}
 var Person=function(name,age){
     this.name=name;
