@@ -419,7 +419,7 @@ console.log(JSON[Symbol.toStringTag]);
 //######################################################
 //Proxy可以当做拦截器来搞一些事情。
 //Reflect，
-/*var target={};
+var target={};
 var handler={
     get:function(target,property){
         console.log('handler get');
@@ -434,8 +434,8 @@ var proxy=new Proxy(target,handler);
 proxy.a='a';
 console.log("target a:"+target.a);//实际上不知道target，只知道proxy，所以所有的对target的操作都落在proxy上了。
 console.log("proxy a:"+proxy.a);//通过proxy取得target上的值，广义上，通过操作proxy来操作target。
-*/
-/*var target=function(){};
+console.log('=========================');
+var target=function(){};
 var proto={constructor:target,'proto':'proto'};
 var handler={
     get:function(target,property){
@@ -457,6 +457,8 @@ console.log(proxy);
 console.log(my);
 
 console.log(new Proxy({},{}));//5+2+2+2+1+1
+console.log(typeof new Proxy({},{}));//5+2+2+2+1+1
+
 //get(target,propkey) set() has() deleteProperty() difineProperty()
 //getOwnPropertyDescriptor() ownKeys()
 //getPrototypeOf() setPrototypeOf()
@@ -464,6 +466,8 @@ console.log(new Proxy({},{}));//5+2+2+2+1+1
 //apply construct
 //Proxy.revocable()取消实例
 console.log(Reflect);//5+2+2+2+1+1
+console.log(typeof Reflect);//5+2+2+2+1+1
+
 //get set has deleteProperty difineProperty   setPrototyoeOf() getPrototypeOf()  isExtensible() preventExtensions()   ownKeys() hasOwnPropertyDescriptor()
 //apply() construct()
 
@@ -472,11 +476,40 @@ console.log(Object());
 //getOwnProperty 
 //
 //getPrototypeOf setPrototypeOf
+var Person=function(name,age){
+    this['Person function']='Person function';
+    this.name=name;
+    this.age=age;
+    this.getAge=function(){return this.age;};
+}
+
+Person.prototype={constructor:Person,'Person.prototype':'Person.prototype'};
+var myPerson=new Person('zhang',20);
+Object.preventExtensions(myPerson);
+Object.freeze(myPerson);
+
+myPerson.a='as';
+console.log(myPerson);
+console.log(myPerson.a);//undifined因为myPerson被freeze了，其中freeze是冻结，preventExtensions是组织扩展，阻止添加新属性
+console.log(myPerson.__proto__);
+console.log(Object.getPrototypeOf(myPerson));
+console.log(Person.prototype);
+console.log(myPerson.constructor==Person);
+console.log(Person.prototype.constructor);
+
+//class语法糖
+/*
+class Person{
+    constructor(name,password){
+        this.name=name;
+        this.password=password;
+    }
+    toString(){
+        return '('+this.name+','+this.password+')';
+    }
+}
+console.log(typeof Person);//function
 */
-
-
-
-
 //######################################################
 //set map 有序集合 ，有序键值对 WeakSet WeakMap
 /*
@@ -539,7 +572,8 @@ console.log(map3);//失败
 */
 
 //######################################################
-//Generator
+//Generator逐步对生成器函数及利用它进行异步编程进行浅层的分析理解。
+/*
 function* hello(){
     console.log('hello');
     yield 'hello';
@@ -548,15 +582,32 @@ function* hello(){
     yield 'return';
     return 'hello world return';
 }
-var h=hello();
+var h=hello();// 初始化迭代器，函数不执行
+console.log(h.next());//Object {value: "hello", done: false}done是说遍历还没有结束
 console.log(h.next());
 console.log(h.next());
-console.log(h.next());
-console.log(h.next());
+console.log(h.next());//Object {value: "hello world return", done: true}遍历结束了，done:true
 
 console.log(hello());
 console.log(hello().next());
+console.log('hello:'+(yield));
+*/
+//######################################################
+//Promise
+/*
+var promise=new Promise(function(resolve,reject){
 
+
+});
+//Async函数
+//Thunk函数
+var a=1;
+function f(a,b){
+    console.log(arguments);//2,1，按值调用
+    console.log(b);
+}
+f(a+1,1)
+*/
 //###############################################################################################//
 //数据类型
 //简单类型和对应的复杂类型，相等问题,实质上是，引用类型和值类型的区别
