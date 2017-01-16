@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<meta charset="gbk">
+<head>
+	<title></title>
+	<style type="text/css">
+		 canvas { border: 1px solid black; }
+		 div {text-align: center;}
+	</style>
+</head>
+<body>
+<object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/hamster/hamster.swf?" width="200" height="225"><param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?"><param name="AllowScriptAccess" value="always"><param name="wmode" value="opaque"></object>
+<div>
+	<canvas width="150px" height="150px" id="canvasclock"></canvas>
+</div>
+<div>
+<canvas width="1000px" height="800px" id="canvas"></canvas>
+</div>
+<div>
+<canvas width="1000px" height="800px" id="canvascom"></canvas>
+</div>
+<script type="text/javascript">
+	
+function clock(){
+  var now = new Date();
+  var ctx = document.getElementById('canvasclock').getContext('2d');
+  ctx.save();
+  ctx.clearRect(0,0,150,150);
+  ctx.translate(75,75);
+  ctx.scale(0.4,0.4);
+  ctx.rotate(-Math.PI/2);
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "white";
+  ctx.lineWidth = 8;
+  ctx.lineCap = "round";
+
+  // Hour marks
+  ctx.save();
+  for (var i=0;i<12;i++){
+    ctx.beginPath();
+    ctx.rotate(Math.PI/6);
+    ctx.moveTo(100,0);
+    ctx.lineTo(120,0);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Minute marks
+  ctx.save();
+  ctx.lineWidth = 5;
+  for (i=0;i<60;i++){
+    if (i%5!=0) {
+      ctx.beginPath();
+      ctx.moveTo(117,0);
+      ctx.lineTo(120,0);
+      ctx.stroke();
+    }
+    ctx.rotate(Math.PI/30);
+  }
+  ctx.restore();
+ 
+  var sec = now.getSeconds();
+  var min = now.getMinutes();
+  var hr  = now.getHours();
+  hr = hr>=12 ? hr-12 : hr;
+
+  ctx.fillStyle = "black";
+
+  // write Hours
+  ctx.save();
+  ctx.rotate( hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec )
+  ctx.lineWidth = 14;
+  ctx.beginPath();
+  ctx.moveTo(-20,0);
+  ctx.lineTo(80,0);
+  ctx.stroke();
+  ctx.restore();
+
+  // write Minutes
+  ctx.save();
+  ctx.rotate( (Math.PI/30)*min + (Math.PI/1800)*sec )
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.moveTo(-28,0);
+  ctx.lineTo(112,0);
+  ctx.stroke();
+  ctx.restore();
+ 
+  // Write seconds
+  ctx.save();
+  ctx.rotate(sec * Math.PI/30);
+  ctx.strokeStyle = "#D40000";
+  ctx.fillStyle = "#D40000";
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.moveTo(-30,0);
+  ctx.lineTo(83,0);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0,0,10,0,Math.PI*2,true);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(95,0,10,0,Math.PI*2,true);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(0,0,0,0)";
+  ctx.arc(0,0,3,0,Math.PI*2,true);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.lineWidth = 14;
+  ctx.strokeStyle = '#325FA2';
+  ctx.arc(0,0,142,0,Math.PI*2,true);
+  ctx.stroke();
+
+  ctx.restore();
+
+  window.requestAnimationFrame(clock);
+}
+
+window.requestAnimationFrame(clock);
+
+</script>
+<!-- canvas会初始化宽度为300像素和高度为150像素。 -->
+<script type="text/javascript">
+var canvas=document.getElementById('canvas');
+var ctx = canvas.getContext('2d');//
+
+//draw rectangles, triangles, lines, arcs and curves, providing familiarity with some of the basic shapes. 
+
+//rectangle
+ctx.beginPath();
+ctx.fillStyle = "rgb(200,0,0)";
+ctx.rect(500, 10, 50, 50);
+ctx.closePath();
+ctx.fill();
+ctx.addHitRegion({id: "rectangle"});//添加点击区域
+//给canvas绑定事件
+  canvas.addEventListener("mousemove", function(event){
+	  if(event.region) {
+	    alert("hit region: " + event.region);
+	  }
+  });
+
+ctx.fillStyle = "rgba(200,0,0,0.8)";
+ctx.rect(10, 10, 50, 50);
+ctx.fill();
+
+ctx.save();
+
+ctx.strokeStyle="rgb(0,255,0)";
+//ctx.fillRect (10, 10, 50, 50);//default is black；
+ctx.rect(60,60,20,20);
+ctx.stroke();
+
+ctx.strokeStyle="rgb(0,0,0)";
+ ctx.globalAlpha = 0.2;//透明度
+//ctx.fillRect (10, 10, 50, 50);//default is black；
+//ctx.strokeRect(60,60,10,10);
+ctx.clearRect(20,20,20,20);
+
+//fillRect(x,y,width,height);//绘制一个填充区域
+//ctx.strokeRect(X, Y, WIDTH, HEIGHT);//绘制一个边框
+//ctx.clearRect(X, Y, WIDTH, HEIGHT);//清除
+//三种基本的绘制矩形方法
+
+//ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+//ctx.fillRect (30, 30, 55, 50);
+
+//moveTo() 是现在的齐逼位置，通过lineTo画线，(x0,y0)--->(x1,y1)------>(x2,y2)再回到(x0,y0)，一个简单的图像即三角形至少需要三个点。
+//画图的基本步骤
+//beginPath(),lineTo(),closePath(),fill()/stroke()/
+//path line  draw path 
+ctx.fillStyle="rgb(0,0,255)";
+ctx.beginPath();
+ctx.moveTo(80, 80);
+ctx.lineTo(0, 100);
+ctx.lineTo(80,100);
+ctx.closePath();
+//ctx.stroke();
+ctx.fill();
+
+//arc 圆弧
+//ctx.arc(X, Y, RADIUS, START ANGLE, END ANGLE, ANIT-CLOCKWISE(TRUE/FALSE)); 
+//画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。
+//ctx.arcTo(x1, y1, x2, y2, radius)
+
+	ctx.beginPath();
+    ctx.arc(200,100,50,0,Math.PI*2,true); // 绘制
+    ctx.moveTo(235,100);
+    ctx.arc(200,100,35,0,Math.PI,false);   // 口(顺时针)
+    ctx.moveTo(190,90);
+    ctx.arc(185,90,5,0,Math.PI*2,true);  // 左眼
+    ctx.moveTo(220,90);
+    ctx.arc(215,90,5,0,Math.PI*2,true);  // 右眼
+    ctx.closePath();
+    ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(300, 100, 30, 0, Math.PI*1.5);
+ctx.lineTo(330, 100);
+ctx.moveTo(430, 100);
+ctx.arc(400, 100, 30, 0, Math.PI*0.5);
+
+ctx.closePath();
+ctx.fill();
+
+//贝塞尔（bezier）以及二次贝塞尔
+//quadraticCurveTo(cp1x, cp1y, x, y)
+//绘制贝塞尔曲线，cp1x,cp1y为控制点，x,y为结束点。
+//bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+//绘制二次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
+/*
+    ctx.beginPath();
+    ctx.moveTo(75,25);
+    ctx.quadraticCurveTo(25,25,25,62.5);
+    ctx.quadraticCurveTo(25,100,50,100);
+    ctx.quadraticCurveTo(50,120,30,125);
+    ctx.quadraticCurveTo(60,120,65,100);
+    ctx.quadraticCurveTo(125,100,125,62.5);
+    ctx.quadraticCurveTo(125,25,75,25);
+    ctx.stroke();
+
+
+ //二次曲线
+    ctx.beginPath();
+    ctx.moveTo(75,40);
+    ctx.bezierCurveTo(75,37,70,25,50,25);
+    ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
+    ctx.bezierCurveTo(20,80,40,102,75,120);
+    ctx.bezierCurveTo(110,102,130,80,130,62.5);
+    ctx.bezierCurveTo(130,62.5,130,25,100,25);
+    ctx.bezierCurveTo(85,25,75,37,75,40);
+    ctx.fill();
+
+*/
+
+
+//draw line style 
+//lineStyle  lineWidth 设置线条宽度。lineCap设置线条末端样式。lineJoin设定线条与线条间接合处的样式。
+
+  // 创建路径
+  ctx.globalAlpha=1;
+  ctx.lineWidth = 20;
+  ctx.lineCap="round";
+//  butt(默认)线段末端以方形结束。round线段末端以圆形结束。square线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+  ctx.strokeStyle = '#09f';
+  ctx.beginPath();
+  ctx.moveTo(50,160);
+  ctx.lineTo(140,160);
+  ctx.moveTo(50,220);
+  ctx.lineTo(140,220);
+  ctx.stroke();
+
+
+//draw text  style
+ctx.font = "48px serif";
+//ctx.textAlign="center";
+ctx.fillText("Hello world", 600, 50);
+ctx.textBaseline = "hanging";
+ctx.font="10px";
+ctx.strokeText("Hello world", 600, 100);
+console.log(ctx.measureText("foo")); 
+
+//draw rect
+//ctx.fillRect (10, 10, 50, 50);//default is black；
+//ctx.strokeRect(60,60,10,10);
+//ctx.clearRect(20,20,20,20);
+
+
+//draw image
+var  img= new Image();
+img.src="https://mdn.mozillademos.org/files/5395/backdrop.png";
+ctx.imageSmoothingEnabled=true;
+img.onload=function(){
+    ctx.drawImage(img,300,200,200,152);
+}
+
+var img2 = new Image();
+img2.src="https://mdn.mozillademos.org/files/5395/backdrop.png";
+img2.onload=function(){
+    ctx.drawImage(img2,1,2,150,120,500,200,150,120 );//切片
+  //  第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数最好是参照右边的图解，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。
+}
+
+
+
+//变形Transformations  移动 Translating  旋转 Rotating  缩放 Scaling  变形 Transforms 合成 Composite
+//针对画布而言，因此在之前需要save以下，操作之后，再restore即可回到save状态之前的样子。
+/*translate(x, y)
+rotate(angle)
+scale(x, y)
+transform(m11, m12, m21, m22, dx, dy)
+globalCompositeOperation=""  source-over (default) source-in source-out source-atop
+destination-over destination-in destination-out destination-atop 
+lighter darker xor copy
+*/
+
+ctx.fillRect(500,100, 30,30);
+ctx.save();
+//translate()
+ for (var i=0;i<3;i++) {
+    for (var j=0;j<3;j++) {
+      ctx.save();
+      ctx.strokeStyle = "#9CFF00";
+      ctx.translate(600+j*100,200+i*100);
+      drawSpirograph(ctx,20*(j+2)/(j+1),-8*(i+3)/(i+1),10);
+      ctx.restore();
+    }
+  }
+
+function drawSpirograph(ctx,R,r,O){
+  var x1 = R-O;
+  var y1 = 0;
+  var i  = 1;
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  do {
+    if (i>20000) break;
+    var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+    var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+    ctx.lineTo(x2,y2);
+    x1 = x2;
+    y1 = y2;
+    i++;
+  } while (x2 != R-O && y2 != 0 );
+  ctx.stroke();
+}
+
+//rotate 是相对于(0,0)来旋转的
+draw(ctx);
+function draw(ctx) {
+  ctx.translate(75,375);
+
+  for (var i=1;i<6;i++){ // Loop through rings (from inside to out)
+    ctx.save();
+    ctx.fillStyle = 'rgb('+(51*i)+','+(255-51*i)+',255)';
+
+    for (var j=0;j<i*6;j++){ // draw individual dots
+      ctx.rotate(Math.PI*2/(i*6));
+      ctx.beginPath();
+      ctx.arc(0,i*12.5,5,0,Math.PI*2,true);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+}
+
+//scale()
+ for (var i=0;i<3;i++) {
+    for (var j=0;j<3;j++) {
+      ctx.save();
+      ctx.strokeStyle = "#9CFF00";
+      ctx.translate(0+j*100,200+i*100);
+      ctx.scale(0.25*(j+2),0.25*(i+2));
+      drawSpirograph(ctx,20*(j+2)/(j+1),-8*(i+3)/(i+1),10);
+      ctx.restore();
+    }
+  }
+
+
+
+
+
+  </script>
+  <script type="text/javascript">
+  // new other canvas canvascom
+var ctxcom=document.getElementById("canvascom").getContext("2d");
+drawComposite(ctxcom);
+function drawComposite(ctx){
+	var comtype=["source-over","source-in"," source-out"," source-atop","destination-over","destination-in","destination-out","destination-atop","lighter","darker","xor","copy"];
+	for(var i=0;i<comtype.length;i++){
+		var j=0;
+		if(160*i>700){
+			 j=1;
+		}
+	//	ctx.save();
+		ctx.globalCompositeOperation =comtype[i];
+		ctx.fillStyle = "blue";
+		ctx.fillRect(10+i*160, 10+j*160, 100, 100);
+		ctx.fillStyle = "red";
+		ctx.fillRect(50+i*160, 50+j*160, 100, 100);
+		ctx.font = "20px";
+		ctx.fillText(comtype[i], 10+i*160 , 160+j*160);
+	//	ctx.restore();
+	}
+}
+
+/*
+ctxcom.globalCompositeOperation = "xor";
+
+ctxcom.fillStyle = "blue";
+ctxcom.fillRect(10, 10, 100, 100);
+
+ctxcom.fillStyle = "red";
+ctxcom.fillRect(50, 50, 100, 100);
+
+*/
+
+
+</script>
+</body>
+</html>

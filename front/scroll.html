@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.scrolldiv{
+			width: 500px;
+			height: 400px;
+			margin: 1000px auto 100px auto;
+			background-color: #FF0000;
+		}
+	</style>
+</head>
+<body>
+<div class="scrolldiv" id="showDiv">
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+<script type="text/javascript">
+//可视区域的加载/img可视区域加载
+function showDivImg() {
+	// body...
+	var showDiv=document.getElementById("showDiv");
+	var clientHeight=window.innerHeight||document.body.clientHeight|| document.documentElement.clientHeight;
+	var divTop=showDiv.getBoundingClientRect().top;//div距离顶端的高度
+	if(divTop<=clientHeight){
+		console.log("可以加载图片了");
+	}
+
+}
+//网页滚动到顶部底部
+function scrollButtonOrTop() {
+	// body...
+	var client=window.innerHeight||document.body.clientHeight|| document.documentElement.clientHeight;//可视区域的高
+	var scrollTop=document.body.scrollTop;//滚动的高
+	var wholeHeight=document.body.scrollHeight;//页面高
+	if(client+scrollTop>=wholeHeight){
+		console.log("底部");
+		//业务逻辑...
+	}
+	if(scrollTop==0){
+		console.log("顶部");
+	}
+}
+//window.onscroll=scrollButtonOrTop;
+window.onscroll=showDivImg;
+</script>
+</body>
+</html>

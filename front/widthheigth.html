@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			border: 20px solid #CCC;
+			margin: 10px;
+			padding: 40px;
+			background: #EEE;
+			height: 350px;
+			width: 500px;
+			overflow: scroll;
+		}
+		#mdiv{
+			width: 200px;
+			height: 200px;
+			background: red;
+			border: 1px solid #000000;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+<div id="mdiv">
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+	<p>javascript</p>
+
+</div>
+<script type="text/javascript">
+
+//Event clientX 相对于浏览器（可视区域）左上角
+//screenX  相对于设备屏幕左上角
+//offsetX 相对于事件源左上角 
+//pageX 相对于整个网页左上角
+// X 本属于IE，现所有都支持，相对于Css动态定位的最内层包容元素
+
+var mdiv=document.getElementById("mdiv");
+mdiv.onclick=function(e){
+	console.log("e.clientX:"+e.clientX);
+	console.log("e.screenX:"+e.screenX);
+	console.log("e.offsetX:"+e.offsetX);
+	console.log("e.pageX:"+e.pageX);
+	console.log("e.x:"+e.x);
+}
+
+console.log(document);
+//console.log(documentElement);
+console.log(document.body);
+//window对象下 窗口大小 打开的浏览器大小
+console.log("window innerWidth innerHeight outerWidth outerHeight");
+console.log(innerWidth+":"+innerHeight+":"+outerWidth+":"+outerHeight);
+/*console.log(innerWidth);
+console.log(innerHeight);
+console.log(outerWidth);
+console.log(outerHeight);*/
+//window下面的screen 屏幕大小
+console.log("screen width height availWidth availHeight screenLeft screenTop");
+console.log(screen.width+":"+screen.height+":"+screen.availWidth+":"+screen.availHeight+":"+screenLeft+":"+screenTop);
+//1600 900 1600 860 903 4 
+/*console.log(screen.width);
+console.log(screen.height);
+console.log(screen.availWidth);
+console.log(screen.availHeight);
+console.log(screenLeft);
+console.log(screenTop);*/
+
+//console.log("$(window).width():"+$(window).width());
+//console.log("$(window).height():"+$(window).height());
+console.log("window.screen.width:"+window.screen.width); 
+console.log("window.screen.availWidth:"+window.screen.availWidth); 
+console.log("window.screen.height:"+window.screen.height); 
+console.log("window.screen.availHeight:"+window.screen.availHeight); 
+
+console.log("document.body.clientWidth:"+document.body.clientWidth);
+console.log("document.body.scrollWidth:"+document.body.scrollWidth);
+console.log("document.body.offsetWidth:"+document.body.offsetWidth);
+console.log("document.body.clientHeight:"+document.body.clientHeight);
+console.log("document.body.scrollHeight:"+document.body.scrollHeight);
+console.log("document.body.offsetHeight:"+document.body.offsetHeight);
+
+
+//document 和浏览器大小，屏幕大小无关，只和文档大小有关
+//client 可视 content+padding
+console.log("document client width height left top");
+console.log(document.body.clientWidth);//width+padding*2-scroll  500+40*2-0=580
+console.log(document.body.clientHeight);//hight+padding*2-scroll （scroll=7px）350+40*2=430
+console.log(document.body.clientLeft);//border-left的width 20
+console.log(document.body.clientTop);//border-top的width  20
+
+console.log(mdiv.clientWidth);  //183  设置的是200 有滚动条（-7）
+console.log(mdiv.clientHeight);  //200
+
+//offset content+padding+border
+console.log(" document offset width height left top")
+console.log(document.body.offsetWidth);//width+padding*2+borderWidth*2  clientWidth+scroll+borderWidth*2   500+40  620
+console.log(document.body.offsetHeight);//height+padding*2+border*2    350+40*2+20*2=470
+
+//offsetParent   兼容性 当前节点的父节点没有css定位，取body 否则取最近的定位父节点（Position：absolute relative）
+//IE6/7 offsetParent padding+myself-margin
+//IE8/9/10/chrome offsetParent的margin+border+padding+myself-margin
+console.log(document.body.offsetLeft); 
+console.log(document.body.offsetTop); 
+console.log(" div offset width height left top") 
+console.log(mdiv.offsetWidth);//width+padding*2+borderWidth*2    200+0*2+1*2=202
+console.log(mdiv.offsetHeight);//height+padding*2+borderWidth*2   200+0*2+1*2=202
+console.log(mdiv.offsetLeft);//body-margin  + body-border + body-padding +myself-margin 使用body 10+20+40+0=70
+console.log(mdiv.offsetTop); //body-margin  + body-border + body-padding +myself-margin 使用body 10+20+40+0=70
+
+//scroll 有滚动 加滚动的长度 无滚动为本身的尺寸 width/height 
+console.log(" document body scrollWidth scrollHeight scrollLeft scrollTop");
+console.log(document.body.scrollWidth);//width+padding*2+border*2+margin*2     769
+console.log(document.body.scrollHeight);//height+padding*2+border*2+margin*2  350+40*2+20*2+10*2=490
+console.log(document.body.scrollLeft);//可读写
+console.log(document.body.scrollTop);//可读写
+console.log("mdiv scrollWidth scrollHeight scrollLeft scrollTop ")
+console.log(mdiv.scrollWidth);//183
+console.log(mdiv.scrollHeight);//356
+console.log(mdiv.scrollLeft);//0
+console.log(mdiv.scrollTop);//0
+
+//style.width
+//style.height
+
+</script>
+</body>
+</html>
