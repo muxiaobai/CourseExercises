@@ -233,7 +233,7 @@ var str=`
 $("#demo").append(str);
 console.log(`my name is ${name}`);
 */
-
+/*
 function compile(template){
 var evalExpr=/<%=(.+?)%>/g;
 var expr=/<%([\s\S]+?)%>/g;
@@ -264,7 +264,7 @@ var template=`
 var parse=eval(compile(template));
 var str=parse(data);
 $("#demo").append(str);
-
+*/
 //######################################################
 //Number, Math, Array,
 //Number，扩充Number.isFinite()和Number.isNaN()，和直接调用不同。
@@ -419,7 +419,7 @@ console.log(JSON[Symbol.toStringTag]);
 //######################################################
 //Proxy可以当做拦截器来搞一些事情。
 //Reflect，
-var target={};
+/*var target={};
 var handler={
     get:function(target,property){
         console.log('handler get');
@@ -467,16 +467,16 @@ console.log(typeof new Proxy({},{}));//5+2+2+2+1+1
 //Proxy.revocable()取消实例
 console.log(Reflect);//5+2+2+2+1+1
 console.log(typeof Reflect);//5+2+2+2+1+1
-
+*/
 //get set has deleteProperty difineProperty   setPrototyoeOf() getPrototypeOf()  isExtensible() preventExtensions()   ownKeys() hasOwnPropertyDescriptor()
 //apply() construct()
 
-console.log(Object());
+//console.log(Object());
 //Object() get set has deleteProperty difineProperty
 //getOwnProperty 
 //
 //getPrototypeOf setPrototypeOf
-var Person=function(name,age){
+/*var Person=function(name,age){
     this['Person function']='Person function';
     this.name=name;
     this.age=age;
@@ -496,6 +496,7 @@ console.log(Object.getPrototypeOf(myPerson));
 console.log(Person.prototype);
 console.log(myPerson.constructor==Person);
 console.log(Person.prototype.constructor);
+*/
 
 //class语法糖
 /*
@@ -611,6 +612,38 @@ f(a+1,1)
 //###############################################################################################//
 //数据类型
 //简单类型和对应的复杂类型，相等问题,实质上是，引用类型和值类型的区别
+/*
+var Person=function(name,age){
+    this['Person function']='Person function';
+    this.name=name;
+    this.age=age;
+    this.getAge=function(){return this.age;};
+}
+
+Person.prototype={constructor:Person,'Person.prototype':'Person.prototype'};
+var myPerson=new Person('zhang',20);
+
+console.log( myPerson instanceof Person);
+console.log(typeof  myPerson);
+console.log( myPerson);
+
+console.log( new Number(3) instanceof Number);
+console.log(typeof  new Number(3));
+console.log(typeof 3);
+console.log( 3 instanceof Number);
+*/
+//默认有符号 32位 最高位代表正负  0为正1为负
+var num=9;//9=2^3+2^0   1001
+var num2=5;//5=2^2+2^0  0101
+console.log(~num);//NOT 取反减1 -10
+console.log(num&num2);//AND  0001 1
+console.log(num|num2);//OR  1101  8+4+1=13
+console.log(num^num2);//XOR 只有一个1取1  1100  8+4=12
+console.log(num<<1);//
+console.log(num>>1);//
+console.log(num>>>1);//
+
+
 /*var price1=10;
 var price2='10';
 var price3=Number('10');
