@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="vue.js"></script>
+	<title>VueDemo</title>
+</head>
+<body>
+<div id="parent">
+  <p>{{ message }}</p>
+  <input v-model="message">
+  <child parentMessage="hello"></child>
+</div>
+<div id="child">
+   
+</div>
+
+<script >
+new Vue({
+  el: '#parent',
+  data: function(){
+     return {
+       message: 'Hello Vue.js!'
+     }
+  },
+  props: ['message']
+
+})
+
+Vue.component('child', {
+  // 声明 props
+  props: ['parentMessage'],
+  // 就像 data 一样，prop 可以用在模板内
+  // 同样也可以在 vm 实例中像 “this.message” 这样使用
+  template: '<span>{{ parentMessage }}</span>'
+})
+
+
+</script>
+</body>
+</html>

@@ -22,7 +22,7 @@ train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
 # 初始化变量
 init = tf.initialize_all_variables()
-
+ 
 sess = tf.Session()
 sess.run(init)
 
