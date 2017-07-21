@@ -15,3 +15,4 @@ trace1 = Scatter(
 data = Data([trace0, trace1])
 
 py.plot(data, filename = 'basic-line')
+py = plotly.plotly('muxiaobai','syMSf9RheDfvCWLV63A6')
