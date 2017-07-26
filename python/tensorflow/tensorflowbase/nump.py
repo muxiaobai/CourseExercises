@@ -30,7 +30,8 @@ sess = tf.Session()
 sess.run(init)
 
 # 拟合平面
-#	if step % 20 == 0:
+#	
 for step in xrange(0,201):
 	sess.run(train)
-	print step,sess.run(W),sess.run(b)
+	if step % 20 == 0:
+		print step, sess.run(W), sess.run(b)

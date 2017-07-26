@@ -13,12 +13,10 @@
  * Date: 2016-07-07T21:44Z
  */
 
-//function(){}
-//jQuery.xxx()//jQuery.fn = jQuery.prototype静态属性和方法 167-251
-//jQuery.extend = jQuery.fn.extend 258-330
-//jQuery.extend()扩展336-604
-//var access4040-4110
-//parseHTML() parseXML() parseJSON() 10333-10414
+//jQuery = function(selector){return jQuery.fn.init()}  这个也是对外的jQuery方法
+//jQuery.fn = jQuery.prototype = { 	constructor: jQuery}原型是一个对象 静态属性和方法 167-251
+//jQuery.extend = jQuery.fn.extend= function(){} 258-330
+//jQuery.extend()扩展336-604 jQuery.each 461-481
 //Sizzle复杂选择器实现624-2831 
 
 // var Sizzle=(function(window){return Sizzle;})(window);
@@ -32,7 +30,7 @@
 // jQuery.escapeSelector = Sizzle.escape;
 
 //jQuery.filter() 2932-2947
-//jQuery.each3240-3310
+// parent children contents 3264-3332
 //jQuery.Callbacks()回调对象3347-3542
 //jQuery.extend Deferred promise when延时对象 (主要是一个异步)统一的异步管理 3617-3983
 //jQuery.Deferred.exceptionHook
@@ -41,6 +39,7 @@
 //jQuery.fn.load() 9930-9993
 //jQuery.fn.ready() 3949-4027
 
+//var access4040-4110
 //Support功能检测  5005-5031  style 6242-6320 7616-7640
 //support.focusin 8489-8540
 //support.createHTMLDocument 9940-9950
@@ -65,6 +64,7 @@
 //DOM操作
 //ajax() 8742-10006
 //jQuery.fn.extend  wrap() 9562-9629
+//parseHTML() parseXML() parseJSON() 10333-10414
 //jQuery支持的模块化
 //window.jQuery=windows.$=jQuery
 
@@ -95,7 +95,8 @@
 
 // Pass this if window is not defined yet
 } )( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
-
+//这里在上面的执行中会调用function 如果是window的话，就会直接执行这个方法，并且插入window 而且全局中没有jQuery这里 noGlobal = undefined
+//所以在最后(最后的括号)的判断就会把jQuery挂到window上面
 // Edge <= 12 - 13+, Firefox <=18 - 45+, IE 10 - 11, Safari 5.1 - 9+, iOS 6 - 9.1
 // throw exceptions when non-strict code (e.g., ASP.NET 4.5) accesses strict mode
 // arguments.callee.caller (trac-13335). But as of jQuery 3.0 (2016), strict mode should be common
@@ -146,7 +147,7 @@ var support = {};
 
 var
 	version = "3.1.0",
-
+	//	150 返回的jQuery
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
 
@@ -270,14 +271,15 @@ jQuery.fn = jQuery.prototype = {
 
 //在jQuery.prototype上添加方法，所以需要实例化jQery后才能使用方法。
 //jQuery.fn=jQuery.prototype;同时，jQuery本身也添加有对应的extend方法，
-//因此在jQuery.extend 后添加的是静态方法，jQuery.fn.extend 添加的是实例方法。
+//因此在jQuery.extend 后添加的是静态方法，jQuery.fn.extend 添加的是实例方法。借以类比
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[ 0 ] || {},
 		i = 1,
 		length = arguments.length,
 		deep = false;
-
+	//debugger;
+	//console.log("");
 	// Handle a deep copy situation
 	if ( typeof target === "boolean" ) {
 		deep = target;
@@ -357,7 +359,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 //now swap()4641-4666
 //access() 4040-4110
 //parseHTML() parseXML() parseJSON() 10333-10414
-
+//相当于执行上面的function 
 jQuery.extend( {
 	//版本
 	// Unique for each copy of jQuery on the page
@@ -456,7 +458,7 @@ jQuery.extend( {
 	nodeName: function( elem, name ) {
 		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},
-	//遍历
+	//遍历jQuery.each();其他的调用都在这里 461-481
 	each: function( obj, callback ) {
 		var length, i = 0;
 
@@ -3028,7 +3030,7 @@ jQuery.fn.extend( {
 //###########################################################
 // Initialize a jQuery object3015-3127
 
-
+//init 3040-3140
 // A central reference to the root jQuery(document)
 var rootjQuery,
 
@@ -3166,13 +3168,7 @@ var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 		prev: true
 	};
 
-//###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
-
-
+//$("#id").has("a");这种形式的方法，其中target = a ,this = $("#id");
 jQuery.fn.extend( {
 	has: function( target ) {
 		var targets = jQuery( target, this ),
@@ -3265,7 +3261,7 @@ function sibling( cur, dir ) {
 //###########################################################
 //###########################################################
 //###########################################################
-//jQuery.each3240-3310
+//parent children contents 等方法 3264-3332
 
 jQuery.each( {
 	parent: function( elem ) {
@@ -10561,6 +10557,8 @@ jQuery.noConflict = function( deep ) {
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
+//这里就是上面noGlobal= undifined  可以执行，就把前面定义的jQuery 150赋给window，
+//因此之后再console直接就可以jQuery 和$就能用，如果没有实例化就是150行处的function
 if ( !noGlobal ) {
 	window.jQuery = window.$ = jQuery;
 }
