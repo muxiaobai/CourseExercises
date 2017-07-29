@@ -1,39 +1,40 @@
-
-( function( global, factory ) {
-
-	"use strict";
-    debugger;
-	if ( typeof module === "object" && typeof module.exports === "object" ) {
-		module.exports = global.document ?
-			factory( global, true ) :
-			function( w ) {
-				if ( !w.document ) {
-					throw new Error( "jQuery requires a window with a document" );
-				}
-				return factory( w );
-			};
-	} else {
-		factory( global );
-	}
-} )( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
-    var Person =   function (){
-        console.log("person") ;
-        return new Person.fn.init();
+var BaseCalculator = function (decimalDigits, tax) {
+    this.decimalDigits = decimalDigits;
+    this.tax = tax;
+};
+BaseCalculator.prototype = {
+    add: function (x, y) {
+        return x + y;
+    },
+    subtract: function (x, y) {
+        return x - y;
     }
-     debugger;
-    Person.fn = Person.prototype = { constructor:Person };
-    Person.fn.init = function (){
-        return this;
+};
+ var bacalculator = new BaseCalculator();
+ //alert(ca.add(1, 3));
+    
+
+var Calculator = function () {
+    //为每个实例都声明一个税收数字
+    this.tax = 5;
+}; 
+Calculator.prototype.__proto__ = bacalculator;
+Calculator.prototype = function () {
+    var addfunc = function (x, y) {
+        return x + y;
+    },
+    subtractfunc = function (x, y) {
+        return x - y;
     }
-    window.People = Person;
-   
-});
-
-
-
-
-
-
+    return {
+        constructor:bacalculator,
+        addfunc: addfunc,
+        subtractfunc: addfunc
+    }
+} ();
+//Calculator.prototype = new BaseCalculator();
+var calculator = new Calculator();
+debugger;
 
 
  //语法甘露：
