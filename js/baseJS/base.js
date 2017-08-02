@@ -27,7 +27,7 @@ Calculator.prototype = function () {
         return x - y;
     }
     return {
-        constructor:bacalculator,
+       // constructor:bacalculator,
         addfunc: addfunc,
         subtractfunc: addfunc
     }
