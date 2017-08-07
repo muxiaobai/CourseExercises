@@ -19,6 +19,7 @@
 :checkered_flag: checkered_flag
 :green_apple: green_apple
 :bookmark: bookmark
+
 :rotating_light: rotating_light
 :construction: construction
 :construction_worker: construction_worker
@@ -31,6 +32,7 @@
 :heavy_plus_sign: heavy_plus_sign
 :wrench: wrench
 :globe_with_meridians: globe_with_meridians
+
 :pencil2: pencil2
 :hankey:hankey
 :rewind: rewind
