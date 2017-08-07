@@ -1,3 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+/*
+jQuery.fn.extend({
+	setName: function(myName) {
+		this.myName = myName
+		console.log("fn.extend setName");
+		return this;
+	},
+	getName: function() {
+	   	console.log("fn.extend getName");
+		return this;
+	}
+})
+$().setName("1");
+jQuery.extend({
+	setName: function(myName) {
+		this.myName = myName
+		console.log("jQuery.extend setName");
+		return this;
+	},
+	getName: function() {
+	   	console.log("jQuery.extend getName");
+		return this;
+	}
+})
+$.setName("1");
+*/
+/*
 var BaseCalculator = function (decimalDigits, tax) {
     this.decimalDigits = decimalDigits;
     this.tax = tax;
@@ -34,9 +71,8 @@ Calculator.prototype = function () {
 } ();
 //Calculator.prototype = new BaseCalculator();
 var calculator = new Calculator();
-debugger;
-
-
+*/
+/*
  //语法甘露：
     var object =    //定义小写的object基本类，用于实现最基础的方法等
     {
@@ -119,6 +155,7 @@ debugger;
     console.log(Person.isA(Employee));        //false
     console.log(Employee.isA(Person));        //true
 
+*/
 
 
 
@@ -127,10 +164,7 @@ debugger;
 
 
 
-
-
-
-
+/*
 //闭包
 var outter = [];  
 function clouseTest () {  
@@ -154,6 +188,7 @@ outter[0].invoke();
 outter[1].invoke();
 outter[2].invoke();
 outter[3].invoke();
+*/
 /*console.log(outter[0].invoke());  
 console.log(outter[1].invoke());  
 console.log(outter[2].invoke());  

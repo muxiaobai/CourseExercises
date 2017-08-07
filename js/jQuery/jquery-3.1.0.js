@@ -13,32 +13,30 @@
  * Date: 2016-07-07T21:44Z
  */
 
-//jQuery = function(selector){return jQuery.fn.init()}  这个也是对外的jQuery方法
-//jQuery.fn = jQuery.prototype = { 	constructor: jQuery}原型是一个对象 静态属性和方法 167-251
-//jQuery.extend = jQuery.fn.extend= function(){} 258-330
+//jQuery = function(selector){return new jQuery.fn.init()}  这个也是对外的jQuery方法
+//jQuery.fn = jQuery.prototype = { 	constructor: jQuery,pushStack:(){} } 记此对象为A 原型是一个对象 静态属性和方法 167-251
+//jQuery.extend = jQuery.fn.extend= function(){} 258-330 通过extend方法扩展的就是上面jQuery方法和jQuery.prototype = {} A这个对象
 //jQuery.extend()扩展336-604 jQuery.each 461-481
-//Sizzle复杂选择器实现624-2831 
-
-// var Sizzle=(function(window){return Sizzle;})(window);
-// jQuery.find = Sizzle;
-// jQuery.expr = Sizzle.selectors;
-// jQuery.expr[ ":" ] = jQuery.expr.pseudos;
-// jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;
-// jQuery.text = Sizzle.getText;
-// jQuery.isXMLDoc = Sizzle.isXML;
-// jQuery.contains = Sizzle.contains;
-// jQuery.escapeSelector = Sizzle.escape;
-
 //jQuery.filter() 2932-2947
 // parent children contents 3264-3332
 //jQuery.Callbacks()回调对象3347-3542
 //jQuery.extend Deferred promise when延时对象 (主要是一个异步)统一的异步管理 3617-3983
 //jQuery.Deferred.exceptionHook
 //jQuery.readyException
-//jQuery.fn.init()3015-3127
+//init = jQuery.fn.init = function (){}3015-3127 同样这也是返回的jQuery
+//init.prototype = jQuery.fn = {}上面的17行;外部jQuery.fn//重点 所有挂载在fn上的方法都会赋给init的原型上
+
+//Sizzle复杂选择器实现624-2831 
+// var Sizzle=(function(window){return Sizzle;})(window);
+// jQuery.find = Sizzle; jQuery.expr = Sizzle.selectors;
+// jQuery.expr[ ":" ] = jQuery.expr.pseudos;  jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;
+// jQuery.text = Sizzle.getText; jQuery.isXMLDoc = Sizzle.isXML;
+// jQuery.contains = Sizzle.contains; jQuery.escapeSelector = Sizzle.escape;
+//总的来说：end方法就是回溯到上一个Dom合集,因此对于链式操作与优化，这个方法还是很有意义的。
+//prevObject end() addBack()上一个，有参数filter组合后返回
 //jQuery.fn.load() 9930-9993
 //jQuery.fn.ready() 3949-4027
-
+//remove 和 domManip cleanData 5885-6077
 //var access4040-4110
 //Support功能检测  5005-5031  style 6242-6320 7616-7640
 //support.focusin 8489-8540
@@ -56,8 +54,7 @@
 
 //css()  6504-6775  6570-6829
 //attr()  7686-7780 prop() 7727-7886 
-//原生setAttribute() getAttribute 
-//(./[])
+//原生setAttribute() getAttribute  (./[])
 //区别：attr 自定义属性在DOM显示,可以获取。但是prop DOM可能不显示，并且可能获取不到值。
 //获取href attr只是值，prop 可能获取到本地路径
 //class()7892-8064 val()  8073-8252 trigger() 8260-8435
@@ -274,7 +271,7 @@ jQuery.fn = jQuery.prototype = {
 //因此在jQuery.extend 后添加的是静态方法，jQuery.fn.extend 添加的是实例方法。借以类比
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[ 0 ] || {},
+		target = arguments[ 0 ] || {},//args[0],代表this
 		i = 1,
 		length = arguments.length,
 		deep = false;
@@ -3152,7 +3149,7 @@ var rootjQuery,
 
 
 // Give the init function the jQuery prototype for later instantiation
-init.prototype = jQuery.fn;
+init.prototype = jQuery.fn;//重点 所有挂载在fn上的方法都会赋给init的原型上
 
 // Initialize central reference
 rootjQuery = jQuery( document );
@@ -4096,7 +4093,7 @@ if ( document.readyState === "complete" ||
 //###########################################################
 //###########################################################
 //###########################################################
-//success get/set  4040-4110
+//access get/set  4040-4110
 //jQuery.fn.extend css()6570-6829 attr() prop() text()
 
 
@@ -5885,7 +5882,7 @@ function fixInput( src, dest ) {
 		dest.defaultValue = src.defaultValue;
 	}
 }
-
+// 5885-6077
 function domManip( collection, args, callback, ignored ) {
 
 	// Flatten any nested arrays
@@ -6078,16 +6075,16 @@ jQuery.extend( {
 		}
 	}
 } );
-
+//具体实现remove 和 domManip cleanData  5885-6077  access 4040-4110
 jQuery.fn.extend( {
 	detach: function( selector ) {
 		return remove( this, selector, true );
 	},
-
+//移除这个selector
 	remove: function( selector ) {
 		return remove( this, selector );
 	},
-
+//内部 所有东西替换成这个value
 	text: function( value ) {
 		return access( this, function( value ) {
 			return value === undefined ?
@@ -6099,7 +6096,7 @@ jQuery.fn.extend( {
 				} );
 		}, null, value, arguments.length );
 	},
-
+//内部，最后添加
 	append: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
@@ -6108,7 +6105,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-
+//内部 最前添加
 	prepend: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
@@ -6117,7 +6114,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-
+//外部 ，前面最近添加
 	before: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.parentNode ) {
@@ -6125,7 +6122,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-
+//外部 后面最近添加
 	after: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.parentNode ) {
@@ -6160,7 +6157,7 @@ jQuery.fn.extend( {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
 		} );
 	},
-
+// 内部 所有文本会被解释后再展示出来
 	html: function( value ) {
 		return access( this, function( value ) {
 			var elem = this[ 0 ] || {},

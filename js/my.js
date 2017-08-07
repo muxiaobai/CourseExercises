@@ -1,11 +1,56 @@
-//获取参数
-function GetQueryString(name){
-     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-     var r = window.location.search.substr(1).match(reg);
-     if(r!=null)return  unescape(r[2]); return null;
-}
-//检查是否为空 
-function checkNull(data){
+;(function (global){
+	var Common = function (){
+		return Common.fn.init(global);
+	}
+	Common.fn = Common.prototype = {
+		constructor : Common,
+		justNeedNum : function (){
+			console.log("justNeedNum");
+		},
+		doCheck : function (){
+			this.justNeedNum();
+			console.log("doCheck");
+		}
+ 	}
+	
+	Common.extend = Common.fn.extend = function() {
+		var  options, name, src, copy, target = this, i = 0, length = arguments.length;
+		console.log(this);
+		for ( ; i < length; i++ ) {
+			if ( ( options = arguments[ i ] ) != null ) {
+				for ( name in options ) {
+					src = target[ name ];
+					copy = options[ name ];
+					target[ name ] = copy;
+				}
+			}
+		}
+		return target;
+	}
+
+	init = Common.fn.init =function (global){return this;}
+	init.prototype = Common.fn ;
+	Common.extend({
+	    //空对象
+		isEmptyObject : function( obj ) {
+			var name;
+			for ( name in obj ) {
+				return false;
+			}
+				return true;
+		},
+		isWindow : function( obj ) {
+			return obj != null && obj === obj.window;
+		},
+		
+        //获取参数
+        GetQueryString : function (name){
+             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+             var r = window.location.search.substr(1).match(reg);
+             if(r!=null)return  unescape(r[2]); return null;
+        },
+        //检查是否为空 
+         isNull : function (data){
     	if(data==null){
     		return true;
     	}
@@ -16,7 +61,42 @@ function checkNull(data){
     		return true;
     	}
     	return false;
-}
+        },
+		each: function( obj, callback ) {
+			var length, i = 0;
+				for ( i in obj ) {
+					if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
+						break;
+					}
+				}
+			return obj;
+		},
+	});
+	Common.fn.extend({
+		trim: function( text ) {
+			return text == null ?
+				"" :
+				( text + "" ).replace( rtrim, "" );
+		},
+		isArray: Array.isArray
+	})
+	var rootCommon = Common();
+	global.Common = Common;
+}(window))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //通用事件监听
  // event(事件)工具集，来源：github.com/markyun
     markyun.Event = {
