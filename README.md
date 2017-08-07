@@ -25,7 +25,7 @@
 :construction_worker: construction_worker
 :green_heart: green_heart
 :arrow_down: arrow_down :arrow_up: arrow_up
-:cart_with_upwards_trend: cart_with_upwards_trend
+:chart_with_upwards_trend: chart_with_upwards_trend
 :hammer: hammer
 :heavy_minus_sign: heavy_minus_sign
 :whale: whale
