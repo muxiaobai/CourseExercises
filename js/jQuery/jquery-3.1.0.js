@@ -18,7 +18,7 @@
 //jQuery.extend = jQuery.fn.extend= function(){} 258-330 通过extend方法扩展的就是上面jQuery方法和jQuery.prototype = {} A这个对象
 //jQuery.extend()扩展336-604 jQuery.each 461-481
 //jQuery.filter() 2932-2947
-// parent children contents 3264-3332
+// parent children contents 3264-3332 dir siblings 2893
 //jQuery.Callbacks()回调对象3347-3542
 //jQuery.extend Deferred promise when延时对象 (主要是一个异步)统一的异步管理 3617-3983
 //jQuery.Deferred.exceptionHook
@@ -2889,7 +2889,7 @@ jQuery.escapeSelector = Sizzle.escape;
 
 
 
-
+//dir 层级关系抽象 2893
 var dir = function( elem, dir, until ) {
 	var matched = [],
 		truncate = until !== undefined;
@@ -2905,7 +2905,7 @@ var dir = function( elem, dir, until ) {
 	return matched;
 };
 
-
+//兄弟
 var siblings = function( n, elem ) {
 	var matched = [];
 
@@ -3258,7 +3258,7 @@ function sibling( cur, dir ) {
 //###########################################################
 //###########################################################
 //###########################################################
-//parent parents children contents 等方法 3264-3332
+//parent parents children contents 等方法 3264-3332  dir  siblings 2893
 
 jQuery.each( {
 	parent: function( elem ) {
@@ -4872,13 +4872,13 @@ jQuery.fn.extend( {
 		} );
 	}
 } );
+
+
 var rcheckableType = ( /^(?:checkbox|radio)$/i );
 
 var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]+)/i );
 
 var rscriptType = ( /^$|\/(?:java|ecma)script/i );
-
-
 
 // We have to close these tags to support XHTML (#13200)
 var wrapMap = {
@@ -4936,7 +4936,7 @@ function setGlobalEval( elems, refElements ) {
 
 
 var rhtml = /<|&#?\w+;/;
-
+//创建文档碎片Doc
 function buildFragment( elems, context, scripts, selection, ignored ) {
 	var elem, tmp, tag, wrap, contains, j,
 		fragment = context.createDocumentFragment(),
@@ -5788,7 +5788,7 @@ jQuery.fn.extend( {
 //###########################################################
 //###########################################################
 //###########################################################
-
+// 5885-6077
 var
 
 	/* eslint-disable max-len */
@@ -5882,7 +5882,7 @@ function fixInput( src, dest ) {
 		dest.defaultValue = src.defaultValue;
 	}
 }
-// 5885-6077
+
 function domManip( collection, args, callback, ignored ) {
 
 	// Flatten any nested arrays
@@ -5972,7 +5972,7 @@ function domManip( collection, args, callback, ignored ) {
 
 	return collection;
 }
-
+//removeChild (需要知道父级节点，还好有parentNode)， 这样就会把当前节点删掉
 function remove( elem, selector, keepData ) {
 	var node,
 		nodes = selector ? jQuery.filter( selector, elem ) : elem,
@@ -6075,8 +6075,9 @@ jQuery.extend( {
 		}
 	}
 } );
-//具体实现remove 和 domManip cleanData  5885-6077  access 4040-4110
+//具体实现remove 和 domManip cleanData manipulationTarget 5885-6077  access 4040-4110
 jQuery.fn.extend( {
+//分离拆分派遣
 	detach: function( selector ) {
 		return remove( this, selector, true );
 	},
@@ -6084,7 +6085,7 @@ jQuery.fn.extend( {
 	remove: function( selector ) {
 		return remove( this, selector );
 	},
-//内部 所有东西替换成这个value
+//内部 所有东西替换成这个value textContent 内部的文本
 	text: function( value ) {
 		return access( this, function( value ) {
 			return value === undefined ?
@@ -6096,7 +6097,7 @@ jQuery.fn.extend( {
 				} );
 		}, null, value, arguments.length );
 	},
-//内部，最后添加
+//内部，最后添加   appendChild原意就是在当前节点的最后添加新元素
 	append: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
@@ -6105,7 +6106,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-//内部 最前添加
+//内部 最前添加   当前节点插入，引用位置refchild为当前节点的第一个儿子节点，那么自然在原节点的最前面插入。
 	prepend: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
@@ -6114,7 +6115,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-//外部 ，前面最近添加
+//外部 ，前面最近添加    和下一个结合理解，
 	before: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.parentNode ) {
@@ -6122,7 +6123,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-//外部 后面最近添加
+//外部 后面最近添加  当前节点的父节点 insertBefore 是在父的最后，然后又添加了一个refchild 刚好是当前的下一个兄弟节点，那么插入位置肯定是在原节点的后面
 	after: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.parentNode ) {
@@ -6130,7 +6131,7 @@ jQuery.fn.extend( {
 			}
 		} );
 	},
-
+	//置空  textContent == ""
 	empty: function() {
 		var elem,
 			i = 0;
@@ -6156,8 +6157,8 @@ jQuery.fn.extend( {
 		return this.map( function() {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
 		} );
-	},
-// 内部 所有文本会被解释后再展示出来
+	}, 
+// 内部 所有文本会被解释后再展示出来 innerHTML
 	html: function( value ) {
 		return access( this, function( value ) {
 			var elem = this[ 0 ] || {},
@@ -6196,7 +6197,7 @@ jQuery.fn.extend( {
 			}
 		}, null, value, arguments.length );
 	},
-
+//替换 replaceChild 需要知道父级节点 替换需要refchild当前节点
 	replaceWith: function() {
 		var ignored = [];
 

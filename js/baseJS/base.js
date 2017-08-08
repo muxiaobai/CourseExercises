@@ -2,8 +2,35 @@
 
 
 
+/*
+原生JS
+获取
+document.getElementById("demo")
+document.getElementsByClassName("classname")
+document.getElementsByName("classname")
+document.getElementsByTagName("classname")
 
+父子兄弟节点 前期必须是节点才能点.
+parentNode 
+nextSibling
+firstChild
 
+赋值
+document.getElementById("demo").innerHTML
+document.getElementById("demo").innerText  document.getElementById("demo").textContent
+
+创建
+createDocumentFragment
+createTextNode
+createElement
+
+插入
+appendChild
+insertBefore
+
+删除
+
+*/
 
 
 
