@@ -2887,37 +2887,37 @@ jQuery.isXMLDoc = Sizzle.isXML;
 jQuery.contains = Sizzle.contains;
 jQuery.escapeSelector = Sizzle.escape;
 
-
-
 //dir 层级关系抽象 2893
+//参数解释 ：第一个是当前节点 dir是针对 until 直到找到until结束
 var dir = function( elem, dir, until ) {
 	var matched = [],
 		truncate = until !== undefined;
-
-	while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {
-		if ( elem.nodeType === 1 ) {
+	    //如果until没有的话 truncate 为false ，不会break，只能循环结束，
+    	//如果有的话，为true，再判断当前elem是不是until
+    //  这里使用dir把原生的属性都变成参数来获取，当前元素的dir元素
+	while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {//while重新赋值
+		if ( elem.nodeType === 1 ) {//element节点
 			if ( truncate && jQuery( elem ).is( until ) ) {
-				break;
+				break;//跳出循环的条件 找到这个终止until
 			}
-			matched.push( elem );
+			matched.push( elem );//同样，添加到返回数组中
 		}
 	}
 	return matched;
 };
 
-//兄弟
+//兄弟节点 nextSibling
 var siblings = function( n, elem ) {
 	var matched = [];
 
-	for ( ; n; n = n.nextSibling ) {
+	for ( ; n; n = n.nextSibling ) {//重新赋值
 		if ( n.nodeType === 1 && n !== elem ) {
-			matched.push( n );
+			matched.push( n );//只要是节点而且这个节点不等于elem（终止条件），添加到数组中返回
 		}
 	}
 
 	return matched;
 };
-
 
 var rneedsContext = jQuery.expr.match.needsContext;
 
@@ -3247,11 +3247,11 @@ jQuery.fn.extend( {
 	}
 } );
 
+//当前cur的dir节点 while 的时候就把cur重新赋值了
 function sibling( cur, dir ) {
 	while ( ( cur = cur[ dir ] ) && cur.nodeType !== 1 ) {}
 	return cur;
 }
-
 //###########################################################
 //###########################################################
 //###########################################################
@@ -4104,14 +4104,14 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
 		bulk = key == null;
-	//{}Set多组值递归调用
+	//{}set多组值递归调用
 	// Sets many values
 	if ( jQuery.type( key ) === "object" ) {
 		chainable = true;
 		for ( i in key ) {
 			access( elems, fn, i, key[ i ], true, emptyGet, raw );
 		}
-	//Set一组值
+	//set一组值name = value
 	// Sets one value
 	} else if ( value !== undefined ) {
 		chainable = true;
@@ -4149,7 +4149,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 
 	}
 
-
+	//get获取 value 为空 chainable =false
 	return chainable ?
 		elems :
 
@@ -7687,27 +7687,27 @@ var boolHook,
 	attrHandle = jQuery.expr.attrHandle;
 
 jQuery.fn.extend( {
-	attr: function( name, value ) {
+	attr: function( name, value ) {//把jQuery.attr方法传入access中  arguments.length > 1 大于1 true set 否则false get
 		return access( this, jQuery.attr, name, value, arguments.length > 1 );
 	},
 
 	removeAttr: function( name ) {
 		return this.each( function() {
-			jQuery.removeAttr( this, name );
+			jQuery.removeAttr( this, name ); //调用jQuery的removeAttr(),就是下面这个
 		} );
 	}
 } );
 
 jQuery.extend( {
-	attr: function( elem, name, value ) {
+	attr: function( elem, name, value ) {//节点 name =value 赋值
 		var ret, hooks,
-			nType = elem.nodeType;
+			nType = elem.nodeType;//节点类型
 		//文本/注释/属性 不能get/set属性
 		// Don't get/set attributes on text, comment and attribute nodes
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
-		//不支持属性操作用jQuery.prop()
+		//不支持属性操作用jQuery.prop()//因为原生没有这个属性name
 		// Fallback to prop when attributes are not supported
 		if ( typeof elem.getAttribute === "undefined" ) {
 			return jQuery.prop( elem, name, value );
@@ -7722,7 +7722,7 @@ jQuery.extend( {
 		}
 		//设置了value
 		if ( value !== undefined ) {
-			//当value=null时，实际上是移除
+			//当value=null时，没有赋值，实际上是移除值
 			if ( value === null ) {
 				jQuery.removeAttr( elem, name );
 				return;
