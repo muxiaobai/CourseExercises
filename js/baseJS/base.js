@@ -31,8 +31,28 @@ insertBefore
 删除
 
 */
-
-
+var demo = document.getElementById("demo");
+demo.addEventListener("click",clickHander,false);
+function clickHander(e){
+    console.log(e);//Event对象
+    console.log(e.target);//点击的目标
+    console.log(this);    //绑定事件的this
+    if(e.target.nodeName.toLowerCase() == "div"){
+        var div = document.createElement("div");
+        div.innerHTML = e.target.innerHTML;
+        // debugger;
+       // this.insertBefore(div,this.firstChild);
+        this.insertBefore(div,e.target);
+        
+       // this.appendChild(div);
+    }
+    if(e.target.nodeName.toLowerCase() == "a"){
+        var div = document.createElement("div");
+        div.innerHTML = e.target.innerHTML;
+        this.appendChild(div);
+        e.preventDefault()//阻止默认事件例如a的跳转
+    }
+}
 
 
 /*
@@ -553,7 +573,7 @@ foo();
 
 var z=1;//Global中的x
 function fooz(z,y=function(){z=2;}){//Local的x，
-     z=3;//当没有var时候，这里定义的z就是Local范围内的x了，undifined--->3
+     z=3;//当没有var时候���这里定义的z就是Local范围内的x了，undifined--->3
     y();//执行函数，把Locak中的x，由3------>2
     console.log(z);//输出Local中的x, 2
 }

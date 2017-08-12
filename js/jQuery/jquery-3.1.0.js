@@ -36,8 +36,8 @@
 //prevObject end() addBack()上一个，有参数filter组合后返回
 //jQuery.fn.load() 9930-9993
 //jQuery.fn.ready() 3949-4027
+//var access4040-4110 
 //remove 和 domManip cleanData 5885-6077
-//var access4040-4110
 //Support功能检测  5005-5031  style 6242-6320 7616-7640
 //support.focusin 8489-8540
 //support.createHTMLDocument 9940-9950
@@ -45,11 +45,10 @@
 //queue()队列方法 主要是针对运动操作4476-4636
 
 //animate()
-//Event 5100-5733
-
-//jQuery.event event对象5101-5500
+//jQuery.event event对象{ add remove dispatch handlers addProp fix  }5101-5500
 //jQuery.removeEvent()  jQuery.Event()5503-5560
-//jQuery.Event.prototype {}
+//jQuery.Event.prototype {} 
+//jQuery.fn ,extend(on off one)
 //jQuery.fx Tween 6781-7622
 
 //css()  6504-6775  6570-6829
@@ -57,7 +56,7 @@
 //原生setAttribute() getAttribute  (./[])
 //区别：attr 自定义属性在DOM显示,可以获取。但是prop DOM可能不显示，并且可能获取不到值。
 //获取href attr只是值，prop 可能获取到本地路径
-//class()7892-8064 val()  8073-8252 trigger() 8260-8435
+//class()7892-8064 val()  8073-8252 trigger() 8260-8435   事件each到jQuery.fn 8501
 //DOM操作
 //ajax() 8742-10006
 //jQuery.fn.extend  wrap() 9562-9629
@@ -354,7 +353,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 //each() map() trim() inArray() makeArray() grep() merge() proxy()
 //isArrayLike() 600-620
 //now swap()4641-4666
-//access() 4040-4110
+
 //parseHTML() parseXML() parseJSON() 10333-10414
 //相当于执行上面的function 
 jQuery.extend( {
@@ -4115,13 +4114,13 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	// Sets one value
 	} else if ( value !== undefined ) {
 		chainable = true;
-
+		//value不是方法
 		if ( !jQuery.isFunction( value ) ) {
 			raw = true;
 		}
-		//
+		//有key值
 		if ( bulk ) {
-
+			//因为value不是方法，所以直接用fn方法来执行
 			// Bulk operations run against the entire set
 			if ( raw ) {
 				fn.call( elems, value );
@@ -4153,7 +4152,8 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	return chainable ?
 		elems :
 
-		// Gets
+		// Gets  //如果有name的话bulk false 执行下面len行 len一般都是大于0 的所以可以fn
+		//没有name 直接fn.call(elems)。可能是获取所有吧。
 		bulk ?
 			fn.call( elems ) :
 			len ? fn( elems[ 0 ], key ) : emptyGet;
@@ -5060,6 +5060,12 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 var documentElement = document.documentElement;
 
 
+//###########################################################
+//###########################################################
+//###########################################################
+//###########################################################
+//jQuery.event 5101-5500
+
 
 var
 	rkeyEvent = /^key/,
@@ -5082,10 +5088,11 @@ function safeActiveElement() {
 	} catch ( err ) { }
 }
 
+//事件的on 方法 elem为绑定的元素
 function on( elem, types, selector, data, fn, one ) {
 	var origFn, type;
 
-	// Types can be a map of types/handlers
+	// Types can be a map of types/handlers 这个types是"click" "focus" "blur"等
 	if ( typeof types === "object" ) {
 
 		// ( types-Object, selector, data )
@@ -5139,7 +5146,7 @@ function on( elem, types, selector, data, fn, one ) {
 		fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
 	}
 	return elem.each( function() {
-		jQuery.event.add( this, types, fn, data, selector );
+		jQuery.event.add( this, types, fn, data, selector );//add 添加监听
 	} );
 }
 
@@ -5148,16 +5155,10 @@ function on( elem, types, selector, data, fn, one ) {
 /*
  * Helper functions for managing events -- not part of the public interface.
  * Props to Dean Edwards' addEvent library for many of the ideas.
+ * addEventListener/attachEvent 两个不同的原生方法 绑定事件 add 
+ * removeEventLister/detachEvent 移除事件监听 remove 
+ add remove dispatch handlers addProp fix 
  */
- //###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
-//Event 5100-5733 
-//jQuery.event5101-5500
-
-
-
 
 jQuery.event = {
 
@@ -5251,7 +5252,7 @@ jQuery.event = {
 					special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
 
 					if ( elem.addEventListener ) {
-						elem.addEventListener( type, eventHandle );
+						elem.addEventListener( type, eventHandle );//绑定的事件
 					}
 				}
 			}
@@ -5563,7 +5564,7 @@ jQuery.removeEvent = function( elem, type, handle ) {
 		elem.removeEventListener( type, handle );
 	}
 };
-
+//区分大小写 event 对应对象 Event 方法 下面又写了prototype
 jQuery.Event = function( src, props ) {
 
 	// Allow instantiation without the 'new' keyword
@@ -5621,7 +5622,7 @@ jQuery.Event.prototype = {
 	isPropagationStopped: returnFalse,
 	isImmediatePropagationStopped: returnFalse,
 	isSimulated: false,
-
+	//阻止默认方法
 	preventDefault: function() {
 		var e = this.originalEvent;
 
@@ -5631,15 +5632,17 @@ jQuery.Event.prototype = {
 			e.preventDefault();
 		}
 	},
+	//
 	stopPropagation: function() {
 		var e = this.originalEvent;
 
 		this.isPropagationStopped = returnTrue;
 
 		if ( e && !this.isSimulated ) {
-			e.stopPropagation();
+			e.stopPropagation();//调用原生 e 为event
 		}
 	},
+	//
 	stopImmediatePropagation: function() {
 		var e = this.originalEvent;
 
@@ -5649,7 +5652,7 @@ jQuery.Event.prototype = {
 			e.stopImmediatePropagation();
 		}
 
-		this.stopPropagation();
+		this.stopPropagation();//调用以上
 	}
 };
 
@@ -5737,9 +5740,10 @@ jQuery.each( {
 		}
 	};
 } );
-
+//实例方法 on off one  基础事件方法  8501事件each绑定到jQuery.fn
 jQuery.fn.extend( {
-
+	//types:事件名selector : 一个选择器字符串，用于过滤出被选中的元素中能触发事件的后代元素
+	//data :当一个事件被触发时，要传递给事件处理函数的 fn(handler) : 事件被触发时，执行的函数
 	on: function( types, selector, data, fn ) {
 		return on( this, types, selector, data, fn );
 	},
@@ -7707,10 +7711,10 @@ jQuery.extend( {
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
-		//不支持属性操作用jQuery.prop()//因为原生没有这个属性name
+		//不支持属性操作用jQuery.prop()
 		// Fallback to prop when attributes are not supported
 		if ( typeof elem.getAttribute === "undefined" ) {
-			return jQuery.prop( elem, name, value );
+			return jQuery.prop( elem, name, value );//如果没有getAttribute 的话就用prop
 		}
 		//节点不是元素而且不是XML节点
 		// Attribute hooks are determined by the lowercase version
@@ -7720,11 +7724,11 @@ jQuery.extend( {
 			hooks = jQuery.attrHooks[ name.toLowerCase() ] ||
 				( jQuery.expr.match.bool.test( name ) ? boolHook : undefined );
 		}
-		//设置了value
+		//设置了value，也可以是null
 		if ( value !== undefined ) {
 			//当value=null时，没有赋值，实际上是移除值
 			if ( value === null ) {
-				jQuery.removeAttr( elem, name );
+				jQuery.removeAttr( elem, name );//value == null，的话就是移除改属性
 				return;
 			}
 			//把value变为name进行set/remove 
@@ -7733,7 +7737,7 @@ jQuery.extend( {
 				return ret;
 			}
 			//设置setAttribute()
-			elem.setAttribute( name, value + "" );
+			elem.setAttribute( name, value + "" );//有值设值
 			return value;
 		}
 
@@ -7741,7 +7745,7 @@ jQuery.extend( {
 			return ret;
 		}
 		// Sizzle.attr()
-		ret = jQuery.find.attr( elem, name );
+		ret = jQuery.find.attr( elem, name );//无值取值
 
 		// Non-existent attributes return null, we normalize to undefined
 		return ret == null ? undefined : ret;
@@ -7776,7 +7780,6 @@ jQuery.extend( {
 	}
 } );
 
-//attr()属性 7686-7780
 //###########################################################
 //###########################################################
 //###########################################################
@@ -8155,7 +8158,7 @@ jQuery.fn.extend( {
 					return ret;
 				}
 
-				ret = elem.value;
+				ret = elem.value;//value
 
 				return typeof ret === "string" ?
 
@@ -8496,7 +8499,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-
+//事件添加到jQuery.fn上然后通过$("#demo").click(function(){}); 8501
 jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
 	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
 	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
@@ -8506,7 +8509,7 @@ jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
 	jQuery.fn[ name ] = function( data, fn ) {
 		return arguments.length > 0 ?
 			this.on( name, null, data, fn ) :
-			this.trigger( name );
+			this.trigger( name );//这里如果有参数的话(function)就会执行on绑定this是jQuery.fn() 是$("#demo")
 	};
 } );
 
@@ -10384,7 +10387,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 //###########################################################
 //###########################################################
 //###########################################################
-
+//jQuery bind unbind绑定 没有委托 delegate undelegate  绑定有委托 10390
 
 
 jQuery.fn.extend( {
