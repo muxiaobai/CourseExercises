@@ -4,39 +4,29 @@
 
 /*
 原生JS
-获取
-document.getElementById("demo")
-document.getElementsByClassName("classname")
-document.getElementsByName("classname")
-document.getElementsByTagName("classname")
+获取document.getElementById("id")  .getElementsByClassName("classname")  .getElementsByName("name")  .getElementsByTagName("tagname")
+父子兄弟节点 前期必须是节点才能点.  parentNode nextSibling firstChild
+赋值  document.getElementById("demo").innerHTML .innerText .textContent
+创建  createDocumentFragment createTextNode createElement
+插入  appendChild insertBefore
+删除  remove
 
-父子兄弟节点 前期必须是节点才能点.
-parentNode 
-nextSibling
-firstChild
+select 
+var obj = document.getElementByIdx_x(”testSelect”); //定位id
+var index = obj.selectedIndex; // 选中索引
+var text = obj.options[index].text; // 选中文本
+var value = obj.options[index].value; // 选中值
 
-赋值
-document.getElementById("demo").innerHTML
-document.getElementById("demo").innerText  document.getElementById("demo").textContent
-
-创建
-createDocumentFragment
-createTextNode
-createElement
-
-插入
-appendChild
-insertBefore
-
-删除
 
 */
+
+//事件 addEventListener attrachEvent IE的
 var demo = document.getElementById("demo");
-demo.addEventListener("click",clickHander,false);
+demo.addEventListener("click",clickHander,false);//使用了委托delegate 绑定的是父级元素，点击目标是子级
 function clickHander(e){
-    console.log(e);//Event对象
-    console.log(e.target);//点击的目标
-    console.log(this);    //绑定事件的this
+   /// console.log(e);//Event对象
+   // console.log(e.target);//点击的目标
+  //  console.log(this);    //绑定事件的this
     if(e.target.nodeName.toLowerCase() == "div"){
         var div = document.createElement("div");
         div.innerHTML = e.target.innerHTML;
@@ -54,6 +44,39 @@ function clickHander(e){
     }
 }
 
+    var p1 = $('#p1')
+    p1.on('click', function() {
+        alert('p1灰')
+    })
+    var p2 = $('#p2')
+    p2.on('click', 'a,p', function(e) {
+        alert(e.currentTarget.nodeName)
+    })
+    p2.on('click', function(e) {
+        alert('p2默认事件1')
+    })
+
+    var p3 = $('#p3')
+    p3.on('click', function() {
+        alert('p3红')
+    })
+    
+    
+    
+//去处重复数据
+function unique(arr) {
+    var result = [], hash = {};
+    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+        if (!hash[elem]) {
+            result.push(elem);
+            hash[elem] = true;
+        }
+    }
+    return result;
+}
+
+$("#demo").on("click","span",function(e){console.log(this);debugger;});
+//$.makeArray()
 
 /*
 jQuery.fn.extend({
