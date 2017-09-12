@@ -10,7 +10,7 @@ import java.util.Map;
  * @doing 
  */
 
-public class SmallKeyPadModeImpl implements Mode{
+public class SmallKeyPadModeImpl extends Mode implements SmallKeyPad{
 	
 	 Map<Integer, Character> maplist = new HashMap<Integer, Character>();// 小键盘集合  
 	 public Map<Integer, Character> getMaplist() {

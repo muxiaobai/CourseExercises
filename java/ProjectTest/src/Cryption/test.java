@@ -6,13 +6,16 @@ import java.util.Map.Entry;
  * 
  * @author zhang
  * @Date 2016年9月17日 下午3:43:55
- * @doing
+ * @doing 加密解密操作，练习工厂模式
+ * Cryption 密   EnCryption加密  DeCryption解密
+ * SmallKey morsecode 摩斯密码
+ * 
  */
 
 public class test {
 	public static void main(String[] args) {
 		MorseCodeCryptionImpl cryption = Factory.getMorseCodeCrytionInstance();
-		SmallKeyPadCryption smallKeyPadCryption = Factory.getSmallKeyPadCryptionInstance();
+		//SmallKeyPadCryption smallKeyPadCryption = Factory.getSmallKeyPadCryptionInstance();
 		String myname = "car";
 
 		char[] str = myname.toCharArray();

@@ -10,7 +10,7 @@ import java.util.Map;
  * @doing 
  */
 
-public class MorseCodeModeImpl implements Mode{
+public class MorseCodeModeImpl extends Mode implements MorseCode{
 
 	 Map<Character, String> maplist = new HashMap<Character, String>();// 摩尔斯编码表集合  
 	 public Map<Character, String> getMaplist() {

@@ -14,5 +14,5 @@ public interface Encryption  {
 	 * @param str
 	 * @return
 	 */
-	public String Encryption(String[] str);
+	public String Encryption(char[] str);
 }
