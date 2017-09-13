@@ -9,7 +9,7 @@ import java.util.Map.Entry;
  * @doing 
  */
 
-public class SmallKeyPadCryptionImpl extends Cryption implements Decryption,Encryption{
+public class SmallKeyPadCryptionImpl extends Cryption implements SmallKeyPadCryption{
 
     SmallKeyPad smallKeyPad;
     public SmallKeyPadCryptionImpl() {

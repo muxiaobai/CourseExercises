@@ -8,16 +8,21 @@ package Cryption;
  */
 
 public class Factory{
-	public static  MorseCode getMorseCodeInstance(){
-		return new MorseCodeImpl();
-	}
-	public static MorseCodeCryptionImpl getMorseCodeCrytionInstance(){
-		return new MorseCodeCryptionImpl(getMorseCodeInstance());
-	}
-	public static SmallKeyPad getSmallKeyPadInstance(){
-		return new SmallKeyPadImpl();
-	}
-	public static SmallKeyPadCryptionImpl getSmallKeyPadCryptionInstance(){
+
+    public static  MorseCode getMorseCodeInstance(){
+        return new MorseCodeImpl();
+    }
+
+    public static SmallKeyPad getSmallKeyPadInstance(){
+        return new SmallKeyPadImpl();
+    }
+    public static  Mode getModeInstance(){
+        return new Mode(getMorseCodeInstance(),getSmallKeyPadInstance());
+    }
+    public static MorseCodeCryption getMorseCodeCrytionInstance(){
+        return new MorseCodeCryptionImpl(getMorseCodeInstance());
+    }
+	public static SmallKeyPadCryption getSmallKeyPadCryptionInstance(){
 		return new SmallKeyPadCryptionImpl(getSmallKeyPadInstance());
 	}
 	

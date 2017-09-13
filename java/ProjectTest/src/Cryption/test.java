@@ -12,22 +12,22 @@ package Cryption;
 
 public class test {
 	public static void main(String[] args) {
-		MorseCodeCryptionImpl cryption = Factory.getMorseCodeCrytionInstance();
-		//SmallKeyPadCryption smallKeyPadCryption = Factory.getSmallKeyPadCryptionInstance();
+		MorseCodeCryption morseCodeCryption = Factory.getMorseCodeCrytionInstance();
+		SmallKeyPadCryption smallKeyPadCryption = Factory.getSmallKeyPadCryptionInstance();
 		String myname = "car";
 
 		char[] str = myname.toCharArray();
-		String EncryptionStr = cryption.Encryption(str);
+		String EncryptionStr = morseCodeCryption.Encryption(str);
 		System.out.println("一次加密后：" + EncryptionStr);
-		String erci = cryption.Encryption(EncryptionStr.toCharArray());
+		String erci = smallKeyPadCryption.Encryption(EncryptionStr.toCharArray());
 		System.out.println("二次加密后：" + erci);
 
-		String[] yici = erci.split(" ");
-		String yicihou = cryption.Decryption(yici);
-		System.out.println("一次解密后：" + yicihou);
-		String[] plainStr = yicihou.split(" ");
-		String ercihou = cryption.Decryption(plainStr);
-		System.out.println("二次解密后：" + ercihou);
+//		String[] yici = erci.split(" ");
+//		String yicihou = morseCodeCryption.Decryption(yici);
+//		System.out.println("一次解密后：" + yicihou);
+//		String[] plainStr = yicihou.split(" ");
+//		String ercihou = smallKeyPadCryption.Decryption(plainStr);
+//		System.out.println("二次解密后：" + ercihou);
 
 	}
 }

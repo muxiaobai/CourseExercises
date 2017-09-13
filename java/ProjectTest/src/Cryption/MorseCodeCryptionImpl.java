@@ -2,8 +2,12 @@ package Cryption;
 
 import java.util.Map.Entry;
 
-public class MorseCodeCryptionImpl extends Mode implements Decryption,Encryption{
+public class MorseCodeCryptionImpl extends Mode implements MorseCodeCryption{
+    MorseCode morseCode;
     public MorseCodeCryptionImpl() {
+    }
+    public MorseCodeCryptionImpl(MorseCode morseCode) {
+        this.morseCode=morseCode;
     }
     /**
     * 加密
