@@ -27,7 +27,7 @@ public class InsertSort {
    }
    /**
     * 直接插入
-    * insert:(这里用一句话描述这个方法的作用).
+    * insert:(你比我大我就和你换位置，).
     * @author Mu Xiaobai
     * @since JDK 1.6
     */

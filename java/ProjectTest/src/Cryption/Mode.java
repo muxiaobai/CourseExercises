@@ -13,6 +13,8 @@ import java.util.Map;
 public class Mode {
     public MorseCode morseCode;
     public SmallKeyPad smallKeyPad;
+    Map<String, String> maplist = new HashMap<String, String>();
+
     public Mode() {
     }
     public Mode( MorseCode morseCode,SmallKeyPad smallKeyPad) {
@@ -31,7 +33,6 @@ public class Mode {
     public void setSmallKeyPad(SmallKeyPad smallKeyPad) {
         this.smallKeyPad = smallKeyPad;
     }
-    Map<String, String> maplist = new HashMap<String, String>();// 摩尔斯编码表集合  
     public Map<String, String> getMaplist() {
         return maplist;
     }
