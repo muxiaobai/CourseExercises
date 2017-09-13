@@ -2,7 +2,7 @@ package Cryption;
 
 import java.util.Map.Entry;
 
-public class MorseCodeCryptionImpl extends Cryption implements Decryption,Encryption{
+public class MorseCodeCryptionImpl extends Mode implements Decryption,Encryption{
 	MorseCode morseCode;
     public MorseCodeCryptionImpl() {
     }
@@ -18,7 +18,7 @@ public class MorseCodeCryptionImpl extends Cryption implements Decryption,Encryp
     StringBuffer cipherStr=new StringBuffer();
     for(int i=0; i<str.length; i++){  
     	char tmp = str[i];  
-        /*  字母      */  
+        /*  字母      */ 
         if(morseCode.containsKey(tmp))  
             cipherStr.append(morseCode.getValue(tmp)).append(" "); // 追加空格  
     }  
