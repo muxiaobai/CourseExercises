@@ -9,13 +9,13 @@ package Cryption;
 
 public class Factory{
 	public static  MorseCode getMorseCodeInstance(){
-		return new MorseCodeModeImpl();
+		return new MorseCodeImpl();
 	}
 	public static MorseCodeCryptionImpl getMorseCodeCrytionInstance(){
 		return new MorseCodeCryptionImpl(getMorseCodeInstance());
 	}
 	public static SmallKeyPad getSmallKeyPadInstance(){
-		return new SmallKeyPadModeImpl();
+		return new SmallKeyPadImpl();
 	}
 	public static SmallKeyPadCryptionImpl getSmallKeyPadCryptionInstance(){
 		return new SmallKeyPadCryptionImpl(getSmallKeyPadInstance());

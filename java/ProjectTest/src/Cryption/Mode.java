@@ -1,5 +1,8 @@
 package Cryption;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /** 
  * 
  * @author zhang
@@ -28,4 +31,17 @@ public class Mode {
     public void setSmallKeyPad(SmallKeyPad smallKeyPad) {
         this.smallKeyPad = smallKeyPad;
     }
+    Map<String, String> maplist = new HashMap<String, String>();// 摩尔斯编码表集合  
+    public Map<String, String> getMaplist() {
+        return maplist;
+    }
+     public  String getValue(Character character){
+         return maplist.get(character);
+     }
+     public  Boolean containsKey(char str){
+         return maplist.containsKey(str);
+     }
+     public  Boolean containsValue(String str){
+         return maplist.containsValue(str);
+     }
 }

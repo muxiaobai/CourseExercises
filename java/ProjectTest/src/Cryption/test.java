@@ -1,7 +1,5 @@
 package Cryption;
 
-import java.util.Map.Entry;
-
 /**
  * 
  * @author zhang

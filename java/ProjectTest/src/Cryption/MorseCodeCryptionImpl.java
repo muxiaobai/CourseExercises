@@ -3,12 +3,7 @@ package Cryption;
 import java.util.Map.Entry;
 
 public class MorseCodeCryptionImpl extends Mode implements Decryption,Encryption{
-	MorseCode morseCode;
     public MorseCodeCryptionImpl() {
-    }
-   
-    public MorseCodeCryptionImpl(MorseCode morseCode) {
-        this.morseCode=morseCode;
     }
     /**
     * 加密
@@ -35,15 +30,14 @@ public class MorseCodeCryptionImpl extends Mode implements Decryption,Encryption
         /*  字母      */
         if(morseCode.containsValue(tmp)){  
             Boolean flag=true;
-        	for (Entry<Character, String> s :morseCode.maplist.entrySet()) {  
+        	for (Entry<String, String> s :morseCode.getMaplist().entrySet()) {  
             	if(tmp.equals(s.getValue())&&flag){  
                     plainStr.append(s.getKey().toString().toLowerCase());  
                     flag=false;
                     //break;
-                }  
-            }  
-        } 
-        
+                }
+            }
+        }
     }  
     return plainStr.toString();
     }

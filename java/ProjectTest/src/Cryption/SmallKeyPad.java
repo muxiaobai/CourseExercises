@@ -8,6 +8,9 @@
 */
 
 package Cryption;
+
+import java.util.Map;
+
 /**
  * ClassName:SmallKeyPad <br/>
  * Function: TODO ADD FUNCTION. <br/>
@@ -19,7 +22,10 @@ package Cryption;
  * @see 	 
  */
 public interface SmallKeyPad {
-
+    public Map<String, String> getMaplist();
+    public  String getValue(Character character);
+    public  Boolean containsKey(char str);
+    public  Boolean containsValue(String str);
   
 }
 

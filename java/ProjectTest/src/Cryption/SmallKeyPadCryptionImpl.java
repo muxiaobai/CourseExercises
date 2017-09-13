@@ -42,7 +42,7 @@ public class SmallKeyPadCryptionImpl extends Cryption implements Decryption,Encr
             /*  字母      */
             if(smallKeyPad.containsValue(tmp)){  
                 Boolean flag=true;
-            	for (Entry<Integer, Character> s :smallKeyPad.maplist.entrySet()) {  
+            	for (Entry<String, String> s :smallKeyPad.getMaplist().entrySet()) {  
                 	if(tmp.equals(s.getValue())&&flag){  
                         plainStr.append(s.getKey().toString().toLowerCase());  
                         flag=false;
@@ -50,7 +50,6 @@ public class SmallKeyPadCryptionImpl extends Cryption implements Decryption,Encr
                     }  
                 }  
             } 
-            
         }  
         return plainStr.toString();
     }  
