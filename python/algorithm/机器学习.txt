@@ -20,6 +20,7 @@
 2聚类 标记
 3生成模型（陪审团） 判别模型（大法官）
 
+[数据挖掘18大算法实现以及其他相关经典DM算法](https://github.com/muxiaobai/DataMiningAlgorithm)
 算法：ICDM
 分类 C4.5（决策树）随机森林
 聚类 K-Means（电信用户分类）
