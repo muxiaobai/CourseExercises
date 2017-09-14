@@ -36,13 +36,13 @@ public class Mode {
     public Map<String, String> getMaplist() {
         return maplist;
     }
-     public  String getValue(Character character){
-         return maplist.get(character);
+     public  String getValue(String value){
+         return maplist.get(value);
      }
-     public  Boolean containsKey(char str){
-         return maplist.containsKey(str);
+     public  Boolean containsKey(String key){
+         return maplist.containsKey(key);
      }
-     public  Boolean containsValue(String str){
-         return maplist.containsValue(str);
+     public  Boolean containsValue(String value){
+         return maplist.containsValue(value);
      }
 }

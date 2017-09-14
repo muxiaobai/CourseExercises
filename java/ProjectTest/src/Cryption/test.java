@@ -15,11 +15,11 @@ public class test {
 		MorseCodeCryption morseCodeCryption = Factory.getMorseCodeCrytionInstance();
 		SmallKeyPadCryption smallKeyPadCryption = Factory.getSmallKeyPadCryptionInstance();
 		String myname = "car";
-
+		String[] strings =getStrings(myname);
 		char[] str = myname.toCharArray();
-		String EncryptionStr = morseCodeCryption.Encryption(str);
+		String EncryptionStr = smallKeyPadCryption.Encryption(strings);
 		System.out.println("一次加密后：" + EncryptionStr);
-		String erci = smallKeyPadCryption.Encryption(EncryptionStr.toCharArray());
+		String erci = morseCodeCryption.Encryption(getStrings(EncryptionStr));
 		System.out.println("二次加密后：" + erci);
 
 //		String[] yici = erci.split(" ");
@@ -30,4 +30,12 @@ public class test {
 //		System.out.println("二次解密后：" + ercihou);
 
 	}
+	public static String[] getStrings(String str){
+        char[] characters = str.toCharArray();
+        String[] strings = new String[str.length()];
+        for (int i = 0; i < characters.length; i++) {
+            strings[i] =String.valueOf(characters[i]);
+        }
+        return strings;
+    }
 }

@@ -87,5 +87,7 @@ public class MorseCodeImpl extends Mode implements MorseCode{
          maplist.put("(", "10110");  // (前括号  
          maplist.put(")", "101101"); // )后括号  
          maplist.put(" ", "★");      // 留空格，这里的星号是自定义的  
-	    }  
+	    }
+
+  
 }

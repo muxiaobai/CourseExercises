@@ -13,13 +13,13 @@ public class MorseCodeCryptionImpl extends Mode implements MorseCodeCryption{
     * 加密
     * @param str
     */
-    public String Encryption(char[] str){  
+    public String Encryption(String[] str){  
     StringBuffer cipherStr=new StringBuffer();
     for(int i=0; i<str.length; i++){  
-    	char tmp = str[i];  
+    	String tmp = str[i];  
         /*  字母      */ 
-        if(morseCode.containsKey(tmp))  
-            cipherStr.append(morseCode.getValue(tmp)).append(" "); // 追加空格  
+        if(morseCode.containsKey(String.valueOf(tmp)))  
+            cipherStr.append(morseCode.getValue(String.valueOf(tmp))).append(" "); // 追加空格  
     }  
     return cipherStr.toString(); 
     }  

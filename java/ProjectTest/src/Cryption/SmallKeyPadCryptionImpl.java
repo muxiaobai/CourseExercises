@@ -22,12 +22,12 @@ public class SmallKeyPadCryptionImpl extends Mode implements SmallKeyPadCryption
     * @param str
     */
     
-    public String Encryption(char[] str){  
+    public String Encryption(String[] str){  
     StringBuffer cipherStr=new StringBuffer();
     for(int i=0; i<str.length; i++){  
-    	char tmp = str[i];  
-        if(smallKeyPad.containsKey(tmp))  
-            cipherStr.append(smallKeyPad.getValue(tmp)).append(" "); // 追加空格  
+    	String tmp = str[i];  
+        if(smallKeyPad.containsKey(String.valueOf(tmp)))  
+            cipherStr.append(smallKeyPad.getValue(String.valueOf(tmp))).append(" "); // 追加空格  
     }  
     return cipherStr.toString(); 
     }  

@@ -23,8 +23,8 @@ import java.util.Map;
  */
 public interface MorseCode {
      public Map<String, String> getMaplist();
-     public  String getValue(Character character);
-     public  Boolean containsKey(char str);
-     public  Boolean containsValue(String str);
+     public  String getValue(String value);
+     public  Boolean containsKey(String key);
+     public  Boolean containsValue(String value);
 }
 
