@@ -8,8 +8,6 @@
 	<classpathentry kind="lib" path="lib/fastjson-1.2.13.jar"/>
 	<classpathentry kind="lib" path="lib/javamelody-1.26.0.jar"/>
 	<classpathentry kind="lib" path="lib/jira-javamelody-1.26.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi-3.9.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-3.9.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.9.jar"/>
+	<classpathentry kind="lib" path="lib/XMAEvaluation.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -10,7 +10,7 @@
 package org.sun.sort;
 /**
  * ClassName:SelectSort <br/>
- * Function: TODO ADD FUNCTION. <br/>
+ * Function: TODO  选择排序 
  * Reason:	 TODO ADD REASON. <br/>
  * Date:     2017年9月11日 下午5:19:32 <br/>
  * @author   Mu Xiaobai
