@@ -14,7 +14,7 @@ package org.sun.sort;
  * Reason:	 TODO ADD REASON. <br/>
  * Date:     2017年9月11日 上午10:58:58 <br/>
  * @author   Mu Xiaobai
- * @version  
+ * @version   直接插入  二分插入 shell
  * @since    JDK 1.8
  * @see 	 
  */

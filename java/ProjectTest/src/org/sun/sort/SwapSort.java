@@ -14,7 +14,7 @@ package org.sun.sort;
  * Reason:	 TODO ADD REASON. <br/>
  * Date:     2017年9月11日 下午5:00:14 <br/>
  * @author   Lenovo
- * @version  
+ * @version   冒泡  快速排序
  * @since    JDK 1.8
  * @see 	 
  */

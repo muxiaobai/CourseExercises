@@ -10,11 +10,11 @@
 package org.sun.sort;
 /**
  * ClassName:SelectSort <br/>
- * Function: TODO  选择排序 
+ * Function: TODO  选择排序  堆
  * Reason:	 TODO ADD REASON. <br/>
  * Date:     2017年9月11日 下午5:19:32 <br/>
  * @author   Mu Xiaobai
- * @version  
+ * @version  简单选择 堆
  * @since    JDK 1.8
  * @see 	 
  */
@@ -25,7 +25,7 @@ public class SelectSort {
     }
     /**
      * 
-     * SimpleSelectSort:(简单选择排序).
+     * SimpleSelectSort:(简单选择排序). 找到最小的，我和你换位
      * 搞得不好的话要交换n次 好的话一次都不用交换
      * @author Mu Xiaobai
      * @since JDK 1.8
