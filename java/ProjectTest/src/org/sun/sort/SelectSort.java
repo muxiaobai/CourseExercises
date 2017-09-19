@@ -20,8 +20,8 @@ package org.sun.sort;
  */
 public class SelectSort {
     public static void main(String[] args) {
-        SimpleSelectSort();
-//        HeapSort();
+//        SimpleSelectSort();
+        HeapSort();
     }
     /**
      * 

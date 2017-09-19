@@ -169,7 +169,7 @@ public class otherSort {
         int[] tmp = new int[a.length]; 
         // buckets用于记录待排序元素的信息 
         // buckets数组定义了max-min个桶 
-        int[] buckets = new int[max - min]; 
+        int[] buckets = new int[max - min]; //构建了这么多的桶
         // 计算每个元素在序列出现的次数 
         for (int i = 0; i < a.length; i++) { 
             buckets[a[i] - min]++; 
@@ -183,12 +183,16 @@ public class otherSort {
         // 根据buckets数组中的信息将待排序列的各元素放入相应位置 
         for (int k = a.length - 1; k >= 0; k--) { 
             a[--buckets[tmp[k] - min]] = tmp[k]; 
-        } 
+            System.out.println();
+            for (int ixy = 0; ixy < a.length; ixy++) {
+                System.out.print(a[ixy]+" ");
+            }
+        }
         System.out.println();
         System.out.println("排序之后：");
         for (int i = 0; i < a.length; i++) {
             System.out.print(a[i]+" ");
-        }
+        }   
     }
     private static void countSort() {
         
