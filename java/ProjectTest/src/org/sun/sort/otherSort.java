@@ -27,8 +27,8 @@ public class otherSort {
 //        mergeSort();
         //非比较
 //        radixSort();//基数
-        bucketSort();//桶
-//        countSort();//计数
+//        bucketSort();//桶
+        countSort();//计数
     }
     /**
      * 
@@ -151,7 +151,7 @@ public class otherSort {
         }
     }
     /**
-     * 
+     * 适用于大数据排序
      * bucketSort:(桶排序).
      * @author Mu Xiaobai
      * @since JDK 1.8
@@ -162,6 +162,7 @@ public class otherSort {
         for (int ix = 0; ix < a.length; ix++) {
             System.out.print(a[ix]+" ");
         }
+        //排序的范围
         int min =0;
         int max =100;
         
@@ -195,7 +196,33 @@ public class otherSort {
         }   
     }
     private static void countSort() {
+        int[] a={49,38,65,97,76,13,27,49,78,34,12,64,1};
+        System.out.println("排序之前：");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]+" ");
+        }
+        int count[] = new int[100];
+        for (int i = 0; i < a.length; i++) {
+            count[a[i]]++;
+        }
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i-1];
+        }
+        int sortArr[] = new int[a.length];
+        for (int i = 0; i < sortArr.length; i++) {
+            count[a[i]]--;
+            sortArr[count[a[i]]] = a[i];
+        }
         
+        //和bucket一样啊
+        System.out.println();
+        System.out.println("排序之后：");
+        for (int i = 0; i < sortArr.length; i++) {
+            System.out.print(sortArr[i]+" ");
+        }
+          
+         
+       
     }
 }
 
