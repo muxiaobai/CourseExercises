@@ -26,8 +26,8 @@ public class otherSort {
     public static void main(String[] args) {
 //        mergeSort();
         //非比较
-        radixSort();//基数
-//        bucketSort();//桶
+//        radixSort();//基数
+        bucketSort();//桶
 //        countSort();//计数
     }
     /**
@@ -157,6 +157,40 @@ public class otherSort {
      * @since JDK 1.8
      */
     private static void bucketSort() {
+        int[] a={49,38,65,97,76,13,27,49,78,34,12,64,1};
+        System.out.println("排序之前：");
+        for (int ix = 0; ix < a.length; ix++) {
+            System.out.print(a[ix]+" ");
+        }
+        int min =0;
+        int max =100;
+        
+        // 缓存数组 
+        int[] tmp = new int[a.length]; 
+        // buckets用于记录待排序元素的信息 
+        // buckets数组定义了max-min个桶 
+        int[] buckets = new int[max - min]; 
+        // 计算每个元素在序列出现的次数 
+        for (int i = 0; i < a.length; i++) { 
+            buckets[a[i] - min]++; 
+        } 
+        // 计算“落入”各桶内的元素在有序序列中的位置 
+        for (int i = 1; i < max - min; i++) { 
+            buckets[i] = buckets[i] + buckets[i - 1]; 
+        } 
+        // 将data中的元素完全复制到tmp数组中 
+        System.arraycopy(a, 0, tmp, 0, a.length); 
+        // 根据buckets数组中的信息将待排序列的各元素放入相应位置 
+        for (int k = a.length - 1; k >= 0; k--) { 
+            a[--buckets[tmp[k] - min]] = tmp[k]; 
+        } 
+        System.out.println();
+        System.out.println("排序之后：");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]+" ");
+        }
+    }
+    private static void countSort() {
         
     }
 }
