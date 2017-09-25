@@ -62,18 +62,6 @@ function clickHander(e){
     })
     
     
-    
-//去处重复数据
-function unique(arr) {
-    var result = [], hash = {};
-    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-        if (!hash[elem]) {
-            result.push(elem);
-            hash[elem] = true;
-        }
-    }
-    return result;
-}
 
 $("#demo").on("click","span",function(e){console.log(this);debugger;});
 //$.makeArray()
