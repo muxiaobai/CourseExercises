@@ -199,9 +199,9 @@ public class ID3Tool {
 			childEntropySum += ratio
 					* computeEntropy(remainData, value, attrTypes.get(i), false);
 
-			// System.out.println("ratio:value: " + ratio + " " +
-			// computeEntropy(remainData, value,
-			// attrTypes.get(i), false));
+			 System.out.println("ratio:value: " + ratio + " " +
+			 computeEntropy(remainData, value,
+			 attrTypes.get(i), false));
 		}
 
 		// 二者熵相减就是信息增益

@@ -202,7 +202,7 @@ public class NaiveBayesTool {
 
 		pYes = xWhenYes * computeConditionProbably(null, YES);
 		pNo = xWhenNo * computeConditionProbably(null, NO);
-		
+		System.out.println("pYes:"+pYes+",pNo:"+pNo);
 		return (pYes > pNo ? YES : NO);
 	}
 
