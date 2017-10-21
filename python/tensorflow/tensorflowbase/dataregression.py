@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*- 
-
+# liner regression 线性回归
 import tensorflow as tf
 import numpy as np
 

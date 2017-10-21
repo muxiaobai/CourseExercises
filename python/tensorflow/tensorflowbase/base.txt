@@ -1,0 +1,8 @@
+
+
+第一天
+
+Linear Regression
+Logistic Regression (Binary classification)
+Softmax Classification
+Neural Networks 

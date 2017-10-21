@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*- 
-
+#logisticClassification 分类  Logistic Regression (Binary classification)
 import tensorflow as tf
 import numpy as np
 
