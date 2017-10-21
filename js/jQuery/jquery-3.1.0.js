@@ -3327,7 +3327,7 @@ jQuery.each( {
 } );
 
 
-var rnotwhite = ( /\S+/g );
+var rnotwhite = ( /\S+/g );//空格作为match正则条件
 
 
 
@@ -3350,13 +3350,13 @@ function createOptions( options ) {
  * "fired" multiple times.
  * //默认为false，当有参数的时候为true
  * Possible options:
- *	//重复调用fire(),只执行一次
+ *	//重复调用fire(),只执行一次 option.once =true
  *	once:			will ensure the callback list can only be fired once (like a Deferred)
- *	//add后继续执行fire()
+ *	//add后继续执行fire() option.menory =true 针对add再一次调用fire
  *	memory:			will keep track of previous values and will call any callback added
  *					after the list has been fired right away with the latest "memorized"
  *					values (like a Deferred)
- *	//唯一的
+ *	//唯一的 函数名不能重复 针对add添加的时候
  *	unique:			will ensure a callback can only be added once (no duplicate in the list)
  *	//遇到返回false就停止
  *	stopOnFalse:	interrupt callings when a callback returns false
@@ -3372,10 +3372,8 @@ function createOptions( options ) {
  //###########################################################
 //jQuery.Callbacks看、函数回调3347-3542
 //观察者模式
-//fired memory fired locked list queue firingIndex
-//fire()
-//self 
-//add() remove() has() empty() disable() disabled() lock() locked() fire() fireWith() fired()
+//firing memory fired locked list queue firingIndex  fire()
+//self = add() remove() has() empty() disable() disabled() lock() locked() fire() fireWith() fired()
 jQuery.Callbacks = function( options ) {
 
 	// Convert options from String-formatted to Object-formatted if needed
@@ -3409,7 +3407,7 @@ jQuery.Callbacks = function( options ) {
 		fire = function() {
 			//只能fire()一次
 			// Enforce single-firing
-			locked = options.once;
+			locked = options.once; //
 			//循环queue执行过一次后fired=true
 			// Execute callbacks for all pending executions,
 			// respecting firingIndex overrides and runtime changes
@@ -3417,7 +3415,7 @@ jQuery.Callbacks = function( options ) {
 			for ( ; queue.length; firingIndex = -1 ) {
 				memory = queue.shift();
 				while ( ++firingIndex < list.length ) {
-					//调用
+					//调用 
 					// Run callback and check for early termination
 					if ( list[ firingIndex ].apply( memory[ 0 ], memory[ 1 ] ) === false &&
 						options.stopOnFalse ) {
@@ -3467,24 +3465,24 @@ jQuery.Callbacks = function( options ) {
 					( function add( args ) {
 						jQuery.each( args, function( _, arg ) {
 							if ( jQuery.isFunction( arg ) ) {
-								if ( !options.unique || !self.has( arg ) ) {
+								if ( !options.unique || !self.has( arg ) ) {//很奇妙去重
 									list.push( arg );
 								}
 							} else if ( arg && arg.length && jQuery.type( arg ) !== "string" ) {
 
 								// Inspect recursively
-								add( arg );
+								add( arg );//递归(aaa,bbb,[aaa,bbb],[aaa,bbb])
 							}
 						} );
 					} )( arguments );
 
-					if ( memory && !firing ) {
+					if ( memory && !firing ) {//momory 如果有记忆，则再一次执行fire()
 						fire();
 					}
 				}
 				return this;
 			},
-			//删除回调
+			//删除回调 split对指定位置的删除
 			// Remove a callback from the list
 			remove: function() {
 				jQuery.each( arguments, function( _, arg ) {
@@ -3573,11 +3571,6 @@ jQuery.Callbacks = function( options ) {
 	return self;
 };
 
-//###############################################################################
-//###############################################################################
-//###############################################################################
-//###############################################################################
-
 
 function Identity( v ) {
 	return v;
@@ -3585,6 +3578,8 @@ function Identity( v ) {
 function Thrower( ex ) {
 	throw ex;
 }
+//###############################################################################
+//###############################################################################
 
 function adoptValue( value, resolve, reject ) {
 	var method;
@@ -3617,21 +3612,16 @@ function adoptValue( value, resolve, reject ) {
 		reject.call( undefined, value );
 	}
 }
-//###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
-//###########################################################
+//###############################################################################
+//###############################################################################
 //Deferred延时对象统一的异步管理3617-3983
-//promise state() always() catch() pipe() then() promise()
+//promise =  state() always() catch() pipe() then() promise()
 //jQuery.each为两个对象添加方法
 // promise progress()  done()  fail()
 //deferred notify() resolve() reject() 修改状态
 //deferred notifyWith() resolveWith() rejectWith()修改状态
 
-//when 多个延时对象
-
+//给jQuery添加Deferred和when两个方法 when就是一个jQuery.Deferred(); 多个延时对象
 jQuery.extend( {
 
 	Deferred: function( func ) {
@@ -3646,13 +3636,13 @@ jQuery.extend( {
 				[ "reject", "fail", jQuery.Callbacks( "once memory" ),
 					jQuery.Callbacks( "once memory" ), 1, "rejected" ]
 			],
-			state = "pending",
+			state = "pending",//等待状态
 			promise = {
-				state: function() {
+				state: function() {//
 					return state;
 				},
 				always: function() {
-					deferred.done( arguments ).fail( arguments );
+					deferred.done( arguments ).fail( arguments );//成功和失败都触发
 					return this;
 				},
 				"catch": function( fn ) {
@@ -3853,26 +3843,26 @@ jQuery.extend( {
 							)
 						);
 					} ).promise();
-				},
-				//为这个对象添加promise
+				},//----promise.then() 返回一个 新的jQuery.Deferred().promise();
+				//为这个对象添加promise 或者返回当前定义的promise
 				// Get a promise for this deferred
 				// If obj is provided, the promise aspect is added to the object
 				promise: function( obj ) {
 					return obj != null ? jQuery.extend( obj, promise ) : promise;
 				}
-			},
-			deferred = {};
-		//映射关系
-//[ "notify","progress",jQuery.Callbacks( "memory" ),     jQuery.Callbacks( "memory" ),      2             ],
-//[ "resolve",  "done", jQuery.Callbacks( "once memory" ),jQuery.Callbacks( "once memory" ), 0, "resolved" ],
-//[ "reject",   "fail", jQuery.Callbacks( "once memory" ),jQuery.Callbacks( "once memory" ), 1, "rejected" ]
-		// Add list-specific methods
+			},//------promise对象定义结束
+			deferred = {};//最终返回的对象 默认state ="pending"
+//映射关系
+//[ "notify",   "progress",jQuery.Callbacks( "memory" ),     jQuery.Callbacks( "memory" ),      2             ],
+//[ "resolve",  "done",    jQuery.Callbacks( "once memory" ),jQuery.Callbacks( "once memory" ), 0, "resolved" ],
+//[ "reject",   "fail",    jQuery.Callbacks( "once memory" ),jQuery.Callbacks( "once memory" ), 1, "rejected" ]
+		// Add list-specific methods 给deferred增加方法，
 		jQuery.each( tuples, function( i, tuple ) {
-			var list = tuple[ 2 ],
-				stateString = tuple[ 5 ];
+			var list = tuple[ 2 ],//回调Callbacks的 ,可返回的是一个self = {}
+				stateString = tuple[ 5 ];//状态
 
-			// promise[progress | done | fail ] = list.add
-			promise[ tuple[ 1 ] ] = list.add;
+			// promise[progress | done | fail ] = list.add 添加订阅
+			promise[ tuple[ 1 ] ] = list.add;//promise中有订阅注册方法,但是没有发布,触发方法
 
 			// Handle state
 			if ( stateString ) {
@@ -3896,19 +3886,19 @@ jQuery.extend( {
 			// progress_handlers.fire
 			// fulfilled_handlers.fire
 			// rejected_handlers.fire
-			list.add( tuple[ 3 ].fire );
-
+			list.add( tuple[ 3 ].fire );//直接fire
+			//deferred有发布方法，直接调用+With方法 fire 
 			// deferred.[notify | resolve | reject ] = function() { deferred.rejectWith(...) }
 			deferred[ tuple[ 0 ] ] = function() {
 				deferred[ tuple[ 0 ] + "With" ]( this === deferred ? undefined : this, arguments );
 				return this;
 			};
 
-			// deferred[ notifyWith |  resolveWith | rejectWith]= list.fireWith
-			deferred[ tuple[ 0 ] + "With" ] = list.fireWith;
+			// deferred[ notifyWith |  resolveWith | rejectWith]= list.fireWith notify 可以重复执行
+			deferred[ tuple[ 0 ] + "With" ] = list.fireWith;//当前类型的fireWith,是Callbacks对象中的触发
 		} );
 
-		// Make the deferred a promise
+		// Make the deferred a promise 给deferred中加入一个promise
 		promise.promise( deferred );
 		//调用延时对象的方法参数
 		// Call given func if any
@@ -3920,7 +3910,7 @@ jQuery.extend( {
 		return deferred;
 	},
 
-	// Deferred helper
+	// Deferred helper $.when()返回的是Deferred.promise();
 	when: function( singleValue ) {
 		var
 			//未完成的计数器subordinates(下属，下级)

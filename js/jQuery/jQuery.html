@@ -5,7 +5,6 @@
 <meta name=viewport content="width=device-width, initial-scale=1">
 <head>
 	<title></title>
-	<script type="text/javascript" src="jquery-3.1.0.js"></script>
 </head>
 <style type="text/css">
 	#div{ width:100px; height: 100px;background: blue;position: absolute; }
@@ -15,16 +14,16 @@
 <input type="text" name="one" value="hello" />
 <div id="div"></div>
 <a id="al" href="as.com">zxcczx</a>
-
+<script type="text/javascript" src="jquery-3.1.0.js"></script>
 <script type="text/javascript">
 
 //##########################################################
-console.log(jQuery);
+/*console.log(jQuery);
 console.log($.fn);	
 console.log($("input").val());
 $("input:text").val("assa");
 console.log($("input").val());
-
+*/
 //######################################class
 // $(function(){
 // 	console.log(1|| 2 && 3);
@@ -98,73 +97,89 @@ console.log($("input").val());
 // 		$("body").append('<div>'+attr+':'+$.support[attr]+'</div>');
 // 	}
 // });
+//###################################### 默认done fail
+/*
+var dfd=$.Deferred();
+//setInterval
+setTimeout(function(){
+ console.log("setInterval");
+ //dfd.notify();
+ console.log(dfd.state());
+ dfd.resolve();
+ //dfd.reject();
+    
+},1000);
+dfd.done(function(){console.log("done");});
+dfd.fail(function(){console.log("fail");});
+dfd.progress(function(){console.log("progress");});
+console.log(dfd);
+console.log(dfd.state());
+console.log(dfd);
+*/
 //#################################################$.when
-// function aaa(){
-// 	var dfd=$.Deferred();
-// 	console.log("aaa");
-// 	dfd.resolve();
-// 	return dfd;
-// }
-// function bbb(){
-// 	var dfd=$.Deferred();
-// 	console.log("bbb");
-// 	dfd.resolve();
-// 	return dfd;
-// }
-// $.when(aaa(),bbb()).done(function(){console.log("done");}).fail(function(){console.log("fail");});
-//######################################
-// var dfd=$.Deferred();
-// setInterval(function(){
-// 	console.log("setInterval");
-// 	//dfd.notify();
-// 	console.log(dfd.state());
-// 	dfd.resolve();
-// 	//dfd.reject();
-	
-// },1000);
-// dfd.done(function(){console.log("done");});
-// dfd.fail(function(){console.log("fail");});
-// dfd.progress(function(){console.log("progress");});
-// console.log(dfd);
-// console.log(dfd.state());
-// console.log(dfd);
-//##############################比较Deferred和Callbacks
-// var dfd=$.Deferred();
-// setTimeout(function(){
-// 	console.log("dfdsetTimeout");
-// 	dfd.resolve();
-// },1);
-// dfd.done(function(){
-// 	console.log("Deferred.done()");
-// 	}
-// 	);
-// console.log(dfd);
+//when 返回的是Deferred.promise();
+function aaa(){
+ var dfd=$.Deferred();
+ console.log("aaa");
+ dfd.resolve();
+ return dfd;
+}
+function bbb(){
+ var dfd=$.Deferred();
+ console.log("bbb");
+ dfd.resolve("args");
+ return dfd.promise();
+}
+var pro = bbb();
+$.when(aaa(),pro).done(function(){console.log("done");}).fail(function(){console.log("fail");});
+pro.done(function(){console.log("done");}).fail(function(){console.log("fail");});
+pro.always(function(){console.log("always");});
+pro.then(function(a){console.log("then resolve args:"+a);},function(){console.log("then reject");},function(){console.log("then notify");});
+//then在jQuery 1.8之前，then()只是.done().fail()写法的语法糖，两种写法是等价的。
+//在jQuery 1.8之后，then()返回一个新的deferred对象，而done()返回的是原有的deferred对象。
+//如果then()指定的回调函数有返回值，该返回值会作为参数，传入后面的回调函数
 
-// var abc=$.Callbacks();
-// setTimeout(function(){
-// 	console.log("setTimeout");
-// 	abc.fire();
-// },1000);
-// abc.add(function(){
-// 	console.log("callbacks.add()");
-// 	}
-// 	);
-// console.log(abc);
+
+//##############################比较Deferred和Callbacks
+/*
+var dfd=$.Deferred();
+setTimeout(function(){
+ console.log("dfdsetTimeout");
+ dfd.resolve();
+},1);
+dfd.done(function(){
+ console.log("Deferred.done()");
+ }
+ );
+console.log("Deferred"+dfd);
+
+var abc=$.Callbacks();
+setTimeout(function(){
+ console.log("setTimeout");
+ abc.fire();
+},1000);
+abc.add(function(){
+ console.log("callbacks.add()");
+ }
+ );
+console.log("Callbacks:"+abc);
+
 //##############################比较Deferred和Callbacks
 //Callbacks
-// var abc=$.Callbacks(" memory");
-// function a(n){	console.log("a:"+n);}
-// function b(x){	console.log("b:"+x);}
-// abc.add(a);
-// abc.add(b);
+/*
+var abc=$.Callbacks("memory");
+function a(n){   console.log("a:"+n);}
+function b(x){   console.log("b:"+x);}
+abc.add(a);
+abc.add(b);
 
-// abc.fire();
-// abc.disable();
-// abc.disabled();
-// abc.fire();
-// //console.log(abc.fire());
-// console.log(abc);
-
+abc.fire(3);
+//abc.disable();
+//abc.disabled();
+abc.fire(5);
+//console.log(abc.fire());
+console.log(abc);
+*/
 
 //修改this指向
 // $(function(){

@@ -1,7 +1,29 @@
 
 
+var request=window.indexedDB.open('testindexedDB','1.0');
+request.result.createObjectStore('test');  
+var transaction = request.transaction('testindexedDB', "readwrite");  
+var store = transaction.objectStore('test');  
+store.put({ title: "Quarry Memories", author: "Fred", isbn: 123456 }, 1); 
+  var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);
+        var msg;
+        db.transaction(function (context) {
+           context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');
+           context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');
+           context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
+           context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
+         });
 
-
+        db.transaction(function (context) {
+           context.executeSql('SELECT * FROM testTable', [], function (context, results) {
+            var len = results.rows.length, i;
+            console.log('Got '+len+' rows.');
+               for (i = 0; i < len; i++){
+              console.log('id: '+results.rows.item(i).id);
+              console.log('name: '+results.rows.item(i).name);
+            }
+         });
+        });
 /*
 原生JS
 获取document.getElementById("id")  .getElementsByClassName("classname")  .getElementsByName("name")  .getElementsByTagName("tagname")
@@ -16,17 +38,16 @@ var obj = document.getElementByIdx_x(”testSelect”); //定位id
 var index = obj.selectedIndex; // 选中索引
 var text = obj.options[index].text; // 选中文本
 var value = obj.options[index].value; // 选中值
-
-
 */
 
+/*
 //事件 addEventListener attrachEvent IE的
 var demo = document.getElementById("demo");
 demo.addEventListener("click",clickHander,false);//使用了委托delegate 绑定的是父级元素，点击目标是子级
 function clickHander(e){
-   /// console.log(e);//Event对象
+   // console.log(e);//Event对象
    // console.log(e.target);//点击的目标
-  //  console.log(this);    //绑定事件的this
+   //  console.log(this);    //绑定事件的this
     if(e.target.nodeName.toLowerCase() == "div"){
         var div = document.createElement("div");
         div.innerHTML = e.target.innerHTML;
@@ -64,6 +85,8 @@ function clickHander(e){
     
 
 $("#demo").on("click","span",function(e){console.log(this);debugger;});
+*/
+
 //$.makeArray()
 
 /*
@@ -887,17 +910,19 @@ console.log(typeof  new Number(3));
 console.log(typeof 3);
 console.log( 3 instanceof Number);
 */
+/*
+//位运算
 //默认有符号 32位 最高位代表正负  0为正1为负
-var num=9;//9=2^3+2^0   1001
+var num=9;//9=2^3+2^0   1001  
 var num2=5;//5=2^2+2^0  0101
-console.log(~num);//NOT 取反减1 -10
-console.log(num&num2);//AND  0001 1
+console.log(~num);//NOT 取反减1    -10  
+console.log(num&num2);//AND 0001 1
 console.log(num|num2);//OR  1101  8+4+1=13
 console.log(num^num2);//XOR 只有一个1取1  1100  8+4=12
-console.log(num<<1);//
-console.log(num>>1);//
-console.log(num>>>1);//
-
+console.log(num<<1);// 18  1001 << 10010  2^4+2^1=16+2 =18左移
+console.log(num>>1);// 4   1001  >> 0100   2^2 = 4  右移
+console.log(num>>>1);// 4  1001
+*/
 
 /*var price1=10;
 var price2='10';
