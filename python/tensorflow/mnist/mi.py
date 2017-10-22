@@ -1,8 +1,6 @@
 #!/usr/bin/python  
 import tensorflow as tf  
-import sys  
-from tensorflow.examples.tutorials.mnist import input_data  
-  
+import input_data
 def weight_variable(shape):  
   initial = tf.truncated_normal(shape, stddev=0.1)  
   return tf.Variable(initial)  

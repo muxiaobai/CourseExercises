@@ -12,7 +12,7 @@ W = tf.Variable(tf.random_normal([784 , 10]))
 b = tf.Variable(tf.random_normal([10]))
 hypothesis = tf.nn.softmax(tf.matmul(X,W) + b)
 
-# 成本函数 : 利用交叉熵来描述损失函数
+# 成本函数
 loss = tf.reduce_mean(- tf.reduce_sum(Y * tf.log(hypothesis),1))
 # 优化算法 ---梯度下降算法  gradient descent algorithm
 train = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
