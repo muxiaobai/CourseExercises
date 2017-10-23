@@ -15,7 +15,29 @@ Challenges of DNN
     Overfitting: regularization, dropouts   
 
 第二天
-CNN
+NN tips:
+    Initilizing weights
+        W = tf.get_variable("W1", shape=[784, 256],initializer=tf.contrib.layers.xavier_initializer())
+    Activation functions
+        tf.sigmoid 
+        tf.tanh
+        tf.nn.softmax
+        tf.nn.relu
+    Regularization
+        tf.nn.dropout (keep_prob)
+    Optimizers
+        tf.train.AdadeltaOptimizer
+        tf.train.AdagradOptimizer
+        tf.train.AdagradDAOptimizer
+        tf.train.MomentumOptimizer
+        tf.train.AdamOptimizer
+        tf.train.FtrlOptimizer
+        tf.train.ProximalGradientDescentOptimizer
+        tf.train.ProximalAdagradOptimizer
+        tf.train.RMSPropOptimizer
+        tf.train.GradientDescentOptimizer
+CNN(Convolutional)
+
 
 第三天
 RNN
