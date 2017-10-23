@@ -3,9 +3,11 @@
 # liner regression 线性回归
 import tensorflow as tf
 import numpy as np
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
 
 # 使用numpy生成一个假数据
-
 X = [3,9,14,18]
 Y = [3,6,8,11]
 
@@ -33,4 +35,12 @@ sess.run(init)
 for step in xrange(0,20001):
 	sess.run(train)
 	if step % 20 == 0:
-		print step, sess.run(loss),sess.run(W), sess.run(b)
+		_, W_val, b_val = sess.run([train, W, b])
+		#print step, sess.run(loss),sess.run(W), sess.run(b)
+		print (step,W_val, b_val)
+		
+#draw
+plt.plot(X,Y,"+")
+plt.plot(X,(Y*W_val)+b_val)
+plt.show()
+plt.savefig('./result.png')

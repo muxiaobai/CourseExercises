@@ -23,7 +23,7 @@ hypothesis = tf.sigmoid(tf.matmul(X, W) + b)
 # cost函数 loss
 
 loss = -tf.reduce_mean(Y * tf.log(hypothesis)+(1-Y)* tf.log(1-hypothesis))
-optimizer = tf.train.GradientDescentOptimizer(0.01)
+optimizer = tf.train.GradientDescentOptimizer(0.1)
 train =optimizer.minimize(loss)
 
 # predicted精确度 accuracy 准确度  http://blog.sina.com.cn/s/blog_4e213adc01010l2o.html
@@ -44,7 +44,7 @@ for step in xrange(0,10001):
 		print (step, loss_val)
 
 #测试结果
-h, c, a =sess.run([hypothesis,predicted,accuracy],feed_dict= { X : x_test ,Y:y_test})# X : x_test ,Y:y_test
+h, c, a =sess.run([hypothesis,predicted,accuracy],feed_dict= { X:x_data,Y:y_data})# X : x_test ,Y:y_test
 print ("hypothesis:",h,"predicted :",c,"accuracy :",a)
 #hypothesis计算的结果 predicted精确度 和0.5 比较  accuracy 准确度
 # 如果学习率为0.001 6中5 predicted 是预测结果 accuracy 为5/6  0.833

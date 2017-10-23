@@ -1,8 +1,21 @@
 
 
 第一天
-
 Linear Regression
 Logistic Regression (Binary classification)
 Softmax Classification
-Neural Networks 
+Neural Networks (CNN, DNN)
+
+第1.5天
+XOR with Logistic Regression (Binary classification) 
+Solution: Deep Neural Network
+Challenges of DNN
+    Computing gradients: chain rules and back propagation  
+    Vanishing Gradients: Relu(ReLU)
+    Overfitting: regularization, dropouts   
+
+第二天
+CNN
+
+第三天
+RNN
