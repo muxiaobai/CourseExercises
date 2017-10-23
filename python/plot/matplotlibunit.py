@@ -1,14 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*- 
-#matplotlib.use('Agg')
-
-#plt.bar(left = 0,height = 1)
-#plt.show()
-#plt.savefig('./img.jpg')
-
-
 import numpy as np
 import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 # 通过rcParams设置全局横纵轴字体大小
@@ -31,19 +25,11 @@ plt.figure('data')
 plt.plot(x, y_data, '.')
 
 # 画模型的图，plot函数默认画连线图
-plt.figure('model')
+#plt.figure('model')
 plt.plot(x, y)
 
 # 两个图画一起
-plt.figure('data & model')
-
-# 通过'k'指定线的颜色，lw指定线的宽度
-# 第三个参数除了颜色也可以指定线形，比如'r--'表示红色虚线
-# 更多属性可以参考官网：http://matplotlib.org/api/pyplot_api.html
-plt.plot(x, y, 'k', lw=3)
-
-# scatter可以更容易地生成散点图
-plt.scatter(x, y_data)
+#plt.figure('data & model')
 
 # 一定要加上这句才能让画好的图显示在屏幕上
 plt.show()
