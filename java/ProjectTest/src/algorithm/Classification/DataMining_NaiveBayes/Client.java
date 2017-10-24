@@ -10,8 +10,9 @@ public class Client {
     public static void main(String[] args){
         //训练集数据
         String filePath = "E:\\CourseExercises\\java\\ProjectTest\\src\\algorithm\\Classification\\DataMining_NaiveBayes\\input.txt";
-//        String testData = "Youth Medium Yes Fair";
-        String testData = "Rainy Cool Normal Strong";
+//        String filePath = "E:\\CourseExercises\\java\\ProjectTest\\src\\algorithm\\Classification\\DataMining_NaiveBayes\\input2.txt";
+          String testData = "Sunny Cool High Strong";
+//        String testData = "Rainy Cool Normal Strong";
         NaiveBayesTool tool = new NaiveBayesTool(filePath);
         System.out.println(testData + " 数据的分类为:" + tool.naiveBayesClassificate(testData));
     }
