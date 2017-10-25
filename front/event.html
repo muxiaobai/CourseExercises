@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>base JavaScript</title>
+	<style type="text/css">
+	*{padding: 0px;margin:0px}
+/*div{color: green;font-size:50px}
+//transform变形
+//transition变换
+//animation动画
+*/
+</style>
+</head>
+<body>
+<div id="shadow"></div>
+<div id='p1' style="width: 500px;height: 300px;background: #ccc;float: left;">点击d p1
+    <div id='p2' style="width: 300px;height: 200px;background: #a9ea00">点击c p2
+        <p id="p3" style="width: 200px;height: 100px;background: red" id = "test">点击b p3
+            <a id="p4" style="width: 50px;height: 50px;background: cornflowerblue" id = "test">点击a p4</a>
+        </p>
+    </div>
+</div>
+<div id="demo" value = "demo" style ="float:right">
+	<video id="test" title ="as"></video>
+	<div id="inner">inner</div>
+	<div id="inner2">inner2</div>
+	<a href ="http://baidu.com" target ="_blank">百度</a>
+	<span id="innerspan">innerspan</span>
+</div>
+
+<script src="../js/jQuery/jquery-3.1.0.js"></script>
+<script type="text/javascript">
+//事件 addEventListener attrachEvent IE的
+var demo = document.getElementById("demo");
+demo.addEventListener("click",clickHander,false);//使用了委托delegate 绑定的是父级元素，点击目标是子级
+function clickHander(e){
+   /// console.log(e);//Event对象
+   // console.log(e.target);//点击的目标
+  //  console.log(this);    //绑定事件的this
+    if(e.target.nodeName.toLowerCase() == "div"){
+        var div = document.createElement("div");
+        div.innerHTML = e.target.innerHTML;
+        // debugger;
+       // this.insertBefore(div,this.firstChild);
+        this.insertBefore(div,e.target);
+        
+       // this.appendChild(div);
+    }
+    if(e.target.nodeName.toLowerCase() == "a"){
+        var div = document.createElement("div");
+        div.innerHTML = e.target.innerHTML;
+        this.appendChild(div);
+        e.preventDefault()//阻止默认事件例如a的跳转
+    }
+}
+
+var p1 = $('#p1');
+p1.on('click', function() {
+    alert('p1灰')
+})
+var p2 = $('#p2');
+p2.on('click', 'a,p', function(e) {
+    alert(e.currentTarget.nodeName)
+})
+p2.on('click', function(e) {
+    alert('p2默认事件1')
+})
+
+var p3 = $('#p3');
+p3.on('click', function() {
+    alert('p3红')
+})
+$("#demo").on("click","span",function(e){console.log(this);debugger;});
+</script>
+</body>
+</html>

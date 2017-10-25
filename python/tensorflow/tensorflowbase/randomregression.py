@@ -31,7 +31,7 @@ sess.run(init)
 
 # 拟合平面
 #	
-for step in xrange(0,201):
+for step in xrange(0,2001):
 	sess.run(train)
 	if step % 20 == 0:
 		print step, sess.run(W), sess.run(b)
