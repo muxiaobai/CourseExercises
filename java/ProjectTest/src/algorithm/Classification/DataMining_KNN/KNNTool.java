@@ -181,7 +181,7 @@ public class KNNTool {
 			int maxCount = 0;
 			// 筛选出k个训练集数据中最多的一个分类 
 			for (Map.Entry entry : classCount.entrySet()) {
-				if ((Integer) entry.getValue() > maxCount) {//如果当前的class权重最大，则设置当前的测试数据的分类
+				if ((Integer) entry.getValue() > maxCount) {//如果当前的class个数最多，则设置当前的测试数据的分类
 					maxCount = (Integer) entry.getValue();
 					s.setClassName((String) entry.getKey());//分类结果
 				}
