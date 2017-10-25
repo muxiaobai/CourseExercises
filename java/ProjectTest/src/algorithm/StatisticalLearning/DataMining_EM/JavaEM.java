@@ -18,7 +18,7 @@ package algorithm.StatisticalLearning.DataMining_EM;
  * @since    JDK 1.8
  * @see 	 
  */
-public class JavaEMMining {
+public class JavaEM {
     public static void main(String[] args) {
 //        Point p1 = new Point(7.608, 5.3907);
 //        Point p2 = new Point(14.208, 8.745);
