@@ -6,7 +6,7 @@ package algorithm.Classification.DataMining_KNN;
  * @author lyq
  * 
  */
-public class Sample implements Comparable<Sample>{
+public class Sample implements Comparable<Sample>{//如果要排序，一定要实现Comparable结果，并重写 compareTo方法
     // 样本数据的分类名称
     private String className;
     // 样本数据的特征向量

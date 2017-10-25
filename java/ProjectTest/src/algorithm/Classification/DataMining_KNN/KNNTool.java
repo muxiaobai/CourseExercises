@@ -89,8 +89,8 @@ public class KNNTool {
 	}
 
 	/**
-	 * 计算样本特征向量的欧几里得距离
-	 * 
+	 * 计算样本特征向量的欧几里得距离（欧几里得度量）
+	 * 指在m维空间中两个点之间的真实距离，或者向量的自然长度（即该点到原点的距离）。在二维和三维空间中的欧氏距离就是两点之间的实际距离。
 	 * @param f1
 	 *            待比较样本1
 	 * @param f2
@@ -109,8 +109,10 @@ public class KNNTool {
 
 			distance += (subF1 - subF2) * (subF1 - subF2);
 		}
-
-		return distance;
+//		System.out.println(Math.sqrt(Double.parseDouble(Integer.toString(distance))));
+//		System.out.println(distance);
+		//五维 的两个数据:距离就是 (x1-x2)^2+(y1-y2)^2+(z1-z2)^2+(a1-a2)^2+(b1-b2)^2
+		return distance;//Math.sqrt(Double.parseDouble(Integer.toString(distance)));
 	}
 
 	/**
@@ -154,34 +156,34 @@ public class KNNTool {
 				classWeight.put(type, classWeightArray[index++]);
 			}
 			for (Sample tS : trainSamples) {
-				int dis = computeEuclideanDistance(s, tS);
+				int dis = computeEuclideanDistance(s, tS);//当前的测试数据和所有的训练数据的一个距离，
 				tS.setDistance(dis);
 			}
 
-			Collections.sort(trainSamples);
+			Collections.sort(trainSamples);//排序后
 			kNNSample.clear();
 			// 挑选出前k个数据作为分类标准
 			for (int i = 0; i < trainSamples.size(); i++) {
-				if (i < k) {
+				if (i < k) {//和我最近的k个数据
 					kNNSample.add(trainSamples.get(i));
 				} else {
 					break;
 				}
 			}
-			// 判定K个训练数据的多数的分类标准
+			// 这k个训练数据中，对应每一类的数量相加
 			for (Sample s1 : kNNSample) {
 				int num = classCount.get(s1.getClassName());
 				// 进行分类权重的叠加，默认类别权重平等，可自行改变，近的权重大，远的权重小
-				num += classWeight.get(s1.getClassName());
-				classCount.put(s1.getClassName(), num);
+				num += classWeight.get(s1.getClassName());//每一个class的权重
+				classCount.put(s1.getClassName(), num);//分类class的权重
 			}
 
 			int maxCount = 0;
-			// 筛选出k个训练集数据中最多的一个分类
+			// 筛选出k个训练集数据中最多的一个分类 
 			for (Map.Entry entry : classCount.entrySet()) {
-				if ((Integer) entry.getValue() > maxCount) {
+				if ((Integer) entry.getValue() > maxCount) {//如果当前的class权重最大，则设置当前的测试数据的分类
 					maxCount = (Integer) entry.getValue();
-					s.setClassName((String) entry.getKey());
+					s.setClassName((String) entry.getKey());//分类结果
 				}
 			}
 
