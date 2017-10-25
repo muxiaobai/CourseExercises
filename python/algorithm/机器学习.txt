@@ -1,11 +1,3 @@
-关联规则
-用户细分精准营销（聚类）
-垃圾邮件 （朴树贝叶斯）
-信用卡欺诈（决策树）
-互联网广告（ctr预估）
-推荐系统（协同过滤）
-
-
 
 数据分析（历史回顾）（分析师）
 用户驱动  交互式分析OLAP
@@ -20,17 +12,24 @@
 2聚类 标记
 3生成模型（陪审团） 判别模型（大法官）
 
+关联规则
+用户细分精准营销（聚类）
+垃圾邮件 （朴树贝叶斯）
+信用卡欺诈（决策树）
+互联网广告（ctr预估）
+推荐系统（协同过滤）
+
 [数据挖掘18大算法实现以及其他相关经典DM算法](https://github.com/muxiaobai/DataMiningAlgorithm)
 算法：ICDM评选
-
-聚类 K-Means（电信用户分类）
-统计学习 SVM（重要但不用，面试 ，数学支持）支持向量机
+ 
+聚类 K-Means（电信用户分类） http://www.csdn.net/article/2012-07-03/2807073-k-means
 关联分析 Apriori（升级版--->FP-Growth）
-统计学习 EM（框架）(最大期望算法)
-连接挖掘 PageRank（google）
+统计学习 SVM（重要但不用，面试 ，数学支持）支持向量机
+统计学习 EM（Expectation Maximization框架）(最大期望算法) http://blog.csdn.net/zouxy09/article/details/8537620
+连接挖掘 PageRank（google网页权重）
 集装与推进 Boosting:AdaBoost（人脸识别，决策树）Bagging 随机森林RF(Random Forest)
+分类 kNN (k-近邻算法) k-nearest neighbor classification http://www.cnblogs.com/Leo_wl/p/5602481.html看一个图   http://www.cnblogs.com/sumuncle/p/5611705.html相似度衡量
 分类 C4.5（决策树） http://blog.csdn.net/fanbotao1209/article/details/44776039
-分类 kNN (k-近邻算法) k-nearest neighbor classification
 分类 Naive Bayes(NB)（垃圾邮件）朴素贝叶斯  http://blog.csdn.net/amds123/article/details/70173402
 分类 CART（决策树\分类回归树）
 三个：http://www.cnblogs.com/wxquare/p/5379970.html
@@ -46,11 +45,13 @@ Gradient Boosting---> GBDT(决策树算法改进)(Gradient Boosting Decision Tre
 
 推荐算法(买了又买)
 
-LDA（文本分析，自然语言处理）
+LDA（文本分析，自然语言处理NLP）
 Word2Vector（文本挖掘）
 HMM CRF
 
 协同过滤  主体模型
+
+协同过滤和关联规则 
 
 深度学习
 

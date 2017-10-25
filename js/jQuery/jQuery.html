@@ -118,7 +118,7 @@ console.log(dfd);
 */
 //#################################################$.when
 //when 返回的是Deferred.promise();
-function aaa(){
+/*function aaa(){
  var dfd=$.Deferred();
  console.log("aaa");
  dfd.resolve();
@@ -135,10 +135,11 @@ $.when(aaa(),pro).done(function(){console.log("done");}).fail(function(){console
 pro.done(function(){console.log("done");}).fail(function(){console.log("fail");});
 pro.always(function(){console.log("always");});
 pro.then(function(a){console.log("then resolve args:"+a);},function(){console.log("then reject");},function(){console.log("then notify");});
+
+*/
 //then在jQuery 1.8之前，then()只是.done().fail()写法的语法糖，两种写法是等价的。
 //在jQuery 1.8之后，then()返回一个新的deferred对象，而done()返回的是原有的deferred对象。
 //如果then()指定的回调函数有返回值，该返回值会作为参数，传入后面的回调函数
-
 
 //##############################比较Deferred和Callbacks
 /*
@@ -163,11 +164,11 @@ abc.add(function(){
  }
  );
 console.log("Callbacks:"+abc);
-
+*/
 //##############################比较Deferred和Callbacks
 //Callbacks
-/*
-var abc=$.Callbacks("memory");
+//"memory"
+var abc=$.Callbacks();
 function a(n){   console.log("a:"+n);}
 function b(x){   console.log("b:"+x);}
 abc.add(a);
@@ -179,7 +180,7 @@ abc.fire(3);
 abc.fire(5);
 //console.log(abc.fire());
 console.log(abc);
-*/
+
 
 //修改this指向
 // $(function(){

@@ -36,7 +36,7 @@ NN tips:
         tf.train.ProximalAdagradOptimizer
         tf.train.RMSPropOptimizer
         tf.train.GradientDescentOptimizer
-CNN(Convolutional)
+CNN(Convolutional)cs231n
 
 
 第三天
