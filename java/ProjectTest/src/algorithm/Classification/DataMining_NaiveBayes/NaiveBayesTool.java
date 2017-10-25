@@ -198,6 +198,7 @@ public class NaiveBayesTool {
 			// 因为朴素贝叶斯算法是类条件独立的，所以可以进行累积的计算
 			xWhenYes *= computeConditionProbably(dataFeatures[i], YES);
 			xWhenNo *= computeConditionProbably(dataFeatures[i], NO);
+			System.out.println("dataFeatures[i]:"+dataFeatures[i]+",xWhenYes:"+xWhenYes+",xWhenNo:"+xWhenNo);
 		}
 
 		pYes = xWhenYes * computeConditionProbably(null, YES);

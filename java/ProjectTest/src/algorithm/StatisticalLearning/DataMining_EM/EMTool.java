@@ -113,7 +113,7 @@ public class EMTool {
 		// 当开始计算的时候，或是中心点的误差值超过1的时候都需要再次迭代计算
 		while (lastP1 == null || errorValue1 > 1.0 || errorValue2 > 1.0) {
 			for (Point p : pointArray) {
-				computeMemberShip(p);
+				computeMemberShip(p);//
 				p1X += p.getMemberShip1() * p.getMemberShip1() * p.getX();
 				p1Y += p.getMemberShip1() * p.getMemberShip1() * p.getY();
 				temp1 += p.getMemberShip1() * p.getMemberShip1();
