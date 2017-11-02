@@ -25,7 +25,7 @@
 聚类 K-Means（电信用户分类） http://www.csdn.net/article/2012-07-03/2807073-k-means
 关联分析 Apriori（升级版--->FP-Growth）
 统计学习 SVM（重要但不用，面试 ，数学支持）支持向量机
-统计学习 EM（Expectation Maximization框架）(最大期望算法) http://blog.csdn.net/zouxy09/article/details/8537620
+统计学习 EM（Expectation Maximization）(最大期望算法) http://blog.csdn.net/zouxy09/article/details/8537620
 连接挖掘 PageRank（google网页权重）
 集装与推进 Boosting:AdaBoost（人脸识别，决策树）Bagging 随机森林RF(Random Forest)
 分类 kNN (k-近邻算法) k-nearest neighbor classification http://www.cnblogs.com/Leo_wl/p/5602481.html看一个图   http://www.cnblogs.com/sumuncle/p/5611705.html相似度衡量
@@ -39,8 +39,7 @@ Logistic逻辑回归（搜索结果排序）
 
 Bagging(bootstrap aggregating)--->RF(随机森林CART)  http://www.cnblogs.com/pinard/p/6156009.html
 AdaBoost(adaptiveboosting)--->提升树 http://blog.csdn.net/mousever/article/details/52038198  http://baidutech.blog.51cto.com/4114344/743809/
-Gradient Boosting---> GBDT(决策树算法改进)(Gradient Boosting Decision Tree)
------>XGBoost正则项
+Gradient Boosting -----> GBDT(决策树算法改进)(Gradient Boosting Decision Tree) -----> XGBoost正则项
 三者比较：http://www.cnblogs.com/liuwu265/p/4690486.html
 
 推荐算法(买了又买)
