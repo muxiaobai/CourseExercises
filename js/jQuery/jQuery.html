@@ -165,21 +165,6 @@ abc.add(function(){
  );
 console.log("Callbacks:"+abc);
 */
-//##############################比较Deferred和Callbacks
-//Callbacks
-//"memory"
-var abc=$.Callbacks();
-function a(n){   console.log("a:"+n);}
-function b(x){   console.log("b:"+x);}
-abc.add(a);
-abc.add(b);
-
-abc.fire(3);
-//abc.disable();
-//abc.disabled();
-abc.fire(5);
-//console.log(abc.fire());
-console.log(abc);
 
 
 //修改this指向
