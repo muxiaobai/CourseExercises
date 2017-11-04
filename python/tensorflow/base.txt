@@ -1,5 +1,5 @@
 
-
+https://github.com/hunkim/DeepLearningZeroToAll
 第一天
 Linear Regression
 Logistic Regression (Binary classification)
@@ -23,8 +23,11 @@ NN tips:
         tf.tanh
         tf.nn.softmax
         tf.nn.relu
-    Regularization
-        tf.nn.dropout (keep_prob)
+    Overfitting
+        Regularization
+            
+        Dropout
+            tf.nn.dropout (keep_prob)
     Optimizers
         tf.train.AdadeltaOptimizer
         tf.train.AdagradOptimizer
