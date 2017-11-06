@@ -44,6 +44,7 @@ AdaBoost(adaptiveboosting)--->提升树 http://blog.csdn.net/mousever/article/de
 Gradient Boosting -----> GBDT(决策树算法改进)(Gradient Boosting Decision Tree) -----> XGBoost正则项
 三者比较：http://www.cnblogs.com/liuwu265/p/4690486.html
 
+
 推荐算法(买了又买)
 
 LDA（文本分析，自然语言处理NLP）
