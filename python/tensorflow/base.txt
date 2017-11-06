@@ -1,5 +1,9 @@
+下载地址:https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.0-cp27-none-linux_x86_64.whl
+tensorboard  --logdir=/root/Document/CourseExercises/python/tensorflow
+http://localhost.localdomain:6006/#scalars
 
 
+https://github.com/hunkim/DeepLearningZeroToAll
 第一天
 Linear Regression
 Logistic Regression (Binary classification)
