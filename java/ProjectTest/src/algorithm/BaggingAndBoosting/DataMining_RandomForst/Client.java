@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 
 /**
  * 随机森林算法测试场景
- * bagging + CART
+ * bagging + CART 基尼系数
  * @author lyq
  * 
  */
