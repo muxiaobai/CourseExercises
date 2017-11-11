@@ -1,0 +1,39 @@
+一、深度学习 Deep Learning 基础和基本思想
+1，人工智能概述、计算智能、类脑智能
+2，机器学习概述、记忆学习、归纳学习、统计学习
+3，深度学习的前生今世、发展趋势
+4，人工神经网络、前馈神经网络、BP 算法 、Hessian 矩阵、结构性特征表示
+二、深度学习Deep Learning 基本框架结构
+1，CaffeS 2，Tensorflow 3，Torch 4，MXNet
+三，深度学习Deep Learning-卷积神经网络
+1，CNN 卷积神经网络卷积层（一维卷积、二维卷积）、池化层（均值池化、最大池化）全连接层激活函数层Softmax 层
+2，CNN 卷积神经网络改进R-CNN （SPPNET） Fast-R-CNNFaster-R-CNN （YOLO、SSD）
+3，深度学习的模型训练技巧
+4，梯度下降的优化方法详解
+四，深度学习Deep Learning-循环神经网络
+1， RNN 循环神经网络梯度计算BPTT
+2，RNN 循环神经网络改进LSTMGRUBi-RNNAttention based RNN
+3，RNN 实际应用Seq2Seq 的原理与实现
+五、强化学习
+1，强化学习的理论知识
+2，经典模型 DQN 讲解2， AlphaGo 原理讲解
+3， RL 实际应用；实现一个 AlphaGo
+六，对抗性生成网络
+1， GAN 的理论知识
+2， GAN 经典模型 CGAN，LAPGAN，DCGAN
+3，GAN 经典模型INFOGAN，WGAN，S2-GAN
+4，GAN 实际应用DCGAN 提高模糊图片分辨率
+5，GAN 实际应用InfoGAN 做特定的样本生成
+七、迁移学习
+1，迁移学习的理论概述
+2，迁移学习的常见方法特征、实例、数据、深度迁移、强化迁移、研究案例
+八、CNN 应用案例
+1，CNN 与手写数字集分类
+2，YOLO 实现目标检测
+3，PixelNet 原理与实现
+4，利用卷积神经网络做图像风格结合
+九、深度学习Deep Learning 的常用模型或者方法
+1，AutoEncoder 自动编码器
+2，Sparse Coding 稀疏编码
+3，Restricted Boltzmann Machine(RBM)限制波尔兹曼机
+4，Deep BeliefNetworks 深信度网络5，Convolutional Neural Networks 卷积神经网络

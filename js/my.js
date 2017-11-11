@@ -109,8 +109,6 @@ function getCookie(name){
     }
 }
 //获取参数
-
-
 function GetQueryString(name){
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
      var r = window.location.search.substr(1).match(reg);
@@ -249,6 +247,136 @@ function getLastQuarterEndDate() {
             getMonthDays(quarterEndMonth));
     return formatDate(quarterStartDate);
 }
+
+
+function getSPTime(obj){
+    var alltime ="";
+    var allsecond ="";
+    var day ="";
+    allsecond =new Date() - new Date();
+    day = getWorkDayCount("cn",new Date(),new Date());
+    alltime = timeStamp(allsecond/1000,day);
+    return alltime;
+}
+
+//秒转xx天xx小时xx分钟xx秒
+function timeStamp( second_time,holiday){  
+	var time = parseInt(second_time) + "秒";  
+	if( parseInt(second_time )> 60){  
+	
+	  var second = parseInt(second_time) % 60;  
+	  var min = parseInt(second_time / 60);  
+	  time = min + "分" + second + "秒";  
+	    
+	  if( min > 60 ){  
+	      min = parseInt(second_time / 60) % 60;  
+	      var hour = parseInt( parseInt(second_time / 60) /60 );  
+	      time = hour + "小时" + min + "分" + second + "秒";  
+	
+	      if( hour > 24 ){  
+	          hour = parseInt( parseInt(second_time / 60) /60 ) % 24;  
+	          var day = parseInt( parseInt( parseInt(second_time / 60) /60 ) / 24 );
+	          //这里要排除周末 和节假日
+	          day -= holiday;
+	          time = day + "天" + hour + "小时" + min + "分" + second + "秒";  
+	      }  
+	  }  
+	}  
+    return time;          
+} 
+
+
+// $.get("/system/config/holiday/list.do",{year:2017},function(data){console.log(data);})
+//法定节假日和调休日的设定
+// var Holiday = ["2017-01-01", "2017-01-02", "2017-01-03", "2017-01-22", "2017-01-23", "2017-01-24", "2017-01-25", "2017-01-26", "2017-01-27", "2017-01-28", "2017-04-02", "2017-04-03", "2017-04-04", "2017-04-29", "2017-04-30", "2017-05-01", "2017-06-22", "2017-06-23", "2017-06-24", "2017-09-30", "2017-10-01", "2017-10-02", "2017-10-03", "2017-10-04", "2017-10-05", "2017-10-06", "2017-10-07"];
+var Holiday = ["2017-01-01", "2017-01-02", "2017-01-27", "2017-01-28", "2017-01-29", "2017-01-30", "2017-01-31", "2017-02-01", "2017-02-02", "2017-04-02", "2017-04-03", "2017-04-04", "2017-05-01", "2017-05-28", "2017-05-29", "2017-05-30", "2017-10-01", "2017-10-02", "2017-10-03", "2017-10-04", "2017-10-05", "2017-10-06", "2017-10-07","2017-10-08"];
+
+var WeekendsOff = ["2017-01-22", "2017-01-23",  "2017-04-01", "2017-05-27", "2017-09-30"];
+
+
+function nearlyWeeks (mode, weekcount, end) {
+  /*
+  功能：计算当前时间（或指定时间），向前推算周数(weekcount)，得到结果周的第一天的时期值；
+  参数：
+  mode -推算模式（'cn'表示国人习惯【周一至周日】；'en'表示国际习惯【周日至周一】）
+  weekcount -表示周数（0-表示本周， 1-前一周，2-前两周，以此推算）；
+  end -指定时间的字符串（未指定则取当前时间）；
+  */
+
+  if (mode == undefined) mode = "cn";
+  if (weekcount == undefined) weekcount = 0;
+  if (end != undefined)
+      end = new Date(new Date(end).toDateString());
+  else
+      end = new Date(new Date().toDateString());
+
+  var days = 0;
+  if (mode == "cn")
+      days = (end.getDay() == 0 ? 7 : end.getDay()) - 1;
+  else
+      days = end.getDay();
+
+  return new Date(end.getTime() - (days + weekcount * 7) * 24 * 60 * 60 * 1000);
+};
+
+function getWorkDayCount (mode, beginDay, endDay) {
+  /*
+  功能：计算一段时间内工作的天数。不包括周末和法定节假日，法定调休日为工作日，周末为周六、周日两天；
+  参数：
+  mode -推算模式（'cn'表示国人习惯【周一至周日】；'en'表示国际习惯【周日至周一】）
+  beginDay -时间段开始日期；
+  endDay -时间段结束日期；
+  */
+  var begin = new Date(beginDay.toDateString());
+  var end = new Date(endDay.toDateString());
+
+  //每天的毫秒总数，用于以下换算
+  var daytime = 24 * 60 * 60 * 1000;
+  //两个时间段相隔的总天数
+  var days = (end - begin) / daytime + 1;
+  //时间段起始时间所在周的第一天
+  var beginWeekFirstDay = nearlyWeeks(mode, 0, beginDay.getTime()).getTime();
+  //时间段结束时间所在周的最后天
+  var endWeekOverDay = nearlyWeeks(mode, 0, endDay.getTime()).getTime() + 6 * daytime;
+
+  //由beginWeekFirstDay和endWeekOverDay换算出，周末的天数
+  var weekEndCount = ((endWeekOverDay - beginWeekFirstDay) / daytime + 1) / 7 * 2;
+  //根据参数mode，调整周末天数的值
+  if (mode == "cn") {
+      if (endDay.getDay() > 0 && endDay.getDay() < 6)
+          weekEndCount -= 2;
+      else if (endDay.getDay() == 6)
+          weekEndCount -= 1;
+
+      if (beginDay.getDay() == 0) weekEndCount -= 1;
+  }
+  else {
+      if (endDay.getDay() < 6) weekEndCount -= 1;
+
+      if (beginDay.getDay() > 0) weekEndCount -= 1;
+  }
+  
+  //根据调休设置，调整周末天数（排除调休日）
+  $.each(WeekendsOff, function (i, offitem) {
+      var itemDay = new Date(offitem.split('-')[0] + "/" + offitem.split('-')[1] + "/" + offitem.split('-')[2]);
+      //如果调休日在时间段区间内，且为周末时间（周六或周日），周末天数值-1
+      if (itemDay.getTime() >= begin.getTime() && itemDay.getTime() <= end.getTime() && (itemDay.getDay() == 0 || itemDay.getDay() == 6))
+          weekEndCount -= 1;
+  });
+  //根据法定假日设置，计算时间段内周末的天数（包含法定假日）
+  $.each(Holiday, function (i, itemHoliday) {
+      var itemDay = new Date(itemHoliday.split('-')[0] + "/" + itemHoliday.split('-')[1] + "/" + itemHoliday.split('-')[2]);
+      //如果法定假日在时间段区间内，且为工作日时间（周一至周五），周末天数值+1
+      if (itemDay.getTime() >= begin.getTime() && itemDay.getTime() <= end.getTime() && itemDay.getDay() > 0 && itemDay.getDay() < 6)
+          weekEndCount += 1;
+  });
+  //工作日 = 总天数 - 周末天数（包含法定假日并排除调休日）
+  return weekEndCount;
+};
+
+
+
+
 
 
 

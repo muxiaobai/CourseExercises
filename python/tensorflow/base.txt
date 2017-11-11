@@ -1,0 +1,49 @@
+下载地址:https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.0-cp27-none-linux_x86_64.whl
+tensorboard  --logdir=/root/Document/CourseExercises/python/tensorflow
+http://localhost.localdomain:6006/#scalars
+
+https://github.com/hunkim/DeepLearningZeroToAll
+第一天
+Linear Regression
+Logistic Regression (Binary classification)
+Softmax Classification
+Neural Networks (CNN, DNN)
+
+第1.5天
+XOR with Logistic Regression (Binary classification) 
+Solution: Deep Neural Network
+Challenges of DNN
+    Computing gradients: chain rules and back propagation  
+    Vanishing Gradients: Relu(ReLU)
+    Overfitting: regularization, dropouts   
+
+第二天
+NN tips:
+    Initilizing weights
+        W = tf.get_variable("W1", shape=[784, 256],initializer=tf.contrib.layers.xavier_initializer())
+    Activation functions
+        tf.sigmoid 
+        tf.tanh
+        tf.nn.softmax
+        tf.nn.relu
+    Overfitting
+        Regularization
+            
+        Dropout
+            tf.nn.dropout (keep_prob)
+    Optimizers
+        tf.train.AdadeltaOptimizer
+        tf.train.AdagradOptimizer
+        tf.train.AdagradDAOptimizer
+        tf.train.MomentumOptimizer
+        tf.train.AdamOptimizer
+        tf.train.FtrlOptimizer
+        tf.train.ProximalGradientDescentOptimizer
+        tf.train.ProximalAdagradOptimizer
+        tf.train.RMSPropOptimizer
+        tf.train.GradientDescentOptimizer
+CNN(Convolutional)cs231n
+
+
+第三天
+RNN
