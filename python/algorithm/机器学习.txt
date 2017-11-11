@@ -21,9 +21,9 @@
 
 [数据挖掘18大算法实现以及其他相关经典DM算法](https://github.com/muxiaobai/DataMiningAlgorithm)
 算法：ICDM评选
- 
+
 聚类 K-Means（电信用户分类） http://www.csdn.net/article/2012-07-03/2807073-k-means
-关联分析 Apriori（升级版--->FP-Growth）
+关联分析 Apriori（升级版--->FP-Growth）（频繁项集和关联关系）如果某个项集是频繁的，那么它的所有子集都是频繁地。反之，如果一个项集是非频繁的，那么它的所有超集也是非频繁的。如果某条规则并不满足最小置信度要求，那么该规则的所有子集也不会满足最小置信度要求。 http://www.cnblogs.com/qwertWZ/p/4510857.html
 统计学习 SVM（重要但不用，面试 ，数学支持）支持向量机
 统计学习 EM（Expectation Maximization）(最大期望算法) http://blog.csdn.net/zouxy09/article/details/8537620
 连接挖掘 PageRank（google网页权重）
