@@ -68,11 +68,11 @@ public class RandomForestTool {
 
 		totalDatas = dataArray;
 		featureNames = totalDatas.get(0);
-		sampleNum = (int) ((totalDatas.size() - 1) * sampleNumRatio);
+		sampleNum = (int) ((totalDatas.size() - 1) * sampleNumRatio);//13*0.4=5.2
 		//算属性数量的时候需要去掉id属性和决策属性，用条件属性计算
-		featureNum = (int) ((featureNames.length -2) * featureNumRatio);
+		featureNum = (int) ((featureNames.length -2) * featureNumRatio);//4*0.5=2
 		// 算数量的时候需要去掉首行属性名称行
-		treeNum = (totalDatas.size() - 1) / sampleNum;
+		treeNum = (totalDatas.size() - 1) / sampleNum;// 13/5.2=2.5  1/sampleNumRatio
 	}
 
 	/**

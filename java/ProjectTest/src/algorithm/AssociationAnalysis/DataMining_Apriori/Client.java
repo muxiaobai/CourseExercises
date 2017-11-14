@@ -7,7 +7,7 @@ package algorithm.AssociationAnalysis.DataMining_Apriori;
  */
 public class Client {
     public static void main(String[] args){
-        String filePath = "E:\\CourseExercises\\java\\ProjectTest\\src\\algorithm\\Classification\\DataMining_KNN\\testInput.txt";
+        String filePath = "E:\\CourseExercises\\java\\ProjectTest\\src\\algorithm\\AssociationAnalysis\\DataMining_Apriori\\testInput.txt";
         
         AprioriTool tool = new AprioriTool(filePath, 2);
         tool.printAttachRule(0.7);

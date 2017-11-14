@@ -375,7 +375,7 @@ public class FPTreeTool {
 			}
 
 			// 根据支持度数的多少进行排序
-			Collections.sort(singleTransaction);
+			Collections.sort(singleTransaction);//商品ID排序
 			for (TreeNode node : singleTransaction) {
 				// 支持度计数重新归为1
 				node.setCount(1);
