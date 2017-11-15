@@ -18,7 +18,7 @@ conv2d = tf.nn.conv2d(image,weight,strides=[1,1,1,1],padding ='SAME')
 conv2d_img = conv2d.eval()
 print("conv2d_img.shape",conv2d_img.shape)
 conv2d_img = np.swapaxes(conv2d_img,0,3)
-for i,one_img in enumerable(conv2d_img):
+for i,one_img in enumerate(conv2d_img):
     print(one_img.reshape(3,3))
     plt.subplot(1,2,i+1),plt.imshow(one_img.reshape(3,3),cmap='gray')
-    plt.savefig('./valid.png')
+    plt.savefig('./same.png')
