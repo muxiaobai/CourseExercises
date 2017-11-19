@@ -72,3 +72,5 @@ print "Training finished"
   
 print "test accuracy %.3f" % accuracy.eval(feed_dict={  
     x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})  
+
+# 0.993
