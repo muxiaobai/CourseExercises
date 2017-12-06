@@ -17,8 +17,8 @@ public class Client {
         // 结果概率
         double result;
 
-        // 查询语句的描述的事件是地震发生了，导致响铃响了，导致接到Mary的电话
-        queryStr = "E=y,A=y,M=y";
+        // 查询语句的描述的事件是地震发生了，导致响铃响了，导致接到Mary的电话  B(盗窃)，E(地震)，A(警铃响).M(接到M的电话)，J同M的意思,
+        queryStr = "B=y,A=y,M=y";
         BayesNetWorkTool tool = new BayesNetWorkTool(dataFilePath,
                 attachFilePath);
         result = tool.calProByNetWork(queryStr);

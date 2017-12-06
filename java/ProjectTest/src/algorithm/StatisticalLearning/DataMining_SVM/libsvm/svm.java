@@ -1893,9 +1893,15 @@ public class svm {
 		count_ret[0] = count;
 	}
 
-	//
-	// Interface functions
-	//
+	/**
+	 * 
+	 * svm_train:().Interface functions  main
+	 * @author Mu Xiaobai
+	 * @param prob svm_problem
+	 * @param param svm_parameter
+	 * @return svm_model
+	 * @since JDK 1.8
+	 */
 	public static svm_model svm_train(svm_problem prob, svm_parameter param)
 	{
 		svm_model model = new svm_model();
