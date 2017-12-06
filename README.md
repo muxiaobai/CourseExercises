@@ -1,9 +1,9 @@
 # CourseExercises
 日常测试，练习，学习代码库。
 
-徽章标签生成网址：[http://shields.io/](http://shields.io/)
+徽章标签生成网址：[shields.io](http://shields.io/)
 [![CircleCI branch](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg)]()
-
+进度条[progressed.io](https://github.com/fehmicansaglam/progressed.io)
 :art:  art
 :zap: zap
 :fire: fire
