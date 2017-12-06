@@ -5,7 +5,9 @@
 
 [![CircleCI branch](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg)]()
 
-进度条[progressed.io](https://github.com/fehmicansaglam/progressed.io)
+进度条：[progressed.io](https://github.com/fehmicansaglam/progressed.io)
+
+![](http://progressed.io/bar/59?title=completed)
 
 :art:  art
 :zap: zap
