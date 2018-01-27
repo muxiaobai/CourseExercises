@@ -62,8 +62,8 @@ def 定义函数
 '''
 def myfun ( str ) :
   print str
-  return
-myfun("zhang")
+  return str
+print "return :"+ myfun("zhang")
 print "调用函数循环输出:"
 def iterList (list) :
   for ite in list :

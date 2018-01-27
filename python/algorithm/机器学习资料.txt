@@ -1,16 +1,16 @@
-https://github.com/Qinbf/DeepLearning
 
+Jeff Dean 
 
 清华的朱军
 南大的周志华lamda
 吴恩达Andrew Ng  cs229(网易公开课)[斯坦福大学公开课 ：机器学习课程](http://open.163.com/special/opencourse/machinelearning.html)
-Sung Kim 香港科技大学 hunkim+tfust@gmail.com
+Sung Kim 香港科技大学 hunkim+tfust@gmail.com [DeepLearningZeroToAll](https://github.com/hunkim/DeepLearningZeroToAll)
 CS20SI  [Tensorflow for Deep Learning Research](http://www.bilibili.com/video/av9156347/)
 MNIST和CIFAR10两个实验
 [深度学习入门系列](http://study.163.com/course/courseMain.htm?courseId=1004111045) 代码：[网易云课堂](https://github.com/Qinbf/DeepLearning)
 李飞飞(CNN)  cs231n(网易云课堂)[斯坦福李飞飞-深度学习计算机视觉](http://study.163.com/course/courseMain.htm?courseId=1003223001)
 [吴恩达给你的人工智能第一课](http://mooc.study.163.com/smartSpec/detail/1001319001.htm)
-nlp cs224n/cs224d?(Natural Language Processing) 自然语言处理
+NLP cs224n/cs224d?(Natural Language Processing) 自然语言处理 IBM Watson项目
 UFLDL
 周志华的《机器学习》
 Peter Harrington的《机器学习实战》 
