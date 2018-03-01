@@ -1,6 +1,6 @@
 
 
-#### 参加天池比赛
+# 参加天池比赛记录
 
 ## 20180201yancheng 印象盐城·数创未来大数据竞赛 - 盐城汽车上牌量预测
 
@@ -20,3 +20,10 @@
 ## 20180202yancheng2 印象盐城·数创未来大数据竞赛 - 乘用车零售量预测
 
 暂无完成
+
+## kaggle learn 结束
+[kaggle learn is ok](https://www.kaggle.com/learn/machine-learning)
+
+[代码](https://github.com/muxiaobai/CourseExercises/tree/master/python/kaggle)
+
+
