@@ -20,7 +20,6 @@ print (melbourne_data.columns)
 print (melbourne_price_data.head())
 print (melbourne_data.isnull().sum())
 print (X.head())
-
 y = data.card
 X = data.drop(['card'],axis =1)
 
