@@ -12,8 +12,8 @@
 	- [盐城](https://github.com/muxiaobai/CourseExercises/tree/master/python/tianchi/20180202yancheng2)
 
 ## 机器学习常用总结:
-![select algorithm](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/1667471-b9cf0b0ca146ecca.png)
-![machine learn](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/v2-6f5d062a88838978ff180eaf2fc57543_hd.jpg)
+![machine learn](http://7xo0y8.com1.z0.glb.clouddn.com/ml_conceptml_algorithms.png)
+![select algorithm](http://7xo0y8.com1.z0.glb.clouddn.com/ml_conceptsklearn_ml_cheat_sheet.png)
 
 #### 机器学习在 
 - [/python/algorithm/机器学习](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.txt)
