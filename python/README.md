@@ -13,11 +13,11 @@
 
 ## 机器学习常用总结:
 ```
-![select algorithm](http://7xo0y8.com1.z0.glb.clouddn.com/ml_conceptsklearn_ml_cheat_sheet.png)
+![select algorithm](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/1667471-b9cf0b0ca146ecca.png)
 ![algorithm summary](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/ml_conceptml_algorithms.png)
 ```
 
-![select algorithm](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/1667471-b9cf0b0ca146ecca.png)
+![select algorithm](http://7xo0y8.com1.z0.glb.clouddn.com/ml_conceptsklearn_ml_cheat_sheet.png)
 ![machine learn](http://7xo0y8.com1.z0.glb.clouddn.com/ml_conceptml_algorithms.png)
 ![machine learn](https://github.com/muxiaobai/CourseExercises/blob/master/python/algorithm/v2-6f5d062a88838978ff180eaf2fc57543_hd.jpg)
 
