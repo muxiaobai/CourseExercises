@@ -12,6 +12,11 @@ from sklearn.ensemble.partial_dependence import partial_dependence, plot_partial
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import Imputer
 from sklearn.externals import joblib
+from pandas import Series,DataFrame
+import seaborn as sns 
+
+#melbourne_data = pd.read_csv('melb_data.csv')
+#train_data = pd.read_table('test_A_20171225.txt')
 
 #描述数据
 '''
@@ -22,6 +27,7 @@ print (melbourne_data.isnull().sum())
 print (X.head())
 y = data.card
 X = data.drop(['card'],axis =1)
+X.dtypes
 
 '''
 
@@ -194,6 +200,16 @@ plt.title("n_estimator vs CV Error" + str(params));
 plt.show()
 '''
 
+#logarithmic loss（记为logloss）评估模型效果（越小越好） attempt 概率  actual 真实值 0 1
+#其中N表示测试集样本数量,attempt表示第i个样本的预估转化率 actual表示测试集中第i个样本的真实标签
+def logloss(attempt, actual, epsilon=1.0e-15):  
+    """Logloss, i.e. the score of the bioresponse competition. """  
+    attempt = np.clip(attempt, epsilon, 1.0-epsilon)    
+    #这个方法会给出一个区间，在区间之外的数字将被剪除到区间的边缘，例如给定一个区间[0,1]，则小于0的将变成0，大于1则变成1.  
+    return - np.mean(actual * np.log(attempt) +            
+                     (1.0 - actual) * np.log(1.0 - attempt))       ##注意logLoss的具体写法  
+
+
 
 #Pipeline 管道机制更像是编程技巧的创新，而非算法的创新
 '''
@@ -228,6 +244,11 @@ my_plots = plot_partial_dependence(my_model,
                                    grid_resolution=10) # number of values to plot on x axis
 plt.show()
 '''
+
+# validation 验证 
+#predicted_home_prices = melbourne_model.predict(val_x)
+#print mean_absolute_error(val_y,predicted_home_prices)
+
 
 
 #训练之后，保存模型
