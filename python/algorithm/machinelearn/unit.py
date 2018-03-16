@@ -28,7 +28,8 @@ print (X.head())
 y = data.card
 X = data.drop(['card'],axis =1)
 X.dtypes
-
+all_df['MSSubClass'].value_counts()
+all_dummy_df.isnull().sum().sort_values(ascending=False).head(10)   缺失值
 '''
 
 #根据条件选取列
