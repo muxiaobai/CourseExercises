@@ -20,6 +20,8 @@ reviews.head(3)
 
 # ### Univariate plotting with pandas 单一变量
 
+# ### df.plot.bar()	df.plot.line()	df.plot.area()	df.plot.hist()
+
 # In[7]:
 
 
