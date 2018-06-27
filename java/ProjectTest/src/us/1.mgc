@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="us.codecraft.tinyioc.aop.ProxyFactory" x="916" y="54">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AopProxy"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AdvisedSupport"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.AopProxy"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.AopProxy" x="705" y="13">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="us.test.codecraft.tinyioc.java.us.codecraft.tinyioc.aop.TimerInterceptor"
+        x="361" y="205">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.MethodInterceptor"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.Joinpoint"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.AbstractAopProxy" x="559" y="111">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AopProxy"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.AdvisedSupport"
+            endpointName="advised" kind="Simple"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.BeanFactoryAware" x="7" y="131">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Advisor" x="244" y="315">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.ClassFilter" x="968" y="356">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.AdvisedSupport" x="707" y="200">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.MethodInterceptor"
+            endpointName="methodInterceptor" kind="Simple"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.TargetSource"
+            endpointName="targetSource" kind="Simple"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.MethodMatcher"
+            endpointName="methodMatcher" kind="Simple"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Invocation" x="46" y="564">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Joinpoint"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.MethodInterceptor" x="629" y="321">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Interceptor"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.PointcutAdvisor" x="330" y="345">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Advisor"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.ReflectiveMethodInvocation"
+        x="282" y="490">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.MethodInvocation"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Advice" x="104" y="343">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="us.codecraft.tinyioc.aop.AspectJAwareAdvisorAutoProxyCreator"
+        x="28" y="17">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AspectJAroundAdvice"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.BeanFactoryAware"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.ClassFilter"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.ProxyFactory"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.AdvisedSupport"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.TargetSource" x="899" y="131">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Interceptor" x="463" y="337">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.MethodInvocation" x="133" y="497">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Invocation"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.AspectJExpressionPointcut"
+        x="693" y="418">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.ClassFilter"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.MethodMatcher"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Pointcut"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Joinpoint" x="59" y="408">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.MethodMatcher" x="903" y="268">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.JdkDynamicAopProxy" x="260" y="122">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AbstractAopProxy"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.MethodMatcher"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.AdvisedSupport"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.MethodInterceptor"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Cglib2AopProxy" x="379" y="31">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.AbstractAopProxy"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.MethodMatcher"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.AdvisedSupport"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.Pointcut" x="980" y="465">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="us.codecraft.tinyioc.aop.AspectJAroundAdvice" x="23" y="215">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.Advice"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.MethodInterceptor"/>
+    </Class>
+    <Class
+        name="us.codecraft.tinyioc.aop.AspectJExpressionPointcutAdvisor"
+        x="379" y="436">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="us.codecraft.tinyioc.aop.PointcutAdvisor"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.Advice"
+            endpointName="advice" kind="Simple"/>
+        <Association
+            destinationClassName="us.codecraft.tinyioc.aop.AspectJExpressionPointcut"
+            endpointName="pointcut" kind="Simple"/>
+        <Communication destinationClassName="us.codecraft.tinyioc.aop.AspectJExpressionPointcut"/>
+    </Class>
+</ClassDiagram>
