@@ -12,4 +12,7 @@
 - compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.1'
 - compile group: 'cglib', name: 'cglib-nodep', version: '3.2.6'
 
-  
+- compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+- compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+- compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.17'
+
