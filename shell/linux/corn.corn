@@ -4,6 +4,7 @@
 #第三步："crontab -l" 查看定时任务是否成功或者检测/var/spool/cron下是否生成对应cron脚本
 
 
+
 # 每天早上八点
 0 6 * * * echo "Good morning." >> /tmp/test.txt
 
