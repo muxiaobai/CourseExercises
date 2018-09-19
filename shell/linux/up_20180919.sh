@@ -4,11 +4,12 @@
 
 #chmod +x ./test.sh  
 #./test.sh  
-TOMCAT_HOME="/usr/local/apache-tomcat-8.0.36"
-LOG_HOME="/data/shelllog/upgrade"
-WAR_HOME="/data/war"
+
+TOMCAT_HOME="/thglxt/tomcat-8.5.20"
+LOG_HOME="/thglxt/log/upgrade"
+WAR_HOME="/thglxt/bak/ROOT"
 #TOMCAT_HOME="/c/apache-tomcat-8.0.36"
-TOMCAT_PORT=8080
+#TOMCAT_PORT=8080
 FILE_NAME=`date "+%Y%m%d%H%M%S"`
 #LOG_HOME="/c/Users/zhang/Desktop"
 LOG_FILE_NAME="$FILE_NAME.log"
