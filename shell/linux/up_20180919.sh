@@ -6,6 +6,7 @@
 #./test.sh  
 
 TOMCAT_HOME="/thglxt/tomcat-8.5.20"
+WEB_APPS="$TOMCAT_HOME/web-apps"
 LOG_HOME="/thglxt/log/upgrade"
 WAR_HOME="/thglxt/bak/ROOT"
 #TOMCAT_HOME="/c/apache-tomcat-8.0.36"
@@ -35,23 +36,30 @@ echo "rename SSH==>ROOT" >> "$LOG_FILE_PATH"
 cp $WAR_HOME/Forp-DTH-Product.zip $WAR_HOME/ROOT.zip
 # if tomcat is run should stop .else skip this  `stop tomcat` step 
 
-cd $TOMCAT_HOME
-	echo "$TIME stoping tomcat..." >>"$LOG_FILE_PATH"
-	$shutdownsh
-	echo "tomcat stoped" >>"$LOG_FILE_PATH"
-sleep 2s;
 #copy old war 
 echo "Old War Name $FILE_NAME.war" >>"$LOG_FILE_PATH"
-cp $TOMCAT_HOME/webapps/ROOT.zip $WAR_HOME/$FILE_NAME.war
+cp $WEB_APPS/ROOT.zip $WAR_HOME/$FILE_NAME.zip
 
 # remove old war and file
+#rm -rf $TOMCAT_HOME/webapps/ROOT
+#sleep 2s;
 
-rm -rf $TOMCAT_HOME/webapps/ROOT
-sleep 2s;
 #copy new war
 echo " $TIME copy new war..." >>"$LOG_FILE_PATH"
-cp $WAR_HOME/ROOT.zip $TOMCAT_HOME/webapps/
+cp $WAR_HOME/ROOT.zip $WEB_APPS
+
+# stop tomcat
+echo "$TIME stoping tomcat..." >>"$LOG_FILE_PATH"
+$shutdownsh
+echo "tomcat stoped" >>"$LOG_FILE_PATH"
 sleep 2s;
+
+# unzip
+unzip -o ROOT.zip
+
+# remove cache
+rm -rf $TOMCAT_HOME/work/Catalina
+
 #start tomcat 
 echo " $TIME start Tomcat..." >>"$LOG_FILE_PATH"
 $startupsh
