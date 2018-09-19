@@ -32,7 +32,7 @@ echo "start tomcat URL:$shutdownsh" >>"$LOG_FILE_PATH"
 # if has SSH.war then rename ROOT.war
 
 echo "rename SSH==>ROOT" >> "$LOG_FILE_PATH"
-cp $WAR_HOME/SSH.war $WAR_HOME/ROOT.war
+cp $WAR_HOME/Forp-DTH-Product.zip $WAR_HOME/ROOT.zip
 # if tomcat is run should stop .else skip this  `stop tomcat` step 
 
 cd $TOMCAT_HOME
@@ -42,15 +42,15 @@ cd $TOMCAT_HOME
 sleep 2s;
 #copy old war 
 echo "Old War Name $FILE_NAME.war" >>"$LOG_FILE_PATH"
-cp $TOMCAT_HOME/webapps/ROOT.war $WAR_HOME/$FILE_NAME.war
+cp $TOMCAT_HOME/webapps/ROOT.zip $WAR_HOME/$FILE_NAME.war
 
 # remove old war and file
 
-rm -rf $TOMCAT_HOME/webapps/ROOT*
+rm -rf $TOMCAT_HOME/webapps/ROOT
 sleep 2s;
 #copy new war
 echo " $TIME copy new war..." >>"$LOG_FILE_PATH"
-cp $WAR_HOME/ROOT.war $TOMCAT_HOME/webapps/
+cp $WAR_HOME/ROOT.zip $TOMCAT_HOME/webapps/
 sleep 2s;
 #start tomcat 
 echo " $TIME start Tomcat..." >>"$LOG_FILE_PATH"
