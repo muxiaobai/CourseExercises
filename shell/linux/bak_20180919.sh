@@ -4,7 +4,7 @@
 
 #chmod +x ./test.sh  
 #./test.sh  
-
+#set fileformat = unix
 TOMCAT_HOME="/thglxt/tomcat-8.5.20"
 WEB_APPS="$TOMCAT_HOME/web-apps"
 LOG_HOME="/data/log/bak"
