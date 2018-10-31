@@ -54,8 +54,8 @@ $shutdownsh
 echo "tomcat stoped" >>"$LOG_FILE_PATH"
 sleep 2s;
 
-# unzip
-unzip -o ROOT.zip
+# unzip -d dir 
+unzip -o ROOT.zip -d $WEB_APPS
 
 # remove cache
 rm -rf $TOMCAT_HOME/work/Catalina
