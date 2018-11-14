@@ -6,12 +6,14 @@
 #./test.sh  
 #set fileformat = unix
 UP_BAK_HOME="/thglxt/bak"
+TOMCAT_HOME="/thglxt/tomcat-8.5.20"
+
+
 BAK_HOME="$UP_BAK_HOME/bak"
 UP_HOME="$UP_BAK_HOME/upgrade"
-TOMCAT_HOME="/thglxt/tomcat-8.5.20"
-WEB_APPS="$TOMCAT_HOME/web-apps"
 BAK_LOG_PATH="$BAK_HOME/log"
 BAK_ROOT="$BAK_HOME/ROOT"
+WEB_APPS="$TOMCAT_HOME/web-apps"
 
 # mkdir path
 if [ ! -d "$BAK_ROOT" ];then
@@ -27,19 +29,19 @@ echo " $BAK_LOG 文件夹已经存在"
 fi
 
 currentTime=`date "+%Y-%m-%d %H:%M:%S"`
-FILE_NAME=`date "+%Y%m%d%H%M%S"`
-LOG_FILE_NAME="$FILE_NAME.log"
-LOG_FILE_PATH="$LOG_HOME/$LOG_FILE_NAME"
+LOG_NAME=`date "+%Y%m%d%H%M%S"`
+BAK_LOG_FILE_NAME="$LOG_NAME.log"
+BAK_FILE_PATH="$BAK_LOG/$BAK_LOG_FILE_NAME"
 
-echo "begin time :$currentTime" >> "$LOG_FILE_PATH"
+echo "begin time :$currentTime" >> "$BAK_LOG_FILE_PATH"
 startupsh="$TOMCAT_HOME/bin/startup.sh"
 shutdownsh="$TOMCAT_HOME/bin/shutdown.sh"
-echo "LOG location:$LOG_FILE_PATH" >> "$LOG_FILE_PATH"
-echo "start Tomcat URL:$startupsh" >>"$LOG_FILE_PATH"
-echo "stop Tomcat URL:$shutdownsh" >>"$LOG_FILE_PATH"
+echo "LOG location:$LOG_FILE_PATH" >> "$BAK_LOG_FILE_PATH"
+echo "start Tomcat URL:$startupsh" >>"$BAK_LOG_FILE_PATH"
+echo "stop Tomcat URL:$shutdownsh" >>"$BAK_LOG_FILE_PATH"
 
 # tar running ROOT
-
+tar -czvf 
 #copy last tar.gz 
 newest_file_of()
 {
