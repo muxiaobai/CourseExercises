@@ -29,8 +29,8 @@ echo " $BAK_LOG 文件夹已经存在"
 fi
 
 currentTime=`date "+%Y-%m-%d %H:%M:%S"`
-LOG_NAME=`date "+%Y%m%d%H%M%S"`
-BAK_LOG_FILE_NAME="$LOG_NAME.log"
+FILE_NAME=`date "+%Y%m%d%H%M%S"`
+BAK_LOG_FILE_NAME="$FILE_NAME.log"
 BAK_FILE_PATH="$BAK_LOG/$BAK_LOG_FILE_NAME"
 
 echo "begin time :$currentTime" >> "$BAK_LOG_FILE_PATH"
@@ -41,7 +41,7 @@ echo "start Tomcat URL:$startupsh" >>"$BAK_LOG_FILE_PATH"
 echo "stop Tomcat URL:$shutdownsh" >>"$BAK_LOG_FILE_PATH"
 
 # tar running ROOT
-tar -czvf 
+tar -czvf "$BAK_ROOT/$FILE_NAME.tar.gz" -C $WEB_APPS ROOT/
 #copy last tar.gz 
 newest_file_of()
 {
