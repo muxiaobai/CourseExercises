@@ -16,13 +16,20 @@ BAK_ROOT="$BAK_HOME/ROOT"
 WEB_APPS="$TOMCAT_HOME/web-apps"
 
 # mkdir path
-if [ ! -d "$BAK_ROOT" ];then
+
+if [ ! -d $BAK_HOME ];then
+mkdir $BAK_HOME
+else
+echo "$BAK_HOME 文件夹已经存在"
+fi
+
+if [ ! -d $BAK_ROOT ];then
 mkdir $BAK_ROOT
 else
 echo "$BAK_ROOT 文件夹已经存在"
 fi
 
-if [ ! -d "$BAK_LOG" ];then
+if [ ! -d $BAK_LOG ];then
 mkdir $BAK_LOG
 else
 echo " $BAK_LOG 文件夹已经存在"
