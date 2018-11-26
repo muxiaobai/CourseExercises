@@ -26,73 +26,78 @@ startupsh="$TOMCT_HOME/bin/startup.sh"
 shutdownsh="$TOMCAT_HOME/bin/shutdown.sh"
 WEB_APPS="$TOMCAT_HOME/web-apps"
 
+FILE_NAME=`date "+%Y%m%d%H%M%S"`
+currentTime=`date "+%Y-%m-%d %H:%M:%S"`
 # upgrade
-UP_HOME="$UP_BAK_HOME/bak"
+UP_HOME="$UP_BAK_HOME/up"
 UP_ROOT="$UP_HOME/ROOT"
 UP_LOG="$UP_HOME/log"
+UP_LOG_FILE="$UP_LOG/up_$FILE_NAME.log"
 
-# rollback 
+# rollback
 BAK_HOME="$UP_BAK_HOME/bak"
 BAK_ROOT="$BAK_HOME/ROOT"
 BAK_LOG="$BAK_HOME/log"
+BAK_LOG_FILE="$BAK_LOG/roll_$FILE_NAME.log"
 
-FILE_NAME=`date "+%Y%m%d%H%M%S"`
 
 #==========================================upgrade============================================================
 # upgrade
 if [ $PARAM = 'upgrade' ]; then
 
-echo  'upgrade'
+echo  'upgrade'  >> "$UP_LOG_FILE"
 #===================dir ==============================
 
 #文件夹 
 if [ ! -d $UP_HOME ];then
 mkdir $UP_HOME
 else
-echo "exit $UP_HOME"
+echo "exit $UP_HOME"  >> "$UP_LOG_FILE"
 fi
 
 if [ ! -d $UP_LOG ];then
 mkdir $UP_LOG
 else
-echo "exit $UP_LOG"
+echo "exit $UP_LOG"  >> "$UP_LOG_FILE"
 fi
 
 if [ ! -d $UP_ROOT ];then
 mkdir $UP_ROOT
 else
-echo "exit $UP_ROOT"
+echo "exit $UP_ROOT"  >> "$UP_LOG_FILE"
 fi
 
 
 #=================================================
 #copy old war 
-echo "Old War Name $BAK_HOME/$FILE_NAME.tar.gz" >>"$LOG_FILE_PATH"
-tar -czvf  $BAK_HOME/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
+echo "Old War Name $UP_HOME/$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
+tar -czvf  $UP_ROOT/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
 #cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
 
 
 
 # stop tomcat
-echo "$TIME stoping tomcat..." >>"$LOG_FILE_PATH"
-$shutdownsh >> "$LOG_FILE_PATH"
-echo "tomcat stoped" >>"$LOG_FILE_PATH"
+echo "$currentTime stoping tomcat..." >>"$UP_LOG_FILE"
+$shutdownsh >> "$UP_LOG_FILE"
+echo "$currentTime tomcat stoped" >>"$UP_LOG_FILE"
 sleep 2s;
 
 #rm -rf $WEB_APPS/ROOT/
 
 # unzip
-echo "unzip $BAK_HOME/ROOT.zip " >> "$LOG_FILE_PATH"
-unzip -o $BAK_HOME/ROOT.zip -d $WEB_APPS
+echo "unzip $UP_HOME/ROOT.zip " >> "$UP_LOG_FILE"
+unzip -o $UP_HOME/ROOT.zip -d $WEB_APPS
 sleep 2s;
+
+# ps -ef | grep tomcat 没有的时候可以下面执行
 # remove cache
-echo " rm -rf $TOMCAT_HOME/work " >> "$LOG_FILE_PATH"
+echo " rm -rf $TOMCAT_HOME/work " >> "$UP_LOG_FILE"
 rm -rf $TOMCAT_HOME/work/Catalina
 
 #start tomcat 
-echo " $TIME start Tomcat..." >>"$LOG_FILE_PATH"
-$startupsh >> "$LOG_FILE_PATH"
-echo "$TIME Tomcat started..." >>"$LOG_FILE_PATH"
+echo " $currentTime start Tomcat..." >>"$UP_LOG_FILE"
+$startupsh >> "$UP_LOG_FILE"
+echo "$currentTime Tomcat started..." >>"$UP_LOG_FILE"
 
 
 # 执行了这些之后，直接退出，因为upgrade 和rollback是只能选择其中一个
@@ -104,7 +109,7 @@ fi
 # rollback
 if  [ $PARAM = 'rollback' ];then 
 
-echo 'rollback'
+echo 'rollback'  >> "$BAK_LOG_FILE"
 
 #=================================================
 
@@ -112,19 +117,19 @@ echo 'rollback'
 if [ ! -d $BAK_HOME ];then
 mkdir $BAK_HOME
 else
-echo "exit $BAK_HOME"
+echo "exit $BAK_HOME"  >> "$BAK_LOG_FILE"
 fi
 
 if [ ! -d $BAK_LOG ];then
 mkdir $BAK_LOG
 else
-echo "exit $BAK_LOG"
-fi
+echo "exit $BAK_LOG"  >> "$BAK_LOG_FILE"
+fi 
 
 if [ ! -d $BAK_ROOT ];then
 mkdir $BAK_ROOT
 else
-echo "exit $BAK_ROOT"
+echo "exit $BAK_ROOT" >>$BAK_LOG_FILE
 fi
 
 #=================================================
@@ -148,6 +153,11 @@ OLD_FILE=$(newest_file_of)
 # 没有upgrade过的没有rollback old_files
 
 #=================================================
+
+
+
+
+
 
 #============stop  start==========================
 
