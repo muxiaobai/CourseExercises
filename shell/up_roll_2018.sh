@@ -38,17 +38,68 @@ BAK_LOG="$BAK_HOME/log"
 
 FILE_NAME=`date "+%Y%m%d%H%M%S"`
 
-#==========================================upgrade=================================================================
+#==========================================upgrade============================================================
 # upgrade
 if [ $PARAM = 'upgrade' ]; then
 
 echo  'upgrade'
+#===================dir ==============================
+
+#文件夹 
+if [ ! -d $UP_HOME ];then
+mkdir $UP_HOME
+else
+echo "exit $UP_HOME"
+fi
+
+if [ ! -d $UP_LOG ];then
+mkdir $UP_LOG
+else
+echo "exit $UP_LOG"
+fi
+
+if [ ! -d $UP_ROOT ];then
+mkdir $UP_ROOT
+else
+echo "exit $UP_ROOT"
+fi
 
 
+#=================================================
+#copy old war 
+echo "Old War Name $BAK_HOME/$FILE_NAME.tar.gz" >>"$LOG_FILE_PATH"
+tar -czvf  $BAK_HOME/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
+#cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
+
+
+
+# stop tomcat
+echo "$TIME stoping tomcat..." >>"$LOG_FILE_PATH"
+$shutdownsh >> "$LOG_FILE_PATH"
+echo "tomcat stoped" >>"$LOG_FILE_PATH"
+sleep 2s;
+
+#rm -rf $WEB_APPS/ROOT/
+
+# unzip
+echo "unzip $BAK_HOME/ROOT.zip " >> "$LOG_FILE_PATH"
+unzip -o $BAK_HOME/ROOT.zip -d $WEB_APPS
+sleep 2s;
+# remove cache
+echo " rm -rf $TOMCAT_HOME/work " >> "$LOG_FILE_PATH"
+rm -rf $TOMCAT_HOME/work/Catalina
+
+#start tomcat 
+echo " $TIME start Tomcat..." >>"$LOG_FILE_PATH"
+$startupsh >> "$LOG_FILE_PATH"
+echo "$TIME Tomcat started..." >>"$LOG_FILE_PATH"
+
+
+# 执行了这些之后，直接退出，因为upgrade 和rollback是只能选择其中一个
 exit 1;
 fi
 
-#==========================================upgrade=================================================================
+#==========================================rollback=================================================================
 
 # rollback
 if  [ $PARAM = 'rollback' ];then 
@@ -101,6 +152,7 @@ OLD_FILE=$(newest_file_of)
 #============stop  start==========================
 
 exit 1;
+
 fi
 
 
