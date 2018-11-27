@@ -41,11 +41,10 @@ BAK_LOG_FILE="$BAK_LOG/roll_$FILE_NAME.log"
 
 PARAM=$1
 if [ -z $PARAM ];then
- echo 'param is null ,first plase run 【init】,\n and change home,then run【upgrade】 to up the ROOT, or run 【rollback】 to  down the service'
+ echo 'param is null ,and must use 【./$SHELL_NAME init】 if you use this shell.\n And you will create directory after this command. \n         then use 【upgrade】 to up the ROOT, or run 【rollback】 to  down the service'
  exit 0;
 fi
 if [  $PARAM  = 'help'];then
- echo 'param is null ，first plase run 【init】，and change home,then run【upgrade】 to up the ROOT, or run 【rollback】 to  down the service'
  echo ''
  exit 0;
 fi
