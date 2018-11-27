@@ -1,26 +1,22 @@
 #!/bin/bash
 
 # Author : muxiaobai
+# date : 2018-11-27
+# chmod +x ./test.sh  
+#         ./test.sh  
 
-
-#chmod +x ./test.sh  
-#./test.sh  
 echo $1
-PARAM=$1
 
-#==========================================param=================================================================
-
-INPUT=$1
-if [ -z $PARAM ];then
- echo ‘'param is null ，【upgrade】 is up, 【rollback】 is down '
- exit 1;
-fi
-#==========================================base-path=================================================================
-
+#===============【change home path】need push ROOT.zip to $UP_BAK_HOME/up dir===============================
 UP_BAK_HOME="/thglxt/bak"
 TOMCAT_HOME="/thglxt/tomcat-8.5.20"
+NGINX_HOME="/usr/local/nginx"
+SHELL_NAME="up_roll_2018.sh"
 
-#==========================================upgrad and rollback path=================================================================
+#==========================================upgrad and rollback path==============================================
+nginx_start='$NGINX_HOME/bin -s start'
+nginx_stop='$NGINX_HOME/bin -s stop'
+nginx_reload='$NGINX_HOME/bin -s reload'
 
 startupsh="$TOMCT_HOME/bin/startup.sh"
 shutdownsh="$TOMCAT_HOME/bin/shutdown.sh"
@@ -29,6 +25,7 @@ WEB_ROOT="$TOMCAT_HOME/web-apps/ROOT"
 
 FILE_NAME=`date "+%Y%m%d%H%M%S"`
 currentTime=`date "+%Y-%m-%d %H:%M:%S"`
+
 # upgrade
 UP_HOME="$UP_BAK_HOME/up"
 UP_ROOT="$UP_HOME/ROOT"
@@ -40,21 +37,35 @@ BAK_HOME="$UP_BAK_HOME/bak"
 BAK_ROOT="$BAK_HOME/ROOT"
 BAK_LOG="$BAK_HOME/log"
 BAK_LOG_FILE="$BAK_LOG/roll_$FILE_NAME.log"
+#==========================================param=================================================================
 
-currentTime=`date "+%Y-%m-%d %H:%M:%S"`
+PARAM=$1
+if [ -z $PARAM ];then
+ echo 'param is null ,first plase run 【init】,\n and change home,then run【upgrade】 to up the ROOT, or run 【rollback】 to  down the service'
+ exit 0;
+fi
+if [  $PARAM  = 'help'];then
+ echo 'param is null ，first plase run 【init】，and change home,then run【upgrade】 to up the ROOT, or run 【rollback】 to  down the service'
+ echo ''
+ exit 0;
+fi
 
-#==========================================upgrade============================================================
-# upgrade
-if [ $PARAM = 'upgrade' ]; then
-echo  '=================upgrade: $currentTime=========================' 
+#============================================init=========================================================
+if [ $PARAM = 'init' ]; then
+echo  '=================init: $currentTime=========================' 
 
-#===================dir ==============================
-
+#===================up_home dir ==============================
 #文件夹 
 if [ ! -d $UP_HOME ];then
 mkdir $UP_HOME
 else
 echo "exit $UP_HOME" 
+fi
+
+if [ ! -d $UP_ROOT ];then
+mkdir $UP_ROOT
+else
+echo "exit $UP_ROOT" 
 fi
 
 if [ ! -d $UP_LOG ];then
@@ -63,10 +74,37 @@ else
 echo "exit $UP_LOG" 
 fi
 
-if [ ! -d $UP_ROOT ];then
-mkdir $UP_ROOT
+
+#=====================rollback dir============================
+#文件夹 
+if [ ! -d $BAK_HOME ];then
+mkdir $BAK_HOME
 else
-echo "exit $UP_ROOT" 
+echo "exit $BAK_HOME"  
+fi
+
+if [ ! -d $BAK_ROOT ];then
+mkdir $BAK_ROOT
+else
+echo "exit $BAK_ROOT" 
+fi
+
+if [ ! -d $BAK_LOG ];then
+mkdir $BAK_LOG
+else
+echo "exit $BAK_LOG"  
+fi 
+
+#==========================================upgrade============================================================
+# upgrade
+if [ $PARAM = 'upgrade' ]; then
+
+
+echo  '=================upgrade: $currentTime=========================' 
+
+if [ ! -d $UP_HOME ];then
+echo "plase run ./$SHELL_NAME init"
+exit 1
 fi
 
 touch "$UP_LOAD_FILE"
@@ -112,40 +150,16 @@ fi
 # rollback
 if  [ $PARAM = 'rollback' ];then 
 
-echo ' ===================rollback: $currentTime=========================' 
+echo '===================rollback: $currentTime=========================' 
 
+#================$check init is run ok,dir=================================
 
-#=====================dir============================
-#文件夹 
 if [ ! -d $BAK_HOME ];then
-mkdir $BAK_HOME
-else
-echo "exit $BAK_HOME"  
-fi
-
-if [ ! -d $BAK_LOG ];then
-mkdir $BAK_LOG
-else
-echo "exit $BAK_LOG"  
-fi 
-
-if [ ! -d $BAK_ROOT ];then
-mkdir $BAK_ROOT
-else
-echo "exit $BAK_ROOT" 
-fi
-
-
-if [ ! -d $UP_ROOT ];then
-
-echo "no upgrade, and can't rollback, not exit $UP_ROOT"
+echo "plase run ./$SHELL_NAME init"
 exit 1
-
-else
-echo "exit $UP_ROOT" 
 fi
 
-#=================================================
+#================old_file $UP_ROOT=================================
 
 # rollbakc Log_File
 
@@ -165,7 +179,7 @@ echo "$OLD_FILE last new tar.gz ">> $BAK_LOG_FILE
 
 # 没有upgrade过的没有rollback old_files
 
-#============stop  start==========================
+#============stop rollback start==========================
 
 # stop tomcat
 echo "$currentTime stoping tomcat..." >>"$BAK_LOG_FILE"
@@ -198,5 +212,4 @@ echo "$currentTime Tomcat started..." >>"$BAK_LOG_FILE"
 exit 0;
 
 fi
-
 
