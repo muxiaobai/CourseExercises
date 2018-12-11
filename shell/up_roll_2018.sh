@@ -233,7 +233,7 @@ echo "$currentTime Tomcat started..." >>"$BAK_LOG_FILE"
 
 exit 0;
 fi
-#============delete old tar.gz and  *.log ,default only remove last month==========================
+#=============================delete old tar.gz and  *.log ,default only remove last month====================================
 
 if  [ $PARAM = 'del' ]; then 
 
