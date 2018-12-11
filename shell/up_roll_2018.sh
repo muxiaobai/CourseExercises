@@ -40,11 +40,11 @@ BAK_LOG_FILE="$BAK_LOG/roll_$FILE_NAME.log"
 #==========================================param=================================================================
 
 PARAM=$1
-if [ -z $PARAM ];then
+if [ -z $PARAM ]; then
  echo "param is null ,and must use 【./$SHELL_NAME init】 if you use this shell.\n And you will create directory after this command. \n         then use 【upgrade】 to up the ROOT, or run 【rollback】 to  down the service"
  exit 0;
 fi
-if [  $PARAM  = 'help'];then
+if [  $PARAM  = 'help' ]; then
  echo ''
  exit 0;
 fi
@@ -55,19 +55,19 @@ echo  '=================init: $currentTime========================='
 
 #===================up_home dir ==============================
 #文件夹 
-if [ ! -d $UP_HOME ];then
+if [ ! -d $UP_HOME ]; then
 mkdir $UP_HOME
 else
 echo "exit $UP_HOME" 
 fi
 
-if [ ! -d $UP_ROOT ];then
+if [ ! -d $UP_ROOT ]; then
 mkdir $UP_ROOT
 else
 echo "exit $UP_ROOT" 
 fi
 
-if [ ! -d $UP_LOG ];then
+if [ ! -d $UP_LOG ]; then
 mkdir $UP_LOG
 else
 echo "exit $UP_LOG" 
@@ -76,19 +76,19 @@ fi
 
 #=====================rollback dir============================
 #文件夹 
-if [ ! -d $BAK_HOME ];then
+if [ ! -d $BAK_HOME ]; then
 mkdir $BAK_HOME
 else
 echo "exit $BAK_HOME"  
 fi
 
-if [ ! -d $BAK_ROOT ];then
+if [ ! -d $BAK_ROOT ]; then
 mkdir $BAK_ROOT
 else
 echo "exit $BAK_ROOT" 
 fi
 
-if [ ! -d $BAK_LOG ];then
+if [ ! -d $BAK_LOG ]; then
 mkdir $BAK_LOG
 else
 echo "exit $BAK_LOG"  
@@ -101,7 +101,7 @@ if [ $PARAM = 'upgrade' ]; then
 
 echo  '=================upgrade: $currentTime=========================' 
 
-if [ ! -d $UP_HOME ];then
+if [ ! -d $UP_HOME ]; then
 echo "plase run ./$SHELL_NAME init"
 exit 1
 fi
@@ -147,13 +147,13 @@ fi
 #==========================================rollback=================================================================
 
 # rollback
-if  [ $PARAM = 'rollback' ];then 
+if  [ $PARAM = 'rollback' ]; then 
 
 echo '===================rollback: $currentTime=========================' 
 
 #================$check init is run ok,dir=================================
 
-if [ ! -d $BAK_HOME ];then
+if [ ! -d $BAK_HOME ]; then
 echo "plase run ./$SHELL_NAME init"
 exit 1
 fi
