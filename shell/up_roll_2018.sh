@@ -243,14 +243,13 @@ if [ -z $PARAM2 ]; then
 FILE_DATE_REGEXP=`date -d "$(date +%Y%m)01 last month" +%Y%m`
 fi
 #up
-
-rm -rf "$UP_INCRE/ROOT_$FILE_DATE_REGEXP*"
-rm -rf "$UP_LOG/up_$FILE_DATE_REGEXP*"
-rm -rf "$UP_ROOT/ROOT_$FILE_DATE_REGEXP*"
+rm -rf $UP_INCRE/ROOT_$FILE_DATE_REGEXP*
+rm -rf $UP_LOG/up_$FILE_DATE_REGEXP*
+rm -rf $UP_ROOT/ROOT_$FILE_DATE_REGEXP*
 #bak
-rm -rf "$UP_INCRE/ROOT_$FILE_DATE_REGEXP*"
-rm -rf "$BAK_LOG/bak_$FILE_DATE_REGEXP*"
-rm -rf "$UP_ROOT/ROOT_$FILE_DATE_REGEXP*"
+rm -rf $UP_INCRE/ROOT_$FILE_DATE_REGEXP*
+rm -rf $BAK_LOG/bak_$FILE_DATE_REGEXP*
+rm -rf $UP_ROOT/ROOT_$FILE_DATE_REGEXP*
 
 exit 0
 fi
