@@ -45,7 +45,7 @@ if [ -z $PARAM ]; then
  exit 0;
 fi
 if [  $PARAM  = 'help' ]; then
- echo ''
+ echo ' init upgrade rollback'
  exit 0;
 fi
 
