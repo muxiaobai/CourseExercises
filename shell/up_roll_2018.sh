@@ -28,10 +28,10 @@ currentTime=`date "+%Y-%m-%d %H:%M:%S"`
 
 # upgrade
 UP_HOME="$UP_BAK_HOME/up"
+UP_INCRE="$UP_HOME/incre"
 UP_ROOT="$UP_HOME/ROOT"
 UP_LOG="$UP_HOME/log"
 UP_LOG_FILE="$UP_LOG/up_$FILE_NAME.log"
-
 # rollback
 BAK_HOME="$UP_BAK_HOME/bak"
 BAK_ROOT="$BAK_HOME/ROOT"
@@ -59,6 +59,12 @@ if [ ! -d $UP_HOME ]; then
 mkdir $UP_HOME
 else
 echo "exit $UP_HOME" 
+fi
+
+if [ ! -d $UP_INCRE ]; then
+mkdir $UP_INCRE
+else
+echo "exit $UP_ROOT" 
 fi
 
 if [ ! -d $UP_ROOT ]; then
@@ -107,6 +113,12 @@ echo "plase run ./$SHELL_NAME init"
 exit 1
 fi
 
+## if not  $UP_HOME/ROOT.zip ,then exit
+if[ ! -f $UP_HOME/ROOT.zip ]; then
+echo "plase upload ROOT.zip to  $UP_HOME"
+exit 0
+fi
+
 touch "$UP_LOAD_FILE"
 echo "begin time:$currentTime" >> "$UP_LOG_FILE"
 
@@ -121,6 +133,7 @@ echo "$currentTime stoping tomcat..." >>"$UP_LOG_FILE"
 $shutdownsh >> "$UP_LOG_FILE"
 echo "$currentTime tomcat stoped" >>"$UP_LOG_FILE"
 sleep 2s;
+
 
 #rm -rf $WEB_APPS/ROOT/
 
@@ -140,6 +153,8 @@ echo " $currentTime start Tomcat..." >>"$UP_LOG_FILE"
 $startupsh >> "$UP_LOG_FILE"
 echo "$currentTime Tomcat started..." >>"$UP_LOG_FILE"
 
+# 把增量更新包复制带其他地方
+mv $UP_HOME/ROOT.zip $UP_INCRE/ROOT_$FILE_NAME.zip
 
 # 执行了这些之后，直接退出，因为upgrade 和rollback是只能选择其中一个
 exit 0;
