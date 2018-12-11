@@ -73,7 +73,8 @@ else
 echo "exit $UP_LOG" 
 fi
 
-
+exit 0 
+fi
 #=====================rollback dir============================
 #文件夹 
 if [ ! -d $BAK_HOME ]; then
