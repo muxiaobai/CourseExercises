@@ -52,7 +52,7 @@ fi
 
 #============================================init=========================================================
 if [ $PARAM = 'init' ]; then
-echo  '=================init: $currentTime=========================' 
+echo  "=================init: $currentTime========================="
 
 #===================up_home dir ==============================
 #文件夹 
@@ -108,7 +108,7 @@ fi
 if [ $PARAM = 'upgrade' ]; then
 
 
-echo  '=================upgrade: $currentTime=========================' 
+echo  "=================upgrade: $currentTime========================="
 
 if [ ! -d $UP_HOME ]; then
 echo "plase run ./$SHELL_NAME init"
@@ -173,7 +173,7 @@ fi
 # rollback
 if  [ $PARAM = 'rollback' ]; then 
 
-echo '===================rollback: $currentTime=========================' 
+echo "===================rollback: $currentTime========================="
 
 #================$check init is run ok,dir=================================
 
