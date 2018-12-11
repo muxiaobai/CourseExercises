@@ -18,7 +18,7 @@ nginx_start='$NGINX_HOME/bin -s start'
 nginx_stop='$NGINX_HOME/bin -s stop'
 nginx_reload='$NGINX_HOME/bin -s reload'
 
-startupsh="$TOMCT_HOME/bin/startup.sh"
+startupsh="$TOMCAT_HOME/bin/startup.sh"
 shutdownsh="$TOMCAT_HOME/bin/shutdown.sh"
 WEB_APPS="$TOMCAT_HOME/web-apps/"
 WEB_ROOT="$TOMCAT_HOME/web-apps/ROOT"
@@ -119,7 +119,7 @@ echo "plase upload ROOT.zip to  $UP_HOME"
 exit 0
 fi
 
-touch "$UP_LOAD_FILE"
+touch "$UP_LOG_FILE"
 echo "begin time:$currentTime" >> "$UP_LOG_FILE"
 
 #=================================================
@@ -127,6 +127,11 @@ echo "begin time:$currentTime" >> "$UP_LOG_FILE"
 echo "Old War Name $UP_HOME/$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
 tar -czvf  $UP_ROOT/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
 #cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
+
+
+if [ps -ef | grep tomcat wc -l]; then 
+
+fi
 
 # stop tomcat
 echo "$currentTime stoping tomcat..." >>"$UP_LOG_FILE"
@@ -136,6 +141,7 @@ sleep 2s;
 
 
 #rm -rf $WEB_APPS/ROOT/
+
 
 # unzip
 echo "unzip $UP_HOME/ROOT.zip " >> "$UP_LOG_FILE"
