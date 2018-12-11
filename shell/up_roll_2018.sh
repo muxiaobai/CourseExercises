@@ -4,7 +4,7 @@
 # date : 2018-11-27
 # chmod +x ./test.sh  
 #         ./test.sh  
-# 坏的解释器 sed -i 's/\r$//' build.sh
+# 坏的解释器 sed -i 's/\r$//' up_roll_2018.sh
 echo $1
 
 #===============【change home path】need push ROOT.zip to $UP_BAK_HOME/up dir===============================
@@ -42,11 +42,11 @@ BAK_LOG_FILE="$BAK_LOG/bak_$FILE_NAME.log"
 PARAM=$1
 PARAM2=$2
 if [ -z $PARAM ]; then
- echo "param is null ,and must use 【./$SHELL_NAME init】 if you use this shell.\n And you will create directory after this command. \n         then use 【upgrade】 to up the ROOT, or run 【rollback】 to  down the service"
+ echo -e "param is null ,and must use 【./$SHELL_NAME init】 if you use this shell.\n And you will create directory after this command. \n         then use 【upgrade】 to up the ROOT, or run 【rollback】 to  down the service.\n 【del 201811】delete ROOT_201811*.tar.gz,UP_201811*.log,for clear expire file."
  exit 0;
 fi
 if [  $PARAM  = 'help' ]; then
- echo ' init upgrade rollback'
+ echo ' init | upgrade | rollback | del 201811'
  exit 0;
 fi
 
