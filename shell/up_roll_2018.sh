@@ -36,10 +36,11 @@ UP_LOG_FILE="$UP_LOG/up_$FILE_NAME.log"
 BAK_HOME="$UP_BAK_HOME/bak"
 BAK_ROOT="$BAK_HOME/ROOT"
 BAK_LOG="$BAK_HOME/log"
-BAK_LOG_FILE="$BAK_LOG/roll_$FILE_NAME.log"
+BAK_LOG_FILE="$BAK_LOG/bak_$FILE_NAME.log"
 #==========================================param=================================================================
 
 PARAM=$1
+PARAM2=$2
 if [ -z $PARAM ]; then
  echo "param is null ,and must use 【./$SHELL_NAME init】 if you use this shell.\n And you will create directory after this command. \n         then use 【upgrade】 to up the ROOT, or run 【rollback】 to  down the service"
  exit 0;
@@ -125,8 +126,8 @@ echo "begin time:$currentTime" >> "$UP_LOG_FILE"
 
 #=================================================
 #copy old war 
-echo "Old War Name $UP_HOME/$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
-tar -czvf  $UP_ROOT/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
+echo "Old War Name $UP_HOME/up_$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
+tar -czvf  $UP_ROOT/ROOT_$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
 #cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
 
 # when you want to stop ,first ensure tomcat running.
@@ -210,7 +211,6 @@ echo "$currentTime tomcat stoped" >>"$BAK_LOG_FILE"
 sleep 2s;
 
 # 移除原来的ROOT运行环境
-
 rm -rf $WEB_ROOT
 sleep 2s;
 
@@ -232,5 +232,27 @@ echo "$currentTime Tomcat started..." >>"$BAK_LOG_FILE"
 #============stop rollback start==========================
 
 exit 0;
+fi
+#============delete old tar.gz and  *.log ,default only remove last month==========================
+
+if  [ $PARAM = 'del' ]; then 
+
+# regexp up_201809* roll_201809* ROOT_201809*
+FILE_DATE_REGEXP=$PARAM2
+if [ -z $PARAM2 ]; then
+FILE_DATE_REGEXP=`date -d "$(date +%Y%m)01 last month" +%Y%m`
+fi
+#up
+find ./ -name "[0-9]*\.log" -exec rm {} \;
+
+rm -rf "$UP_INCRE/ROOT_$FILE_DATE_REGEXP*"
+rm -rf "$UP_LOG/up_$FILE_DATE_REGEXP*"
+rm -rf "$UP_ROOT/ROOT_$FILE_DATE_REGEXP*"
+#bak
+rm -rf "$UP_INCRE/ROOT_$FILE_DATE_REGEXP*"
+rm -rf "$BAK_LOG/bak_$FILE_DATE_REGEXP*"
+rm -rf "$UP_ROOT/ROOT_$FILE_DATE_REGEXP*"
+
+exit 0
 fi
 
