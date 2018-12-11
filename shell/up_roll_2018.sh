@@ -27,7 +27,7 @@ FILE_NAME=`date "+%Y%m%d%H%M%S"`
 currentTime=`date "+%Y-%m-%d %H:%M:%S"`
 
 # upgrade
-UP_HOME="$UP_BAK_HOME/up"
+UP_HOME="$UP_BAK_HOME/up" 
 UP_INCRE="$UP_HOME/incre"
 UP_ROOT="$UP_HOME/ROOT"
 UP_LOG="$UP_HOME/log"
@@ -64,7 +64,7 @@ fi
 if [ ! -d $UP_INCRE ]; then
 mkdir $UP_INCRE
 else
-echo "exit $UP_ROOT" 
+echo "exit $UP_INCRE" 
 fi
 
 if [ ! -d $UP_ROOT ]; then
@@ -79,8 +79,7 @@ else
 echo "exit $UP_LOG" 
 fi
 
-exit 0 
-fi
+
 #=====================rollback dir============================
 #文件夹 
 if [ ! -d $BAK_HOME ]; then
@@ -101,6 +100,8 @@ else
 echo "exit $BAK_LOG"  
 fi 
 
+exit 0 
+fi
 #==========================================upgrade============================================================
 # upgrade
 if [ $PARAM = 'upgrade' ]; then
@@ -116,7 +117,7 @@ fi
 ## if not  $UP_HOME/ROOT.zip ,then exit
 if[ ! -f $UP_HOME/ROOT.zip ]; then
 echo "plase upload ROOT.zip to  $UP_HOME"
-exit 0
+exit 1
 fi
 
 touch "$UP_LOG_FILE"
@@ -210,12 +211,12 @@ sleep 2s;
 
 # 移除原来的ROOT运行环境
 
-rm -rf $WEB_APPS/ROOT/
+rm -rf $WEB_ROOT
 sleep 2s;
 
 # tar -xzvf 
 echo  "tar -xzvf $UP_ROOT/$OLD_FILE $WEB_APPS">> "$BAK_LOG_FILE"
-tar -xzvf $UP_ROOT/$OLD_FILE $WEB_APPS
+tar -xzvf $UP_ROOT/$OLD_FILE  -C $WEB_APPS ROOT/
 
 # ps -ef | grep tomcat 没有的时候可以下面执行
 
@@ -231,6 +232,5 @@ echo "$currentTime Tomcat started..." >>"$BAK_LOG_FILE"
 #============stop rollback start==========================
 
 exit 0;
-
 fi
 
