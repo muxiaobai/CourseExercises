@@ -128,10 +128,10 @@ echo "Old War Name $UP_HOME/$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
 tar -czvf  $UP_ROOT/$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
 #cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
 
+# when you want to stop ,first ensure tomcat running.
+#if [ps -ef | grep tomcat wc -l]; then 
 
-if [ps -ef | grep tomcat wc -l]; then 
-
-fi
+#fi
 
 # stop tomcat
 echo "$currentTime stoping tomcat..." >>"$UP_LOG_FILE"
