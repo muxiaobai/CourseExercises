@@ -4,7 +4,7 @@
 # date : 2018-11-27
 # chmod +x ./test.sh  
 #         ./test.sh  
-# 坏的解释器 sed -i 's/\r$//' up_roll_2018.sh
+# bad interpreter sed -i 's/\r$//' up_roll_2018.sh
 echo $1
 
 #===============【change home path】need push ROOT.zip to $UP_BAK_HOME/up dir===============================
@@ -55,7 +55,7 @@ if [ $PARAM = 'init' ]; then
 echo  "=================init: $currentTime========================="
 
 #===================up_home dir ==============================
-#文件夹 
+#directory 
 if [ ! -d $UP_HOME ]; then
 mkdir $UP_HOME
 else
@@ -82,7 +82,7 @@ fi
 
 
 #=====================rollback dir============================
-#文件夹 
+# directory
 if [ ! -d $BAK_HOME ]; then
 mkdir $BAK_HOME
 else
@@ -116,7 +116,7 @@ exit 1
 fi
 
 ## if not  $UP_HOME/ROOT.zip ,then exit
-if[ ! -f $UP_HOME/ROOT.zip ]; then
+if [ ! -f "$UP_HOME/ROOT.zip" ]; then
 echo "plase upload ROOT.zip to  $UP_HOME"
 exit 1
 fi
@@ -161,10 +161,10 @@ echo " $currentTime start Tomcat..." >>"$UP_LOG_FILE"
 $startupsh >> "$UP_LOG_FILE"
 echo "$currentTime Tomcat started..." >>"$UP_LOG_FILE"
 
-# 把增量更新包复制带其他地方
+# move  incre ROOT.zip to other,and ensure  UP_HOME not ROOT.zip 
 mv $UP_HOME/ROOT.zip $UP_INCRE/ROOT_$FILE_NAME.zip
 
-# 执行了这些之后，直接退出，因为upgrade 和rollback是只能选择其中一个
+# upgrade rollback del only to choose one.
 exit 0;
 fi
 
@@ -210,7 +210,7 @@ $shutdownsh >> "$UP_LOG_FILE"
 echo "$currentTime tomcat stoped" >>"$BAK_LOG_FILE"
 sleep 2s;
 
-# 移除原来的ROOT运行环境
+# remove old web-apps/ROOT file
 rm -rf $WEB_ROOT
 sleep 2s;
 
@@ -218,7 +218,7 @@ sleep 2s;
 echo  "tar -xzvf $UP_ROOT/$OLD_FILE $WEB_APPS">> "$BAK_LOG_FILE"
 tar -xzvf $UP_ROOT/$OLD_FILE  -C $WEB_APPS ROOT/
 
-# ps -ef | grep tomcat 没有的时候可以下面执行
+# ps -ef | grep tomcat 
 
 # remove cache
 echo " rm -rf $TOMCAT_HOME/work " >> "$BAK_LOG_FILE"
@@ -243,7 +243,6 @@ if [ -z $PARAM2 ]; then
 FILE_DATE_REGEXP=`date -d "$(date +%Y%m)01 last month" +%Y%m`
 fi
 #up
-find ./ -name "[0-9]*\.log" -exec rm {} \;
 
 rm -rf "$UP_INCRE/ROOT_$FILE_DATE_REGEXP*"
 rm -rf "$UP_LOG/up_$FILE_DATE_REGEXP*"
