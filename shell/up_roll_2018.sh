@@ -127,7 +127,7 @@ echo "begin time:$currentTime" >> "$UP_LOG_FILE"
 #=================================================
 #copy old war 
 echo "Old War Name $UP_HOME/up_$FILE_NAME.tar.gz" >>"$UP_LOG_FILE"
-tar -czvf  $UP_ROOT/ROOT_$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/
+tar -czvf  $UP_ROOT/ROOT_$FILE_NAME.tar.gz -C $WEB_APPS/ ROOT/ | tee -a "$UP_LOG_FILE"
 #cp $WEB_APPS/ $BAK_HOME/$FILE_NAME.zip
 
 # when you want to stop ,first ensure tomcat running.
@@ -247,9 +247,8 @@ rm -rf $UP_INCRE/ROOT_$FILE_DATE_REGEXP*
 rm -rf $UP_LOG/up_$FILE_DATE_REGEXP*
 rm -rf $UP_ROOT/ROOT_$FILE_DATE_REGEXP*
 #bak
-rm -rf $UP_INCRE/ROOT_$FILE_DATE_REGEXP*
+rm -rf $BAK_ROOT/ROOT_$FILE_DATE_REGEXP*
 rm -rf $BAK_LOG/bak_$FILE_DATE_REGEXP*
-rm -rf $UP_ROOT/ROOT_$FILE_DATE_REGEXP*
 
 exit 0
 fi
