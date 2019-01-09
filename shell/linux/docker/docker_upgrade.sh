@@ -5,6 +5,26 @@
 # chmod +x ./test.sh  
 #         ./test.sh  
 # bad interpreter sed -i 's/\r$//' up_roll_2018.sh
+
+##  docker
+docker_id = docker ps | grep tomcat | awk '{print $1}'
+##
+if [ -z $docker_id]; then
+
+else
+## use docker
+docker exec -it $docker_id /bin/bash
+
+service tomcat-8.5 stop
+
+tomcat_pid = ps -ef | grep tomcat | awk '{print $2}'
+## tomcat_pid
+tomcat_pid = ps -ef | grep tomcat | awk '{if(NR>1){print $2}}'
+kill -9 $tomcat_pid
+
+service tomcat-8.5 start 
+
+fi
 echo $1
 
 #===============【change home path】need push ROOT.zip to $UP_BAK_HOME/up dir===============================
