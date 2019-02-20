@@ -18,14 +18,12 @@ package ctrl;
  * @since    JDK 1.8	 
  */
 
-import java.io.PrintStream;
-
 public class FileRecover
 {
   public static void main(String[] args)
   {
     if ((args == null) || (args.length == 0)) {
-      System.out.println("������������");
+      System.out.println("Recovery");
     }
   }
 }

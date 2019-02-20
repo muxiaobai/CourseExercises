@@ -18,8 +18,6 @@ package ctrl;
  * @since    JDK 1.8	 
  */
 
-import java.io.PrintStream;
-
 public class MPrint
 {
   public static void print(String pstr)
