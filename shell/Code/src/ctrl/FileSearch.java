@@ -65,8 +65,7 @@ public class FileSearch
         if ((file.exists()) && (file.isFile()))
         {
           Map tmap = XmlManager.getXmlInfo(file.getAbsolutePath());
-          System.out
-            .println("::" + key + " Last mod time is :: " + value);
+          System.out.println("::" + key + " Last mod time is :: " + value);
           if (value.length() > 0)
           {
             String fstr = "yyyy-MM-dd";
@@ -250,9 +249,14 @@ public class FileSearch
       (args.length > 0)) {
       key = args[0];
     }
+    
+    //load Xml
     FileSearch fs = new FileSearch(key);
+
+    //find file ,lastModified() and Pattern.matches(filter, file.getPath())
     Map vMap = fs.findSearchFiles();
     
+    //version 
     System.out.println("Create version::");
     Map bMap = (Map)vMap.get("baseDir");
     Map fMap = (Map)vMap.get("fromDir");
@@ -265,6 +269,7 @@ public class FileSearch
       String tkey = (String)en.getKey();
       String path = (String)en.getValue();
       String fPath = (String)fMap.get(tkey);
+      // write version.properties 
       String istr = ver.verManager(tkey, path, fPath);
       System.out.println(tkey + "===>> " + istr);
       verMap.put(tkey, istr);
@@ -289,7 +294,7 @@ public class FileSearch
       }
     }
     System.out.println("Create Version OK!");
-    
+    // Copy file to baseDir
     fs.backFiles(vMap);
   }
 }
