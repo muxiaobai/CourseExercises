@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root> 	
+<!--
+	<item>
+		<base_dir>{root}/update/new/{ver}_{time}/tysp/ROOT</base_dir>
+		<search_dir>D:/workspace_new/TyspV2.0DevelopWithJspJava/src</search_dir>
+		<search_filter>*.java</search_filter>
+		<from_dir>D:/workspace_new/TyspV2.0DevelopWithJspJava/WebRoot/WEB-INF/classes</from_dir>
+		<to_dir>WEB-INF/classes</to_dir>
+		<roles>
+			<role>
+				<rf>.java</rf>
+				<rt>.class</rt>
+			</role>
+		</roles>
+	</item>	   -->
+	<item>
+		<base_dir>{root}/update/jy_zq/{ver}_{time}/ROOT</base_dir>
+		<search_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</search_dir>
+		<search_filter>*.jsp||*.html||*.htm||*.swf||*.xml||*.css||*.js||*.xsl||*.png||*.jpg||*.gif||*.class</search_filter>
+		<from_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</from_dir>
+		<to_dir></to_dir>
+	</item>
+</root>

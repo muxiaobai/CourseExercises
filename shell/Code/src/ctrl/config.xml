@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<item>
+		<base_dir>E:/update</base_dir>
+		<search_dir>E:/workspace/chaozhou/WsdtCZ/WebRoot/bin</search_dir>
+		<search_filter>*.swf</search_filter>
+		<from_dir>E:/workspace/chaozhou/WsdtCZ/WebRoot/bin</from_dir>
+		<to_dir>ROOT/bin</to_dir>
+	</item>
+</root>

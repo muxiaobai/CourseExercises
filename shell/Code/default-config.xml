@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <item>
+        <base_dir>E:/update</base_dir>
+        <search_dir>E:/workspace/first/VerCtrl/src</search_dir>
+        <search_filter>*.java</search_filter>
+        <from_dir>E:/workspace/first/VerCtrl/WebRoot/WEB-INF/classes</from_dir>
+        <to_dir>ROOT/WEB-INF/classes</to_dir>
+        <roles>
+            <role>
+                <rf>.java</rf>
+                <rt>.class</rt>
+            </role>
+        </roles>
+    </item>
+    <item>
+        <base_dir>E:/update</base_dir>
+        <search_dir>E:/workspace/first/VerCtrl/WebRoot</search_dir>
+        <search_filter>*.jsp||*.html||*.xml||*.properties</search_filter>
+        <from_dir>E:/workspace/first/VerCtrl/WebRoot</from_dir>
+        <to_dir>ROOT</to_dir>
+    </item>
+</root>

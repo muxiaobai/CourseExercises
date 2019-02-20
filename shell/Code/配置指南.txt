@@ -1,0 +1,12 @@
+更新工具使用指南
+1.添加配置文件到/config/项目简称.xml；配置查找文件的中间件目录;配置相关需要更新的文件类型(后缀)
+2.配置修改时间（将此时间之后修改的文件加入到更新列表）；在/ctrl/lasttime.properties文件中添加该时间
+3.在run.bat文件中添加对应的操作。
+注意事项：上面三项中配置的名字须保证一致。
+
+
+
+cd ..\..\ProgramTool\CodeUpdateV2.0
+
+C:\ProgramTool\CodeUpdateV2.0
+java ctrl.FileSearch jy_zq

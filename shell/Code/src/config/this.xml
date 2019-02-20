@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<item>
+		<base_dir>{root}/update/this/{ver}_{time}/ctrl</base_dir>
+		<search_dir>{root}/ctrl/</search_dir>
+		<search_filter>*.class||*.properties||*.bat||*.xml</search_filter>
+		<from_dir>{root}/ctrl/</from_dir>
+		<to_dir></to_dir>
+	</item>
+</root>
