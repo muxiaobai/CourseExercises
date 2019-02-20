@@ -18,18 +18,21 @@ docker exec -it $docker_id /bin/bash
 
 ## 
 
-##
+## stop tomcat
 service tomcat-8.5 stop
 
+## check tomcat status if having ,kill it.
 tomcat_pid = ps -ef | grep tomcat | awk '{print $2}'
 ## tomcat_pid
 tomcat_pid = ps -ef | grep tomcat | awk '{if(NR>1){print $2}}'
 
 kill -9 $tomcat_pid
 
+## start tomcat
 service tomcat-8.5 start 
 
 fi
+
 echo $1
 
 #===============【change home path】need push ROOT.zip to $UP_BAK_HOME/up dir===============================
