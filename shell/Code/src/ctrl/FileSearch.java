@@ -150,8 +150,8 @@ public class FileSearch
           this.search_filter.replaceAll("\\.", "[.]");
         this.to_all = (this.base_dir + File.separator + this.to_dir);
         
-//        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
-        List sList = findSearchFiles1();
+        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
+//        List sList = findSearchFiles1();
 
         tMap.put("LIST", sList);
         tMap.put("TOALL", this.to_all);

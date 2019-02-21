@@ -22,10 +22,12 @@
 		<search_filter>*.jsp||*.html||*.htm||*.swf||*.xml||*.css||*.js||*.xsl||*.png||*.jpg||*.gif||*.class</search_filter>
 		<from_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</from_dir>
 		<to_dir></to_dir>
-		<svn-username></svn-username>
-		<svn-password></svn-password>
-        <svn-url></svn-url>
-          
-        
+		
+		<svn-username>zhangpengfei</svn-username>
+		<svn-password>zpf1234</svn-password>
+        <svn-url>http://svn.xd-info.com:9432/svn/FORP_DEV2018</svn-url>
+        <svn_path>/金元证券/003软件开发/04编码/web-admin</svn_path>
+        <java_path>/src</java_path>
+        <web_path>/web</web_path>  
 	</item>
 </root>

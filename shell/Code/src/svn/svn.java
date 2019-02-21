@@ -166,10 +166,10 @@ public class svn {
         String java_path = "/src";
         String web_path = "/web";
         svn svn = new svn("zhangpengfei", "zpf1234", base_svn+path);
-        svn.init();
         SimpleDateFormat sDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date startDate = sDf.parse("2019-02-20 14:00:00");
         Date endDate = sDf.parse("2019-02-20 19:00:00");
+        endDate = new Date();
         SVNLogEntry[] svnLogs =svn.getLogByTime(startDate,endDate);
         List files = svn.getChangeFileList(svnLogs);
 //        Iterator<String>tmp=files.iterator();
@@ -186,25 +186,24 @@ public class svn {
         System.out.println("-------------------------------");
         List ls = new ArrayList();
         for(int i=0;i<SVNLogEntries.length;i++){
-            System.out.println("Revision:"+SVNLogEntries[i].getRevision());
-            System.out.println(SVNLogEntries[i].getChangedPaths());
+//            System.out.println("Revision:"+SVNLogEntries[i].getRevision());
+//            System.out.println(SVNLogEntries[i].getChangedPaths());
             Map<String,SVNLogEntryPath> myMap = SVNLogEntries[i].getChangedPaths();
             for(String key:myMap.keySet()){
                 String val = key;
                 String suffix = val.substring(val.lastIndexOf(".")+1);
                 Boolean flag = false;
                 flag  = Pattern.matches("java", suffix);
-                System.out.println("key="+key+",suffix:"+suffix+",flag:"+flag);
-                //是java文件,替换所有的目录
+//                System.out.println("key="+key+",suffix:"+suffix+",flag:"+flag);
+                //is java file replace all path
                 if(flag){
                     val = val.replaceAll(path+java_path, copy_path+"/WEB-INF/classes");
                     val = val.substring(0, val.lastIndexOf(".")+1)+"class";
-//                    val = val.replaceAll(path+java_path, copy_path+"/WEB-INF/classes");
                 }else{
                     val = val.replaceAll(path+web_path, copy_path);
 
                 }
-                //去重处理
+                //De-reprocessing
                 if(!ls.contains(val)){
                     ls.add(val);
                 }
