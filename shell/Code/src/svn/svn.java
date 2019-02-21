@@ -52,7 +52,6 @@ public class svn {
     private SVNRepository repos;
     private ISVNAuthenticationManager authManager;
     public svn(){
-    
     }
     public svn(String u,String p,String url) {
         try {
@@ -74,11 +73,16 @@ public class svn {
     }
 
     public static void  main(String[] args) throws Exception{  
-        svn svn = new svn();
+        Map tMap = new HashMap<String, Object>();
+        tMap.put("svn_username", "zhangpengfei");
+        tMap.put("svn_password", "zpf1234");
+        tMap.put("svn_url", "http://svn.xd-info.com:9432/svn/FORP_DEV2018");
+        tMap.put("svn_path", "/金元证券/003软件开发/04编码/web-admin");
+        svn svn = new svn(tMap.get("svn_username").toString(), tMap.get("svn_password").toString(), tMap.get("svn_url").toString()+tMap.get("svn_path").toString());
         try {
             Map map = new HashMap<String,Object>();
             map.put("", "");
-            System.out.println(svn.getChangeFileList(map));
+            System.out.println(svn.getChangeFileList(svn,map,System.currentTimeMillis()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,16 +94,13 @@ public class svn {
 //        }
 //        svn.getChangeLog(startDate,endDate);
     }
-    public List getChangeFileList(Map tMap) throws Exception{
-        System.out.print(tMap);
-        String base_svn = tMap.get("svn_url").toString();
-        String path = tMap.get("svn_path").toString();
-//        String java_path = tMap.get("java_path").toString();
-//        String web_path = tMap.get("web_path").toString();
-        svn svn = new svn(tMap.get("svn_username").toString(), tMap.get("svn_password").toString(), base_svn+path);
+    
+    public List getChangeFileList(svn svn,Map tMap,long time) throws Exception{
         SimpleDateFormat sDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDate = sDf.parse("2019-02-20 14:00:00");
-//        Date endDate = sDf.parse("2019-02-20 19:00:00");
+        String svn_time  = tMap.get("svn_time").toString();
+        Date startDate = sDf.parse(svn_time);
+//        Date startDate = new Date(time);
+//      Date endDate = sDf.parse("2019-02-20 19:00:00");
         Date endDate = new Date();
         SVNLogEntry[] svnLogs =svn.getLogByTime(startDate,endDate);
         List files = svn.getChangeFileList(svnLogs,tMap);

@@ -148,9 +148,15 @@ public class FileSearch
         this.search_filter = tFilter.replaceAll("\\*", "\\\\S*");
         this.search_filter = this.search_filter.replaceAll("\\.", "[.]");
         this.to_all = (this.base_dir + File.separator + this.to_dir);
-        
-//        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
-        List sList = findSearchFiles1(tMap);
+        //search file
+        List sList = null;
+        if("svn".equals(tMap.get("type").toString().trim())){
+             sList = findSearchFilesSvn(tMap,time);
+        }else if("dir".equals(tMap.get("type").toString().trim())){
+            sList = findSearchFiles(this.search_dir, this.search_filter, time);
+        }else{
+            sList = findSearchFiles(this.search_dir, this.search_filter, time);
+        }
 
         tMap.put("LIST", sList);
         tMap.put("TOALL", this.to_all);
@@ -163,16 +169,31 @@ public class FileSearch
     
     return rMap;
   }
-  private List findSearchFiles1(Map tMap){
-      svn svn = new svn();
+  /**
+   * user xml svn_time 
+   * findSearchFilesSvn:().
+   * @author Mu Xiaobai
+   * @param tMap 
+   * @param time no use
+   * @return
+   * @since JDK 1.8
+   */
+  private List findSearchFilesSvn(Map tMap,long time){
+//      svn svn = new svn();
+//      System.out.print(tMap);
+//      String base_svn = tMap.get("svn_url").toString();
+//      String path = tMap.get("svn_path").toString();
+//      String java_path = tMap.get("java_path").toString();
+//      String web_path = tMap.get("web_path").toString();
+      svn svn = new svn(tMap.get("svn_username").toString(), tMap.get("svn_password").toString(), tMap.get("svn_url").toString()+tMap.get("svn_path").toString());
       try {
-//          System.out.print(svn.getChangeFileList());
-          return svn.getChangeFileList(tMap);
+          return svn.getChangeFileList(svn,tMap,time);
       } catch (Exception e) {
           e.printStackTrace();
       }
     return null;
   }
+  
   private List findSearchFiles(String path, String filter, long time)
   {
     List rList = new ArrayList();
@@ -206,7 +227,13 @@ public class FileSearch
     }
     return rList;
   }
-  
+  /**
+   * 拷贝文件到目录
+   * backFiles:().
+   * @author Mu Xiaobai
+   * @param searchMap
+   * @since JDK 1.8
+   */
   public void backFiles(Map searchMap)
   {
     Iterator it = searchMap.entrySet().iterator();
@@ -260,8 +287,8 @@ public class FileSearch
       (args.length > 0)) {
       key = args[0];
     }
-    
-    //load Xml
+    key="jy_zq";
+    //load Xml and time
     FileSearch fs = new FileSearch(key);
 
     //find file ,lastModified() and Pattern.matches(filter, file.getPath())

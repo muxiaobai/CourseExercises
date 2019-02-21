@@ -56,9 +56,11 @@ public class XmlManager
         Element svn_password = getElement(items.item(i), "svn_password");
         Element svn_url = getElement(items.item(i), "svn_url");
         Element svn_path = getElement(items.item(i), "svn_path");
+        Element svn_time = getElement(items.item(i), "svn_time");
         Element java_path = getElement(items.item(i), "java_path");
         Element web_path = getElement(items.item(i), "web_path");
 
+        
         itemMap.put(base_dir.getNodeName(), base_dir.getTextContent());
         itemMap.put(search_dir.getNodeName(), search_dir.getTextContent());
         itemMap.put(search_filter.getNodeName(), search_filter.getTextContent());
@@ -70,9 +72,10 @@ public class XmlManager
         itemMap.put(svn_password.getNodeName(), svn_password.getTextContent());
         itemMap.put(svn_url.getNodeName(), svn_url.getTextContent());
         itemMap.put(svn_path.getNodeName(), svn_path.getTextContent());
+        itemMap.put(svn_time.getNodeName(), svn_time.getTextContent());
         itemMap.put(java_path.getNodeName(), java_path.getTextContent());
         itemMap.put(web_path.getNodeName(), web_path.getTextContent());
-        
+
         Element roles = getElement(items.item(i), "roles");
         if (roles != null)
         {
