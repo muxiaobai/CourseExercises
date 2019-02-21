@@ -23,10 +23,10 @@
 		<from_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</from_dir>
 		<to_dir></to_dir>
 		
-		<svn-username>zhangpengfei</svn-username>
-		<svn-password>zpf1234</svn-password>
-        <svn-url>http://svn.xd-info.com:9432/svn/FORP_DEV2018</svn-url>
-        <svn_path>/金元证券/003软件开发/04编码/web-admin</svn_path>
+		<svn-username>xxx</svn-username>
+		<svn-password>xxx</svn-password>
+        <svn-url>xxx</svn-url>
+        <svn_path>/编码/web-admin</svn_path>
         <java_path>/src</java_path>
         <web_path>/web</web_path>  
 	</item>
