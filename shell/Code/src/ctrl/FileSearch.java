@@ -146,12 +146,11 @@ public class FileSearch
           tFilter = (String)tMap.get("search_filter");
         }
         this.search_filter = tFilter.replaceAll("\\*", "\\\\S*");
-        this.search_filter = 
-          this.search_filter.replaceAll("\\.", "[.]");
+        this.search_filter = this.search_filter.replaceAll("\\.", "[.]");
         this.to_all = (this.base_dir + File.separator + this.to_dir);
         
-        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
-//        List sList = findSearchFiles1();
+//        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
+        List sList = findSearchFiles1(tMap);
 
         tMap.put("LIST", sList);
         tMap.put("TOALL", this.to_all);
@@ -164,11 +163,11 @@ public class FileSearch
     
     return rMap;
   }
-  private List findSearchFiles1(){
+  private List findSearchFiles1(Map tMap){
       svn svn = new svn();
       try {
-          System.out.print(svn.getChangeFileList());
-          return svn.getChangeFileList();
+//          System.out.print(svn.getChangeFileList());
+          return svn.getChangeFileList(tMap);
       } catch (Exception e) {
           e.printStackTrace();
       }

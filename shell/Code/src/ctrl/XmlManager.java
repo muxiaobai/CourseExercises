@@ -51,11 +51,27 @@ public class XmlManager
         Element from_dir = getElement(items.item(i), "from_dir");
         Element to_dir = getElement(items.item(i), "to_dir");
         
+        Element type = getElement(items.item(i), "type");
+        Element svn_username = getElement(items.item(i), "svn_username");
+        Element svn_password = getElement(items.item(i), "svn_password");
+        Element svn_url = getElement(items.item(i), "svn_url");
+        Element svn_path = getElement(items.item(i), "svn_path");
+        Element java_path = getElement(items.item(i), "java_path");
+        Element web_path = getElement(items.item(i), "web_path");
+
         itemMap.put(base_dir.getNodeName(), base_dir.getTextContent());
         itemMap.put(search_dir.getNodeName(), search_dir.getTextContent());
         itemMap.put(search_filter.getNodeName(), search_filter.getTextContent());
         itemMap.put(from_dir.getNodeName(), from_dir.getTextContent());
         itemMap.put(to_dir.getNodeName(), to_dir.getTextContent());
+
+        itemMap.put(type.getNodeName(), type.getTextContent());
+        itemMap.put(svn_username.getNodeName(), svn_username.getTextContent());
+        itemMap.put(svn_password.getNodeName(), svn_password.getTextContent());
+        itemMap.put(svn_url.getNodeName(), svn_url.getTextContent());
+        itemMap.put(svn_path.getNodeName(), svn_path.getTextContent());
+        itemMap.put(java_path.getNodeName(), java_path.getTextContent());
+        itemMap.put(web_path.getNodeName(), web_path.getTextContent());
         
         Element roles = getElement(items.item(i), "roles");
         if (roles != null)
@@ -91,6 +107,7 @@ public class XmlManager
   
   public static void main(String[] args)
   {
-    getXmlInfo("E:\\workspace\\first\\VerCtrl\\src\\ctrl\\config.xml");
+    
+    getXmlInfo("E:\\git\\CourseExercises\\shell\\Code\\src\\ctrl\\config.xml");
   }
 }

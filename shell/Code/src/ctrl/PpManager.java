@@ -34,7 +34,7 @@ public class PpManager
   private Map infoMap = new TreeMap();
   private String configPath = "lasttime.properties";
   private String filePath;
-  
+
   public PpManager()
   {
     this.filePath = getClass().getResource(this.configPath).getFile();
