@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
+import svn.svn;
+
 public class FileSearch
 {
   private List infoList = new ArrayList();
@@ -148,8 +150,9 @@ public class FileSearch
           this.search_filter.replaceAll("\\.", "[.]");
         this.to_all = (this.base_dir + File.separator + this.to_dir);
         
-        List sList = findSearchFiles(this.search_dir, 
-          this.search_filter, time);
+//        List sList = findSearchFiles(this.search_dir, this.search_filter, time);
+        List sList = findSearchFiles1();
+
         tMap.put("LIST", sList);
         tMap.put("TOALL", this.to_all);
         tMap.put("KEY", key);
@@ -161,7 +164,16 @@ public class FileSearch
     
     return rMap;
   }
-  
+  private List findSearchFiles1(){
+      svn svn = new svn();
+      try {
+          System.out.print(svn.getChangeFileList());
+          return svn.getChangeFileList();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+    return null;
+  }
   private List findSearchFiles(String path, String filter, long time)
   {
     List rList = new ArrayList();
@@ -294,6 +306,7 @@ public class FileSearch
       }
     }
     System.out.println("Create Version OK!");
+   
     // Copy file to baseDir
     fs.backFiles(vMap);
   }

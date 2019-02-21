@@ -15,10 +15,17 @@
 		</roles>
 	</item>	   -->
 	<item>
+        <!-- svn tempdir -->
+        <type>svn</type>
 		<base_dir>{root}/update/jy_zq/{ver}_{time}/ROOT</base_dir>
 		<search_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</search_dir>
 		<search_filter>*.jsp||*.html||*.htm||*.swf||*.xml||*.css||*.js||*.xsl||*.png||*.jpg||*.gif||*.class</search_filter>
 		<from_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</from_dir>
 		<to_dir></to_dir>
+		<svn-username></svn-username>
+		<svn-password></svn-password>
+        <svn-url></svn-url>
+          
+        
 	</item>
 </root>
