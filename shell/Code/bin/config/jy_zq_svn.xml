@@ -27,6 +27,7 @@
         <java_path>/src</java_path>
         <web_path>/web</web_path>  
         
+        <!-- change search_dir and from_dir ,use youself path that  is tomcat or build runing home -->
         <base_dir>{root}/update/jy_zq/{ver}_{time}/ROOT</base_dir>
         <search_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</search_dir>
         <search_filter>*.jsp||*.html||*.htm||*.swf||*.xml||*.css||*.js||*.xsl||*.png||*.jpg||*.gif||*.class</search_filter>

@@ -4,7 +4,7 @@ echo off
 cls
 echo ****************************************************************************
 echo * 1:生成更新数据 this       					*
-echo * 2:生成更新数据 （jy_zq）			        *
+echo * 2:生成更新数据 （jy_zq_svn）			        *
 
 echo * u:更新数据                                            		*
 echo * 0:退出                                                		*
@@ -23,7 +23,7 @@ start createUpdate.bat this
 goto :begin
 
 :2
-start createUpdate.bat jy_zq
+start createUpdate.bat jy_zq_svn
 goto :begin
 
 :ALL

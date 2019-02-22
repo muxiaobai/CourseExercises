@@ -288,7 +288,7 @@ public class FileSearch
       (args.length > 0)) {
       key = args[0];
     }
-    key="jy_zq";
+//    key="jy_zq_dir";
     //load Xml and time
     FileSearch fs = new FileSearch(key);
 
