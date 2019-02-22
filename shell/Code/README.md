@@ -10,6 +10,7 @@ Update Tool User Guide
 # Use local update time to update
 
 1. Add the configuration file to the /config/ project abbreviation .xml; configure the middleware directory to find the file; configure the file type (suffix) that needs to be updated.
+
 ```
 <base_dir>{root}/update/jy_zq_demo/{ver}_{time}/ROOT</base_dir>
 <search_dir>D:/tomcat-8.5.32-8095/webapps/ROOT</search_dir>
@@ -17,6 +18,7 @@ Update Tool User Guide
 <from_dir>D:/tomcat-8.5.32-8095/webapps/ROOT</from_dir>
 <to_dir></to_dir>
  ```
+
  Modify the path of search_dir and from_dir
 
 2. Configure the modification time (add the modified file after this time to the update list); add the time in the /ctrl/lasttime.properties file.
@@ -68,6 +70,7 @@ Note: The names configured in the above three items must be consistent.
     <from_dir>D:/tomcat-8.5.32-8080/webapps/ROOT</from_dir>
     <to_dir></to_dir>
 ```
+
 Modify svn_username, svn_password, svn_url, svn_path, svn_time, java_path, web_path and compile path search_dir, from_dir
 
 # Precautions
