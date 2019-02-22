@@ -41,8 +41,9 @@ public class FileSearch
   private String search_filter = "";
   private long lasttime;
   private Date thistime;
+//  private String rootPath = FileSearch.class.getClassLoader().getResource("/").getPath();
   private String rootPath = getClass().getResource("/").getPath();
-  
+//    private String rootPath =Thread.currentThread().getContextClassLoader().getResourceAsStream("test.properties");
   public String getLastModTime()
   {
     Date tdate = new Date(this.lasttime);
@@ -148,7 +149,7 @@ public class FileSearch
         this.search_filter = tFilter.replaceAll("\\*", "\\\\S*");
         this.search_filter = this.search_filter.replaceAll("\\.", "[.]");
         this.to_all = (this.base_dir + File.separator + this.to_dir);
-        //search file
+        //search file sList is base_path array
         List sList = null;
         if("svn".equals(tMap.get("type").toString().trim())){
              sList = findSearchFilesSvn(tMap,time);
@@ -157,7 +158,7 @@ public class FileSearch
         }else{
             sList = findSearchFiles(this.search_dir, this.search_filter, time);
         }
-
+        System.out.println("search all Files:"+sList);
         tMap.put("LIST", sList);
         tMap.put("TOALL", this.to_all);
         tMap.put("KEY", key);

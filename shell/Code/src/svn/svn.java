@@ -114,7 +114,7 @@ public class svn {
         String path = tMap.get("svn_path").toString();
         String java_path = tMap.get("java_path").toString();
         String web_path = tMap.get("web_path").toString();
-        String from_dir  = tMap.get("from_dir").toString();
+        String search_dir  = tMap.get("search_dir").toString();
         System.out.println("-------------------------------");
         List ls = new ArrayList();
         for(int i=0;i<SVNLogEntries.length;i++){
@@ -129,10 +129,10 @@ public class svn {
 //                System.out.println("key="+key+",suffix:"+suffix+",flag:"+flag);
                 //is java file replace all path
                 if(flag){
-                    val = val.replaceAll(path+java_path, from_dir+"/WEB-INF/classes");
+                    val = val.replaceAll(path+java_path, search_dir+"/WEB-INF/classes");
                     val = val.substring(0, val.lastIndexOf(".")+1)+"class";
                 }else{
-                    val = val.replaceAll(path+web_path, from_dir);
+                    val = val.replaceAll(path+web_path, search_dir);
 
                 }
                 //De-reprocessing
