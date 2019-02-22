@@ -40,7 +40,7 @@ Goto :begin
 Cd ..\..\Code
 
 C:\ProgramTool\Code
-java ctrl.FileSearch jy_zq
+java ctrl.FileSearch jy_zq_dir
 
 Note: The names configured in the above three items must be consistent.
 
@@ -71,10 +71,13 @@ Note: The names configured in the above three items must be consistent.
 
 Modify svn_username, svn_password, svn_url, svn_path, svn_time, java_path, web_path and compile path search_dir, from_dir
 
+use build path method, 3*
+
+run : java ctrl.FileSearch jy_zq_svn
+
 ## Precautions
 
 The compilation path cannot contain Chinese, and the backslash is used in the configuration file.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-run : java ctrl.FileSearch jy_zq
