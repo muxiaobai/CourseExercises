@@ -37,7 +37,7 @@ Goto :begin
 
 3*
 
-Cd ..\..\Code
+cd ..\..\Code
 
 C:\ProgramTool\Code
 java ctrl.FileSearch jy_zq_dir
