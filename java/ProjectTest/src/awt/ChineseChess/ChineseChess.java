@@ -150,7 +150,5 @@ public class ChineseChess extends JFrame implements ActionListener {
         }
     }
  
-    public static void main(String args[]) {
-        new ChineseChess();
-    }
+   
 }

@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="lib/javamelody-1.26.0.jar"/>
 	<classpathentry kind="lib" path="lib/jira-javamelody-1.26.0.jar"/>
 	<classpathentry kind="lib" path="lib/XMAEvaluation.jar"/>
+	<classpathentry kind="lib" path="lib/tika-app-1.18.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
