@@ -11,13 +11,12 @@ package org.sun.demo.threadTest;
 /**
  * ClassName:FutureTaskDemo 
  * Function: TODO 
- * Reason:	 TODO 
+ * Reason:	 TODO  类说明  解决计算一个类的两个数相加，放到sum类中
  * Date:     2019年4月15日 上午9:50:07 
  * @author   Mu Xiaobai
  * @version  
  * @since    JDK 1.8	 
  */
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +26,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-/** 
- * @author : mingwu.lxm
- * @version 创建时间：2016年1月5日 下午8:23:09 
- * 类说明  解决计算一个类的两个数相加，放到sum类中
- */
 public class FutureTaskDemo {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         int size =6;
@@ -75,8 +69,9 @@ public class FutureTaskDemo {
         List<FutureTask<List<UserInfo>>> tasklist = new ArrayList<FutureTask<List<UserInfo>>>();
        for (List<UserInfo> alist : subTaskList) {
           FutureTask<List<UserInfo>> task = new FutureTask<List<UserInfo>>(new SumJob(alist));
+          FutureTask<List<UserInfo>> task1 = new FutureTask(()->{System.out.println(Thread.currentThread().getName());},subTaskList);
+          es.execute(task1);
           es.execute(task);
-//          task.run();
           tasklist.add(task);
        }
        //拿到所有的结果
@@ -89,7 +84,7 @@ public class FutureTaskDemo {
        System.out.println("多线程拆分后耗时:"+ (bDateLong2-aDateLong2));
        System.out.println(retInfoList1.size());
        System.out.println(retInfoList2.size());
-        
+        System.exit(0);
     }
 
 

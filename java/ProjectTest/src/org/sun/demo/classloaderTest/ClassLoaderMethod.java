@@ -6,13 +6,18 @@ package org.sun.demo.classloaderTest;
  */
 public class ClassLoaderMethod {
 
-	public static void main(String[] args) throws ClassNotFoundException {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		   ClassLoader loader = ClassLoaderMethod.class.getClassLoader(); 
-           System.out.println(loader); 
+           System.out.println("ClassLoaderMethod:"+loader); 
            //使用ClassLoader.loadClass()来加载类，不会执行初始化块 
-//           loader.loadClass("ClassLoader.Test"); 
+          Class clazz =   loader.loadClass("org.sun.demo.classloaderTest.Test"); 
+          System.out.println(clazz.getClassLoader().getParent());
+          Object claObject = clazz.newInstance();
+          
            //使用Class.forName()来加载类，默认会执行初始化块 
-           Class.forName("ClassLoader.Test"); 
+           Object object = Class.forName("org.sun.demo.classloaderTest.Test"); 
+           System.out.println(object.getClass().getClassLoader());
+           
            //使用Class.forName()来加载类，并指定ClassLoader，初始化时不执行静态块 false/true(决定是否执行)
 //           Class.forName("ClassLoader.Test ", false, loader); 
 	}
@@ -21,7 +26,7 @@ public class ClassLoaderMethod {
 }
 
  class Test { 
-	 	private Test() {
+	 	public Test() {
 	 		System.out.println("私有构造方法模块");
 	 	}
        static{ 
