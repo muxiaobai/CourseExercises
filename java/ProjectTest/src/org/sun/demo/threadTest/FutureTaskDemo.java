@@ -76,6 +76,7 @@ public class FutureTaskDemo {
        for (List<UserInfo> alist : subTaskList) {
           FutureTask<List<UserInfo>> task = new FutureTask<List<UserInfo>>(new SumJob(alist));
           es.execute(task);
+//          task.run();
           tasklist.add(task);
        }
        //拿到所有的结果
