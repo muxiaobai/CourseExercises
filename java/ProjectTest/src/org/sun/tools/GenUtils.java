@@ -31,12 +31,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
-/**
- * 代码生成工具类
- *
- * @author  liShengJie
- * @version 2017/3/21 16:35
- */
+
 public class GenUtils
 {
 	/**

@@ -9,6 +9,7 @@ package org.sun.tools;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -25,33 +26,110 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+
 
 /**
  * 代码生成工具类
  *
- * @author  liShengJie
- * @version 2017/3/21 16:35
+ * @author  Mu Xiaobai
+ * @version 2019/3/21 16:35
  */
 public class GenUtil
 {
-    private static final String WEB_APP_PATH = getProjectPath();//"E:/git/CourseExercises/java/ProjectTest";
+    
+    private static final String WEB_APP_PATH = "E:/git/CourseExercises/java/ProjectTest";//getProjectPath();//
+//    E:/git/CourseExercises/java/ProjectTest/bin/org/sun/tools/service/
+//    E:/git/CourseExercises/java/ProjectTest/src/org/sun/tools/service/
+    
     public static void main(String[] args) throws Exception {
         System.out.println(System.getProperties().getProperty("os.name"));
         System.out.println(System.getProperties().getProperty("file.separator"));
         System.out.println(GenUtil.getComplateClassPath());
         System.out.println(GenUtil.getProjectPath());
         GenUtil genUtil = new GenUtil();
-        String className  = genUtil.createUIDByGenerateRule();
+        String tableName = "zdyForm";
+        //Gen
+        String className  = genUtil.createUIDByGenerateRule(tableName);
         System.out.println(className);
+        String classPath = WEB_APP_PATH + "/bin/org/sun/tools/service/" + className + ".class";
+        //invoke
+        Object object = genUtil.invokeRuleMethod(className);
         
+        System.out.println("object:"+object);
+            
+//        zdyFormService1556013308311Service zdyFormService1556013308311Service = new zdyFormService1556013308311Service();
+        
+        Form form = new Form();
+        form.createTableForMySql(tableName);
+        form.createTable(tableName);
+        
+//      form.addColumn(formName, fieldName, fieldType, fieldSize, digit, notNull, defaultValue);
+        String fieldName = "hello";
+        String fieldType = "INTEGER";
+        String fieldSize = "10";
+        String digit = "";
+        String defaultValue  ="1";
+        form.addColumn(tableName, fieldName, fieldType, fieldSize, digit, false, defaultValue);
         
     }
-    private String createUIDByGenerateRule() throws Exception
+    /**
+     * 调用生成的class
+     * invokeRuleMethod:().
+     * @author Mu Xiaobai
+     * @param className
+     * @return
+     * @throws Exception
+     * @since JDK 1.8
+     */
+    public Object invokeRuleMethod(String className) throws Exception
+    {
+        // 生成class文件
+        String classPath = WEB_APP_PATH + "/bin/org/sun/tools/service/" + className + ".class";
+        File classFile = new File(classPath);
+        if (!classFile.exists())
+        {
+            this.createUIDByGenerateRule(className);
+        }
+        
+        // 反射调用文件方法
+//        Class Clazz = Class.forName("org.sun.tools.service." + className + ".class");
+        Class Clazz = Class.forName("org.sun.tools.service." + className);
+//        Class ruleClass = this.getClass().getClassLoader().loadClass("cn.forp.form.service." + fsFile.getFilename());
+//        Method writeRule = bean.getClass().getMethod("writeRule", HttpServletRequest.class);
+        Method writeRule = Clazz.getMethod("test",String.class);
+        return writeRule.invoke(Clazz.newInstance(),"hello");
+//        return (Map<String, Object>) writeRule.invoke(bean, request);
+
+        /* ***********************************Spring动态注册bean******************************************* */
+//        destroy(fsFile.getFilename());
+        //addMongoToBeanFactory(ruleClass, fsFile.getFilename());
+        //Object bean = FORP.SPRING_CONTEXT.getBean(fsFile.getFilename());
+        //scannerToBeanFactory("cn.forp.form.service",fsFile.getFilename());
+//        ConfigurableApplicationContext applicationContext = (ConfigurableApplicationContext) FORP.SPRING_CONTEXT;
+//        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
+//        BeanDefinitionRegistry registry = new DefaultListableBeanFactory();
+//        if (null != beanFactory && !beanFactory.containsBean(fsFile.getFilename()))
+//        {
+//            // 扫描注册
+//            ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(registry);
+//            scanner.scan("cn.forp.form.service");
+//
+//            lg.info("Add {} to bean container.", fsFile.getFilename());
+//        }       
+
+//        String serviceName = fsFile.getFilename().substring(0,fsFile.getFilename().indexOf(".")).toLowerCase();
+        // 获取规则基类
+//        BaseRuleService bean = (BaseRuleService) ((DefaultListableBeanFactory) registry).getBean(serviceName);
+        /* ********************************************************************************************** */
+
+        // 执行规则,返回结果集
+//        return bean.testRule(request);
+        
+    }
+    private String createUIDByGenerateRule(String phyName) throws Exception
     {
         // 规则文件名格式 XXXService$ruleID$时间戳$Service
-        String className = "zdyFormService$" + System.currentTimeMillis() + "$Service";
+        String className = phyName+"$Service$" + System.currentTimeMillis() + "$Service";
 
         VelocityEngine ve = new VelocityEngine();
         ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, WEB_APP_PATH + "/resource/template");
@@ -61,7 +139,7 @@ public class GenUtil
         VelocityContext ctx = new VelocityContext();
         ctx.put("classComment", "test");
         ctx.put("className", className);
-        String java  = " System.out.println(\""+className+",\"+System.getProperties().getProperty(\"os.name\"));";
+        String java  = " System.out.println(\"ss:"+className+",\"+System.getProperties().getProperty(\"os.name\"));";
         ctx.put("ruleContext", java);
         ctx.put("serviceName", className.toLowerCase());
 

@@ -12,7 +12,8 @@ public class ${className} {
     /**
      *  执行规则
      */
-    public void test(){
+    public Object test(String test){
 		${ruleContext}
+		return test;
 	}
 }
