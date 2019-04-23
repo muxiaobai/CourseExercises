@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<create>
+	<sequence>
+	CREATE SEQUENCE S_$[TABLENAME]
+	</sequence>
+	<table>
+	CREATE TABLE $[TABLENAME] 
+	(
+	   ID                 INTEGER              NOT NULL,
+	   PARENT_UID         NVARCHAR2(50),
+	   FORM_UID           NVARCHAR2(50)        NOT NULL,
+	   RECORD_ID          NVARCHAR2(50)        NOT NULL,
+	   FLOW_TEMPLATE_ROOT_ID INTEGER,
+	   FLOW_STATE         INTEGER,
+	   CREATE_USER_ID     INTEGER,
+	   CREATE_DATE        TIMESTAMP(6),
+	   WORK_FLOW_ID       NVARCHAR2(50),
+	   LAST_BODY_ID       NVARCHAR2(50),
+	   WORK_FLOW_NOTE     NVARCHAR2(50),
+	   FILE_INFO          NVARCHAR2(50),
+	   VER_GROUP_UID      NVARCHAR2(50),
+	   VER_SOURCE_UID     NVARCHAR2(50),
+	   IS_CURR_VAR        CHAR(1),
+	   F_VALUE_000        NVARCHAR2(10),
+	   CONSTRAINT PK_$[TABLENAME] PRIMARY KEY (ID)
+	)
+	</table>
+	<trigger>
+CREATE OR REPLACE TRIGGER T_$[TABLENAME] 
+BEFORE INSERT ON $[TABLENAME] FOR EACH ROW 
+BEGIN   
+	SELECT S_$[TABLENAME].NEXTVAL INTO :NEW.ID FROM DUAL;
+END T_$[TABLENAME];
+/
+	</trigger>
+	<tableColletion>
+	CREATE TABLE $[TABLENAME] 
+	(
+	   ID                 INTEGER              NOT NULL,
+	   PARENTID           INTEGER              NOT NULL,
+	   CONSTRAINT PK_$[TABLENAME] PRIMARY KEY (ID)
+	)
+	</tableColletion>
+</create>

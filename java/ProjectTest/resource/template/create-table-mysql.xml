@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<create>
+	<table>
+	CREATE TABLE $[TABLENAME] 
+	(
+	   ID                 INT NOT NULL AUTO_INCREMENT,
+	   PARENT_UID         VARCHAR(50),
+	   FORM_UID           VARCHAR(50)        NOT NULL,
+	   RECORD_ID          VARCHAR(50)        NOT NULL,
+	   FLOW_TEMPLATE_ROOT_ID INTEGER,
+	   FLOW_STATE         INT,
+	   CREATE_USER_ID     INT,
+	   CREATE_DATE        TIMESTAMP(6),
+	   WORK_FLOW_ID       VARCHAR(50),
+	   LAST_BODY_ID       VARCHAR(50),
+	   WORK_FLOW_NOTE     VARCHAR(50),
+	   FILE_INFO          VARCHAR(50),
+	   VER_GROUP_UID      VARCHAR(50),
+	   VER_SOURCE_UID     VARCHAR(50),
+	   IS_CURR_VAR        CHAR(1),
+	   F_VALUE_000        VARCHAR(10),
+	   PRIMARY KEY (ID)
+	)
+	</table>
+	<tableColletion>
+	CREATE TABLE $[TABLENAME] 
+	(
+	   ID                 INT              NOT NULL,
+	   PARENTID           INT              NOT NULL,
+	   PRIMARY KEY (ID)
+	)
+	</tableColletion>
+</create>
