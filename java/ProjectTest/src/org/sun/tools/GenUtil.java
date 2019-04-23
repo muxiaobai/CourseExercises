@@ -6,19 +6,11 @@
  */
 package org.sun.tools;
 
-import cn.forp.form.vo.FormRule;
-import cn.forp.form.vo.GenTable;
-import cn.forp.framework.core.BusinessException;
-import cn.forp.framework.core.FORP;
-import cn.forp.framework.core.util.MongoDB;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.DefaultResourceLoader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.UUID;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -26,10 +18,15 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 /**
  * 代码生成工具类
@@ -37,12 +34,138 @@ import java.util.Arrays;
  * @author  liShengJie
  * @version 2017/3/21 16:35
  */
-public class GenUtils
+public class GenUtil
 {
+    private static final String WEB_APP_PATH = getProjectPath();//"E:/git/CourseExercises/java/ProjectTest";
+    public static void main(String[] args) throws Exception {
+        System.out.println(System.getProperties().getProperty("os.name"));
+        System.out.println(System.getProperties().getProperty("file.separator"));
+        System.out.println(GenUtil.getComplateClassPath());
+        System.out.println(GenUtil.getProjectPath());
+        GenUtil genUtil = new GenUtil();
+        String className  = genUtil.createUIDByGenerateRule();
+        System.out.println(className);
+        
+        
+    }
+    private String createUIDByGenerateRule() throws Exception
+    {
+        // 规则文件名格式 XXXService$ruleID$时间戳$Service
+        String className = "zdyFormService$" + System.currentTimeMillis() + "$Service";
+
+        VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, WEB_APP_PATH + "/resource/template");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+
+        VelocityContext ctx = new VelocityContext();
+        ctx.put("classComment", "test");
+        ctx.put("className", className);
+        String java  = " System.out.println(\""+className+",\"+System.getProperties().getProperty(\"os.name\"));";
+        ctx.put("ruleContext", java);
+        ctx.put("serviceName", className.toLowerCase());
+
+        Template rule = ve.getTemplate("test.vm", "UTF-8");
+        return GenUtil.insertMongoDBOfmerge(rule, ctx, className);
+    }
+
+    /**
+     * 生成class文件并存储到mongodb
+     *
+     * @param template
+     * @param ctx
+     * @param className
+     * @return
+     * @throws Exception
+     */
+    public static String insertMongoDBOfmerge(Template template, VelocityContext ctx, String className) throws
+            Exception
+    {
+        String javaPath = WEB_APP_PATH + "/src/org/sun/tools/service/" + className + ".java";
+        String classDir = WEB_APP_PATH + "/bin";
+        String classPath = WEB_APP_PATH + "/bin/org/sun/tools/service/" + className + ".class";
+
+        File existsFile = new File(classPath);
+        if (existsFile.exists()) {
+            existsFile.delete();
+        }
+
+        FileOutputStream file = null;
+        OutputStreamWriter osw = null;
+        try
+        {
+            file = new FileOutputStream(javaPath);
+            osw = new OutputStreamWriter(file, "UTF-8");
+
+            template.merge(ctx, osw);
+        }
+        finally
+        {
+            if (null != osw)
+                osw.close();
+
+            if (null != file)
+                file.close();
+        }
+
+        // 执行编译
+        compilerFile(javaPath, classDir);
+
+        //class文件存储到Mongodb
+//      DBObject metaData = new BasicDBObject();
+//      metaData.put("type", FormRule.MONGODB_FORM_RULE);
+//      String ruleUID = MongoDB.saveFile(classPath, null, metaData);
+
+//      return ruleUID;
+        return className;
+    }
+
+    /**
+     * 编译java文件
+     *
+     * @param southPath java源文件路径
+     * @param targetPath    编译class文件存放路径
+     */
+    public static void compilerFile(String southPath, String targetPath) throws Exception
+    {
+        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+        // 获取编译器实例
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        // 获取标准文件管理器实例
+        StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+        File file = new File(southPath);
+
+        // TODO: 2017/3/22 编译依赖jar包路径
+
+        Iterable<String> options = Arrays.asList("-encoding", "UTF-8", "-d", targetPath, "-cp", getComplateClassPath());
+
+        // 获取要编译的编译单元
+        Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjects(file);
+
+        JavaCompiler.CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnostics,
+                options, null, compilationUnits);
+        // 运行编译任务
+        
+        Boolean compilResult = compilationTask.call();
+
+        if (!compilResult)
+        {
+            for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
+              System.out.println(diagnostic.getMessage(null));
+                
+            }
+            throw new Exception("生成编译文件失败");
+        }
+
+        fileManager.close();
+        //file.delete();
+    }
+
+
 	/**
 	 * Logger
 	 */
-	private static final Logger lg = LoggerFactory.getLogger(GenUtils.class);
+//	private static final Logger lg = LoggerFactory.getLogger(GenUtil.class);
 
 	/**
 	 * 生成文件(JSP)
@@ -72,11 +195,12 @@ public class GenUtils
 				file.close();
 		}
 		//class文件存储到Mongodb
-		DBObject metaData = new BasicDBObject();
-		metaData.put("type", ""); // TODO: 2017/4/5 流程模块存储jsp文件到mongodb
-		String jspUID = MongoDB.saveFile(path, null, metaData);
+//		DBObject metaData = new BasicDBObject();
+//		metaData.put("type", ""); // TODO: 2017/4/5 流程模块存储jsp文件到mongodb
+//		String jspUID = MongoDB.saveFile(path, null, metaData);
 
-		return jspUID;
+//		return jspUID;
+		return UUID.randomUUID().toString();
 
 	}
 
@@ -112,14 +236,14 @@ public class GenUtils
 		// 如果是java文件,执行编译
 		if (StringUtils.endsWith(path, ".java"))
 		{
-			//compilerFile(path, FORP.WEB_APP_PATH + "/WEB-INF/classes", packagePath);
+			//compilerFile(path, WEB_APP_PATH + "/WEB-INF/classes", packagePath);
 		}
 
 		// 如果是link.jsp文件则刷新Spring容器(link.jsp为最后生成文件)
 		if (path.contains("link.jsp"))
 		{
-			GenTable genTable = (GenTable) ctx.get("table");
-			String className = genTable.getClassName();
+//			GenTable genTable = (GenTable) ctx.get("table");
+//			String className = genTable.getClassName();
 
 			//AutowireCapableBeanFactory beanFactory = FORP.SPRING_CONTEXT.getAutowireCapableBeanFactory();
 			//Class vo = Class.forName("cn.forp.form.vo." + className);
@@ -172,7 +296,7 @@ public class GenUtils
 		Boolean compilResult = compilationTask.call();
 
 		if (!compilResult) {
-			throw new BusinessException("生成编译文件失败");
+			throw new Exception("生成编译文件失败");
 		}
 
 		fileManager.close();
@@ -194,13 +318,6 @@ public class GenUtils
 		process.waitFor();
 	}
 
-	public static void main(String[] args) throws Exception {
-		System.out.println(System.getProperties().getProperty("os.name"));
-		System.out.println(System.getProperties().getProperty("file.separator"));
-		System.out.println(GenUtils.getComplateClassPath());
-        System.out.println(GenUtils.getProjectPath());
-		
-	}
 
 	/**
 	 * 获取工程路径
@@ -218,7 +335,7 @@ public class GenUtils
 
 		try
 		{
-			File file = new DefaultResourceLoader().getResource("").getFile();
+			File file =new File(GenUtil.class.getClassLoader().getResource("").getPath());
 			if (file != null)
 			{
 				while (true)
@@ -244,7 +361,7 @@ public class GenUtils
 		}
 		catch (Exception e)
 		{
-			lg.error("错误：", e);
+			System.out.println(e);
 		}
 
 		return projectPath;
@@ -258,7 +375,7 @@ public class GenUtils
 	 * @param size    字段长度
 	 * @return
 	 */
-	public static String oracleSqlType2JavaType(String sqlType, int scale, int size) throws BusinessException
+	public static String oracleSqlType2JavaType(String sqlType, int scale, int size) throws Exception
 	{
 		if (sqlType.equalsIgnoreCase("integer"))
 		{
@@ -286,99 +403,9 @@ public class GenUtils
 				|| sqlType.equalsIgnoreCase("timestamp") || sqlType.equalsIgnoreCase("TIMESTAMP(6)")) {
 			return "Date";
 		}
-		throw new BusinessException("代码生成失败");
+		throw new Exception("代码生成失败");
 	}
 
-
-	/**
-	 * 生成class文件并存储到mongodb
-	 *
-	 * @param template
-	 * @param ctx
-	 * @param className
-	 * @return
-	 * @throws Exception
-	 */
-	public static String insertMongoDBOfmerge(Template template, VelocityContext ctx, String className) throws
-			Exception
-	{
-		String javaPath = FORP.WEB_APP_PATH + "/disk-file/form" + "/" + className + ".java";
-		String classDir = FORP.WEB_APP_PATH + "/WEB-INF/classes";
-		String classPath = FORP.WEB_APP_PATH + "/WEB-INF/classes/cn/forp/form/service/" + className + ".class";
-
-		File existsFile = new File(classPath);
-		if (existsFile.exists()) {
-			existsFile.delete();
-		}
-
-		FileOutputStream file = null;
-		OutputStreamWriter osw = null;
-		try
-		{
-			file = new FileOutputStream(javaPath);
-			osw = new OutputStreamWriter(file, "UTF-8");
-
-			template.merge(ctx, osw);
-		}
-		finally
-		{
-			if (null != osw)
-				osw.close();
-
-			if (null != file)
-				file.close();
-		}
-
-		// 执行编译
-		compilerFile(javaPath, classDir);
-
-		//class文件存储到Mongodb
-		DBObject metaData = new BasicDBObject();
-		metaData.put("type", FormRule.MONGODB_FORM_RULE);
-		String ruleUID = MongoDB.saveFile(classPath, null, metaData);
-
-		return ruleUID;
-	}
-
-	/**
-	 * 编译java文件
-	 *
-	 * @param southPath	java源文件路径
-	 * @param targetPath	编译class文件存放路径
-	 */
-	public static void compilerFile(String southPath, String targetPath) throws Exception
-	{
-		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-		// 获取编译器实例
-		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		// 获取标准文件管理器实例
-		StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-		File file = new File(southPath);
-
-		// TODO: 2017/3/22 编译依赖jar包路径
-
-		Iterable<String> options = Arrays.asList("-encoding", "UTF-8", "-d", targetPath, "-cp", getComplateClassPath());
-
-		// 获取要编译的编译单元
-		Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjects(file);
-
-		JavaCompiler.CompilationTask compilationTask = compiler.getTask(null, fileManager, diagnostics,
-				options, null, compilationUnits);
-		// 运行编译任务
-		
-		Boolean compilResult = compilationTask.call();
-
-		if (!compilResult)
-		{
-			for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
-				lg.warn(diagnostic.getMessage(null));
-			}
-			throw new BusinessException("生成编译文件失败");
-		}
-
-		fileManager.close();
-		//file.delete();
-	}
 
 	/**
 	 * 获取系统编译环境
@@ -392,12 +419,12 @@ public class GenUtils
 			osSplit = ";";
 		}
 		StringBuilder dependPath = new StringBuilder();
-		dependPath.append(StringUtils.join(new File(FORP.WEB_APP_PATH + "/WEB-INF/lib").listFiles(), osSplit)).append(osSplit);
+		dependPath.append(StringUtils.join(new File(WEB_APP_PATH + "/WEB-INF/lib").listFiles(), osSplit)).append(osSplit);
 		if (StringUtils.isNotBlank(System.getProperty("catalina.home"))) {
 			dependPath.append(System.getProperty("catalina.home")).append("/lib/jsp-api.jar").append(osSplit);
 			dependPath.append(System.getProperty("catalina.home")).append("/lib/servlet-api.jar").append(osSplit);
 		}
-		dependPath.append(FORP.WEB_APP_PATH + "/WEB-INF/classes").append(osSplit);
+		dependPath.append(WEB_APP_PATH + "/WEB-INF/classes").append(osSplit);
 		return dependPath.toString();
 	}
 }

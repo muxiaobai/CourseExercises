@@ -1,0 +1,18 @@
+
+package org.sun.tools.service;
+
+
+/**
+ * ${classComment}服务接口
+ *
+ */
+public class ${className} {
+
+	
+    /**
+     *  执行规则
+     */
+    public void test(){
+		${ruleContext}
+	}
+}
