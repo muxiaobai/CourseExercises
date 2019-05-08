@@ -35,7 +35,7 @@ public class NioRPCExporter implements Runnable {
 
     /**
      *     //多路复用器 Selector会对注册在其上面的channel进行；轮询，当某个channel发生读写操作时，
-     *     //就会处于相应的就绪状态，通过SelectionKey的值急性IO 操作
+     *     //就会处于相应的就绪状态，通过SelectionKey的值进行IO 操作
      */
     private Selector selector;
     /**
@@ -141,7 +141,7 @@ public class NioRPCExporter implements Runnable {
                     //把读取的数据转换成string
                     System.out.println("服务器接受到命令 :"+ string); 
                     //"查询时间"就是读取的命令，此字符串要与客户端发送的一致，才能获取当前时间，否则就是bad order
-                    String currenttime = "查询时间".equalsIgnoreCase(string) ? new java.util.Date(System.currentTimeMillis()).toString() : "bad order";
+                    String currenttime = "t".equalsIgnoreCase(string) ? new java.util.Date(System.currentTimeMillis()).toString() : "bad order";
                     dowrite(sc,currenttime);
                     //获取到当前时间后，就需要把当前时间的字符串发送出去
                 }else if (readbytes < 0){
