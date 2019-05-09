@@ -1,4 +1,4 @@
-package org.sun.demo.threadTest;
+package org.sun.demo.threadTest.threadpool;
 /**
  * 面向接口编程
  */

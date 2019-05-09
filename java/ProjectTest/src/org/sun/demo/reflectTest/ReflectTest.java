@@ -3,6 +3,7 @@ package org.sun.demo.reflectTest;
 import java.lang.Class;
 import java.lang.String;
 import java.lang.System;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 class invokeTest{
@@ -10,8 +11,8 @@ class invokeTest{
 	private String password;
 	//public String mypublic;
 	public invokeTest(){
-		
-	} 
+
+	}
 	public invokeTest(String username,String password){
 		this.username=username;
 		this.password=password;
@@ -33,10 +34,13 @@ class invokeTest{
 public class ReflectTest {
 
 	public static void main(String[] args) throws Exception {
-		
 		//
 		Class<?> invokeClass=invokeTest.class;
 		//testDemo的一个实例invokeTest
+		//通过构造函数创建实例对象
+		Constructor constructor= invokeClass.getConstructors ()[1];
+		Object  constructorObject =constructor.newInstance (new Object[]{"username","password"});
+		//通过类创建实例对象
 		Object invokeInstance= invokeClass.newInstance();
 		//getDeclaredFields(private)和getFields(public不能查到private Field)
 		Field[] fields=invokeClass.getDeclaredFields();
