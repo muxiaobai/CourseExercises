@@ -2,3 +2,12 @@
 python -V
 pip list
 pip install 
+
+numpy 
+pandas
+matplotlib
+seaborn
+plot
+captcha
+sklearn
+scipy

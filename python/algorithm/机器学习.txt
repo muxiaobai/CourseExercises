@@ -64,4 +64,6 @@ pc mobile 两种不同的取值方式获取。地理位置信息。/专利
 
 使用sklearn
 
-pip install   nunmpy,scipy,sklearn
+python3 -v
+pip install nunmpy,scipy,sklearn
+Anaconda
