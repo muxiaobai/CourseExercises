@@ -10,7 +10,7 @@ import calendar
 '''
 local = time.localtime()
 print local
-strf = time. strftime("%Y-%m-%d %H:%M:%S",local)
+strf = time.strftime("%Y-%m-%d %H:%M:%S",local)
 print strf
 print calendar.month(2017,2)
 
@@ -28,11 +28,14 @@ is
 '''
 以下为
 多行注释
-Numbers（数字） String（字符串） List（列表） Tuple（元组） Dictionary（字典）
+Numbers（数字） String（字符串） List（列表） Tuple（元组） Dictionary（字典） Set（集合）
 列表有序，字典无序
 '''
 list1 = ["asaa","asassfs",13]
 list2 = [1,34,3]
+list3 = [["s"],4,5]
+list3[0] = ["s"]
+list3[1] = 4
 list2 = list2 + list1
 listAll = list1 + list2
 print list1
@@ -58,6 +61,8 @@ print dict1["k"]
 
 if True:
   print "True"
+elif 1:
+  print ("dd")
 else:
   print "no "
 i = 0

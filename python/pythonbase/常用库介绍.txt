@@ -1,0 +1,19 @@
+
+python -V
+pip list
+pip install 
+
+numpy 数据处理
+pandas 读取文件，数据处理
+matplotlib 
+scipy
+
+数据可视化：
+plot 散点图
+seaborn 可视化 高级图
+plotly 可在线上传可视化图像
+
+captcha 验证码
+
+sklearn
+tensorflow
