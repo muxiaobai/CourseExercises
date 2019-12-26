@@ -17,8 +17,8 @@
 |:memo: `memo`|:rocket: `rocket`|:lipstick: `lipstick`|
 |:tada: `tada`|:white_check_mark: `white_check_mark`|:mute: `mute`|
 |:lock: `lock`|:apple: `apple`|:penguin: `penguin`|
-|:robot: `:robot`|:checkered_flag: `:checkered_flag`|:heavy_plus_sign: `heavy_plus_sign`|
-|:green_apple: `:green_apple`|:bookmark: `:bookmark`|:rotating_light: `rotating_light`|
+|:robot: `robot`|:checkered_flag: `:checkered_flag`|:heavy_plus_sign: `heavy_plus_sign`|
+|:green_apple: `green_apple`|:bookmark: `bookmark`|:rotating_light: `rotating_light`|
 |:construction: `construction`|:construction_worker: `construction_worker`|:twisted_rightwards_arrows:`twisted_rightwards_arrows`|
 |:green_heart: `green_heart`|:arrow_down: `arrow_down`| :arrow_up: `arrow_up`|
 |:chart_with_upwards_trend: `chart_with_upwards_trend`|:wrench: `wrench`|:globe_with_meridians: `globe_with_meridians`|
