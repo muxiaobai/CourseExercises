@@ -1,0 +1,20 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "通用后台管理模板系统",
+  "license": "LPPL",
+  "author": "webber",
+  "scripts": {
+    "start": "start http://localhost:8083 & node app.js"
+  },
+  "homepage": "http://www.layui.com/admin/",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "clean-css": "^4.2.1",
+    "fis-optimizer-html-minifier": "0.0.9",
+    "fis3": "^3.4.41",
+    "uglify-js": "^3.6.0"
+  }
+}
